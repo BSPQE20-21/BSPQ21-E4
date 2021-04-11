@@ -21,11 +21,11 @@ public class App
 			Naming.rebind(name, (Remote) remoteFacade);
 			IRemoteFacade rf= RemoteFacade.getInstance();
 			Naming.rebind(name, rf);
-			System.out.println(" * Easybooking Server '" + name + "' ha comenzado.");
+			System.out.println(" * ParkingManagement Server '" + name + "' ha comenzado.");
 			
 
 		} catch (Exception ex) {
-			System.err.println(" # Easybooking Server Excepccion: " + ex.getMessage());
+			System.err.println(" # ParkingManagement Server Excepccion: " + ex.getMessage());
 			ex.printStackTrace();
 		}
 	}

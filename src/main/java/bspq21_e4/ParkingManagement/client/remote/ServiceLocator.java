@@ -27,4 +27,4 @@ public class ServiceLocator {
 	public IRemoteFacade getService() {
 		return this.service;
 	}
-}
+} 
