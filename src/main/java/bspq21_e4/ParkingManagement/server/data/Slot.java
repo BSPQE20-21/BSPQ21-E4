@@ -1,15 +1,35 @@
 package bspq21_e4.ParkingManagement.server.data;
 
-public class Slot{
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
+
+
+@PersistenceCapable(detachable = "true")
+public class Slot{
+	
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	int id;
 	int floor;
 	SlotAvailability sl;
+	Parking parking;
 	
-	public Slot(int id, int floor, SlotAvailability sl) {
+	public Slot(int id, int floor, SlotAvailability sl, Parking parking) {
 		this.id = id;
 		this.floor = floor;
 		this.sl = sl;
+		this.parking = parking;
+	}
+
+	public Parking getParking() {
+		return parking;
+	}
+
+	public void setParking(Parking parking) {
+		this.parking = parking;
 	}
 
 	public int getId() {
@@ -37,7 +57,8 @@ public class Slot{
 	  }
 	
 	public static void main(String[] args) {
-		Slot s = new Slot(1, 1, SlotAvailability.GREEN);
+		Parking p = new Parking(100, 100, 0, 1);
+		Slot s = new Slot(1, 1, SlotAvailability.GREEN,p);
 		System.out.println(s.toString());
 		System.out.println(s.getSl());
 		s.setSl(SlotAvailability.RED);
@@ -46,7 +67,9 @@ public class Slot{
 
 	@Override
 	public String toString() {
-		return "Slot [id=" + id + ", floor=" + floor + ", sl=" + sl + "]";
+		return "Slot [id=" + id + ", floor=" + floor + ", sl=" + sl + ", parking=" + parking + "]";
 	}
+
+
 	
 }

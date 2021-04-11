@@ -1,9 +1,17 @@
 package bspq21_e4.ParkingManagement.server.data;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 
+
+@PersistenceCapable(detachable = "true")
 public class Parking {
-
+	
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	int nSlots;
 	int availableSlots;
 	int occupiedSlots;

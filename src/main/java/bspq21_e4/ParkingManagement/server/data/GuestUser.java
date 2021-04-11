@@ -4,19 +4,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+
+@PersistenceCapable(detachable = "true")
+@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class GuestUser extends User {
 
-	String plate;
 	Date entranceDate;
-	Slot selectedSlot;
+
 	
 	public static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 	
 	public GuestUser(String plate, Date entranceDate, Slot selectedSlot) {
-		super();
-		this.plate = plate;
+		super(plate, selectedSlot);
+		
 		this.entranceDate = entranceDate;
-		this.selectedSlot = selectedSlot;
+		
 	}
 
 	public String getPlate() {

@@ -1,16 +1,20 @@
 package bspq21_e4.ParkingManagement.server.data;
 
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+
+@PersistenceCapable(detachable = "true")
+@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
 public class PremiumUser extends User{
 	
 	String email;
-	String plate;
 	int monthfee;
-	Slot selectedSlot;
+
 
 	public PremiumUser(String email, String plate, int monthfee, Slot selectedSlot) {
-		super();
+		super(plate, selectedSlot);
 		this.email = email;
-		this.plate = plate;
 		this.monthfee = monthfee;
 	}
 
