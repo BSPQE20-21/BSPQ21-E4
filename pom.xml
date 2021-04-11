@@ -73,4 +73,111 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+  	<profiles> 
+		<!-- run as 'mvn exec:java -Pserver' -->
+		<profile>  
+			<id>server</id>  
+			<build>  
+				<resources>
+					<resource>
+						<directory>${config.files.dir}</directory>
+						<includes>
+							<include>**/*.jdo</include>
+							<include>**/*.orm</include>
+							<include>**/*.properties</include>
+						</includes>
+					</resource>
+				</resources>
+
+				<plugins>  
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>3.0.0</version>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>${basedir}</directory>
+									<includes>
+										<include>*.log</include>
+										<include>*.ods</include>
+									</includes>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+
+					<plugin>  
+						<groupId>org.codehaus.mojo</groupId>  
+						<artifactId>exec-maven-plugin</artifactId>  
+						<version>1.2.1</version>  
+						<configuration>  
+								<fork>true</fork>
+									<forkedVmArgs>
+										<!-- Disable verifier to avoid issues with Java 7 verifier and code          
+										instrumentation -->
+										<forkedVmArg>-Xverify:none</forkedVmArg>
+									</forkedVmArgs>
+												
+									<mainClass>bspq18_e4.GestionHotelera.server.HotelServer</mainClass>
+									<systemProperties>
+										
+										<systemProperty>
+											<key>java.security.manager</key>
+											<value>java.rmi.RMISecurityManager</value>
+										</systemProperty>
+										<systemProperty>
+											<key>java.rmi.server.codebase</key>
+											<value>file:${basedir}/target/classes/</value>
+										</systemProperty>
+										<systemProperty>
+											<key>java.security.policy</key>
+											<value>${policy.file}</value>
+										</systemProperty>
+									</systemProperties>
+									<arguments>  
+										<argument>${server.IP}</argument>  
+										<argument>${server.port}</argument>  
+										<argument>${server.Name}</argument>  
+									</arguments>  
+								</configuration>  
+					</plugin>  
+		
+						
+				</plugins>  
+			</build>  
+		</profile>  
+		
+		<!-- run as 'mvn exec:java -Pclient' -->
+		<profile>  
+			<id>client</id>  
+			<build>  
+				<plugins>  
+					<plugin>  
+						<groupId>org.codehaus.mojo</groupId>  
+						<artifactId>exec-maven-plugin</artifactId>  
+						<version>1.2.1</version>  
+						<configuration>  
+									<mainClass>bspq18_e4.GestionHotelera.client.gui.Login</mainClass>
+									<systemProperties>
+										<systemProperty>
+											<key>java.security.manager</key>
+											<value>java.rmi.RMISecurityManager</value>
+										</systemProperty>
+										<systemProperty>
+											<key>java.security.policy</key>
+											<value>${policy.file}</value>
+										</systemProperty>
+									</systemProperties>
+									<arguments>  
+										<argument>${server.IP}</argument>  
+										<argument>${server.port}</argument>  
+										<argument>${server.Name}</argument>  
+									</arguments>  
+						</configuration>  
+					</plugin>  
+				</plugins>  
+			</build>  
+		</profile>  
+	</profiles>
 </project>
