@@ -6,7 +6,6 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 
-
 @PersistenceCapable(detachable = "true")
 public class Slot{
 	
@@ -57,7 +56,7 @@ public class Slot{
 	  }
 	
 	public static void main(String[] args) {
-		Parking p = new Parking(100, 100, 0, 1);
+		Parking p = new Parking(1,"Bilbao",100, 100, 0, 1);
 		Slot s = new Slot(1, 1, SlotAvailability.GREEN,p);
 		System.out.println(s.toString());
 		System.out.println(s.getSl());

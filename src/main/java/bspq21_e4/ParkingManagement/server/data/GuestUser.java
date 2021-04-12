@@ -17,8 +17,8 @@ public class GuestUser extends User {
 	
 	public static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 	
-	public GuestUser(String plate, Date entranceDate, Slot selectedSlot) {
-		super(plate, selectedSlot);
+	public GuestUser(String plate, Date entranceDate, Slot selectedSlot, String paymentMethod) {
+		super(plate, selectedSlot, paymentMethod);
 		
 		this.entranceDate = entranceDate;
 		
@@ -47,6 +47,8 @@ public class GuestUser extends User {
 	public void setSelectedSlot(Slot selectedSlot) {
 		this.selectedSlot = selectedSlot;
 	}
+	
+	
 
 	@Override
 	public String toString() {

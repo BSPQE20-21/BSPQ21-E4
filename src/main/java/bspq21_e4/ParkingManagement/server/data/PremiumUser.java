@@ -10,10 +10,11 @@ public class PremiumUser extends User{
 	
 	String email;
 	int monthfee;
+	
 
 
-	public PremiumUser(String email, String plate, int monthfee, Slot selectedSlot) {
-		super(plate, selectedSlot);
+	public PremiumUser(String email, String plate, int monthfee, Slot selectedSlot, String paymentMethod) {
+		super(plate, selectedSlot, paymentMethod);
 		this.email = email;
 		this.monthfee = monthfee;
 	}
