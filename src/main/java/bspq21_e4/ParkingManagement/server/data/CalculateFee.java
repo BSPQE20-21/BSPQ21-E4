@@ -18,7 +18,7 @@ public static double standardFee = 0.04;
 public static int getDifferenceBetwenDates(Date dateInicio, Date dateFinal) {
       long milliseconds = dateFinal.getTime() - dateInicio.getTime();
        int minutes = (int) ((milliseconds / 1000) / 60);
-       System.out.println(minutes);
+       System.out.println(minutes + " minutes");
        Calendar c = Calendar.getInstance();
        c.set(Calendar.MINUTE, minutes);
        return minutes;
