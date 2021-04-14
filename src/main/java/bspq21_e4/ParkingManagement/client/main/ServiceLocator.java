@@ -1,4 +1,4 @@
-package bspq21_e4.ParkingManagement.client.remote;
+package bspq21_e4.ParkingManagement.client.main;
 
 
 

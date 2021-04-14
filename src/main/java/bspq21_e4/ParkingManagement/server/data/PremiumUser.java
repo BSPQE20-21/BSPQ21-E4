@@ -18,6 +18,10 @@ public class PremiumUser extends User{
 		this.email = email;
 		this.monthfee = monthfee;
 	}
+	
+	public PremiumUser() {
+		
+	}
 
 	public String getEmail() {
 		return email;

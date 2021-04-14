@@ -18,6 +18,9 @@ public abstract class User {
 		this.selectedSlot = selectedSlot;
 		this.paymentMethod = paymentMethod;
 	}
+	public User() {
+		
+	}
 	public String getPlate() {
 		return plate;
 	}
