@@ -8,13 +8,13 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>SavingMessagesJDOREST</name>
+	<name>ParkingManagement</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<server.hostname>127.0.0.1</server.hostname>
-		<server.port>3306</server.port>
+		<server.hostname>0.0.0.0</server.hostname>
+		<server.port>8080</server.port>
 		<config.files.dir>${basedir}/src/main/java/resources</config.files.dir>
 	</properties>
 

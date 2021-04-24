@@ -5,7 +5,7 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
-
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -18,6 +18,8 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 
 @Path("/server")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON) 
+
 public class Server {
 
 	private int cont = 0;
@@ -108,5 +110,6 @@ public class Server {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response sayHello() {
 		return Response.ok("Hello world!").build();
+		
 	}
 }

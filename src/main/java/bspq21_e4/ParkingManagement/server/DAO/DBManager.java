@@ -1,6 +1,5 @@
 package bspq21_e4.ParkingManagement.server.DAO;
 
-import java.util.ArrayList;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -45,7 +44,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query parkingQuery = persistentManager
+			Query<Parking> parkingQuery = persistentManager
 					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id=='" + parking.getId() + "'");
 
 			parkingQuery.execute();
@@ -75,7 +74,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query parkingQuery = persistentManager
+			Query<Parking> parkingQuery = persistentManager
 					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id=='" + parking.getId() + "'");
 
 			parkingQuery.execute();
@@ -111,7 +110,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query slotQuery = persistentManager
+			Query<Slot> slotQuery = persistentManager
 					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getId());
 
 			slotQuery.execute();
@@ -143,7 +142,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query slotQuery = persistentManager
+			Query<Slot> slotQuery = persistentManager
 					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getId());
 
 			slotQuery.execute();
@@ -181,7 +180,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query userQuery = persistentManager
+			Query<PremiumUser> userQuery = persistentManager
 					.newQuery("SELECT FROM " + PremiumUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
 
 			userQuery.execute();
@@ -214,7 +213,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query userQuery = persistentManager
+			Query<PremiumUser> userQuery = persistentManager
 					.newQuery("SELECT FROM " + PremiumUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
 
 			userQuery.execute();
@@ -233,7 +232,7 @@ public class DBManager {
 			persistentManager.close();
 		}
 	}
-	
+
 	public void insertGuestUser(GuestUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -251,7 +250,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query userQuery = persistentManager
+			Query<GuestUser> userQuery = persistentManager
 					.newQuery("SELECT FROM " + GuestUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
 
 			userQuery.execute();
@@ -283,7 +282,7 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query userQuery = persistentManager
+			Query<GuestUser> userQuery = persistentManager
 					.newQuery("SELECT FROM " + GuestUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
 
 			userQuery.execute();
@@ -306,12 +305,13 @@ public class DBManager {
 	public void createParkings() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
-		String[] parkingName = { "Bilbao", "Vitoria", "San Sebastian", "Santander", "Logroño", "Pamplona", "Gijon", "Madrid", "Barcelona", "Oviedo", "Burgos", "Valencia",
-				"Sevilla", "Cadiz", "Almeria", "Murcia", "Salamanca", "Zamora", "Biarritz", "Salou", "Granada"};
+		String[] parkingName = { "Bilbao", "Vitoria", "San Sebastian", "Santander", "Logroño", "Pamplona", "Gijon",
+				"Madrid", "Barcelona", "Oviedo", "Burgos", "Valencia", "Sevilla", "Cadiz", "Almeria", "Murcia",
+				"Salamanca", "Zamora", "Biarritz", "Salou", "Granada" };
 
 		for (int i = 0; i < parkingName.length; i++) {
 			transaction.begin();
-			persistentManager.makePersistent(new Parking(i+1,parkingName[i], 300,300,0,3));
+			persistentManager.makePersistent(new Parking(i + 1, parkingName[i], 300, 300, 0, 3));
 			transaction.commit();
 		}
 	}
@@ -325,9 +325,9 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query userQuery = persistentManager
+			Query<User> userQuery = persistentManager
 					.newQuery("SELECT FROM " + User.class.getName() + " WHERE plate =='" + plate + "'");
-			
+
 			userQuery.execute();
 
 			transaction.commit();
@@ -351,9 +351,9 @@ public class DBManager {
 			transaction.begin();
 
 			@SuppressWarnings("unchecked")
-			Query parkingQuery = persistentManager
+			Query<Parking> parkingQuery = persistentManager
 					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id =='" + id + "'");
-			
+
 			parkingQuery.execute();
 
 			transaction.commit();

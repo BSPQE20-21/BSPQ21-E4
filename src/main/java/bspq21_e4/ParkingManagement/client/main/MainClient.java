@@ -19,6 +19,7 @@ public class MainClient {
 
 	public MainClient(String hostname, String port) {
 		client = ClientBuilder.newClient();
+		System.out.println(String.format("http://%s:%s/rest/server", hostname, port));
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
 	}
 
@@ -29,7 +30,9 @@ public class MainClient {
 		PremiumUser userData = new PremiumUser();
 		userData.setPlate(plate);
 		userData.setEmail(email);
+		System.out.println("about to call server side");
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
+		System.out.println("about to call server side11111");
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			System.out.println("Error connecting with the server. Code: " + response.getStatus());
 		} else {
