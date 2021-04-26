@@ -7,9 +7,15 @@ import java.text.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.JUnit4TestAdapter;
+
 public class JUnit {
 	
 	private Parking P1;
+	
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(JUnit.class);
+		}
 	
 	@Before
 	public void setUp() {
