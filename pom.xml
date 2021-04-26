@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>es.deusto.spq</groupId>
+	<groupId>bspq21_e4.ParkingManagement.server.data</groupId>
 	<artifactId>ParkingManagement</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -13,10 +13,12 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<server.hostname>0.0.0.0</server.hostname>
+		<server.hostname>127.0.0.1</server.hostname>
 		<server.port>8080</server.port>
-		<config.files.dir>${basedir}/src/main/java/resources</config.files.dir>
+		<config.files.dir>${basedir}/src/main/resources</config.files.dir>
 	</properties>
+
+	
 
 	<!-- search for the latest version of dependencies in http://mvnrepository.com -->
 	<dependencies>
@@ -112,6 +114,27 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.datanucleus</groupId>
 				<artifactId>datanucleus-maven-plugin</artifactId>

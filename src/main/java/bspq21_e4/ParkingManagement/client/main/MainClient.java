@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import bspq21_e4.ParkingManagement.server.DAO.DBManager;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 
 
@@ -23,16 +24,20 @@ public class MainClient {
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
 	}
 
-	public void registerUser(String plate, String email) {
+	public void registerUser(PremiumUser userData) {
 		WebTarget registerUserWebTarget = webTarget.path("register");
 		Invocation.Builder invocationBuilder = registerUserWebTarget.request(MediaType.APPLICATION_JSON);
 		
-		PremiumUser userData = new PremiumUser();
-		userData.setPlate(plate);
-		userData.setEmail(email);
+		
+		userData.setEmail("dipina");
+		userData.setPlate("romanticbualabuala");
+		
+		DBManager db = new DBManager();
+		db.insertPremiumUser(userData);
+		
+		
 		System.out.println("about to call server side");
 		Response response = invocationBuilder.post(Entity.entity(userData, MediaType.APPLICATION_JSON));
-		System.out.println("about to call server side11111");
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			System.out.println("Error connecting with the server. Code: " + response.getStatus());
 		} else {
@@ -72,9 +77,15 @@ public class MainClient {
 
 		String hostname = args[0];
 		String port = args[1];
-
+		
+	
 		MainClient example = new MainClient(hostname, port);
-		example.registerUser("8184DFF", "jonmaeztu@opendeusto.es");
+//		PremiumUser pm = new PremiumUser();
+//		example.registerUser(pm);
+		
+		DBManager db = new DBManager();
+		db.createParkings();
+		
 		
 	}
 }

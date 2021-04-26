@@ -9,7 +9,7 @@
 
 
 
-	<persistence-unit name="Tutorial">
+	<persistence-unit name="datanucleus.properties">
 
 		<class>bspq21_e4.ParkingManagement.server.data.GuestUser</class>
 
