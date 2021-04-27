@@ -9,12 +9,19 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
+import junit.framework.JUnit4TestAdapter;
+
 public class JUnit {
 	
 	private Parking P1;
 	private PremiumUser PU1;
 	private GuestUser GU1;
-	public static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
+	private static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
+	private static double standardFee = 0.04;
+	
+	public static junit.framework.Test suite() {
+		 return new JUnit4TestAdapter(JUnit.class);
+		}
 	
 	@Before
 	public void setUp() throws ParseException {
@@ -26,8 +33,10 @@ public class JUnit {
 	}
 	
 	@Test
-	public void calculatefee() {
-		
+	public void TestFeeCalculator() throws ParseException {
+		double expected = 60 * 0.04; // (Minutes from 9:00 to 10:00) * (Standard fee = 0.04) 
+		int minutes = CalculateFee.getDifferenceBetwenDates(GU1.getEntranceDate(), sdfResult.parse("10:00"));
+		assertEquals(expected, CalculateFee.calculateFee(minutes), 0);
 	}
 	
 	@Test
