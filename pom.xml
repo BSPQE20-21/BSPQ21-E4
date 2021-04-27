@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>bspq21_e4.ParkingManagement</groupId>
-	<artifactId>ParkingManagement</artifactId>
+	<artifactId>BSQPQ21-E4</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>ParkingManagement</name>
 	<url>http://maven.apache.org</url>
@@ -87,17 +87,17 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.12</version>
+			<version>1.2.17</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>[1.2.17, )</version>
 		</dependency>
 	</dependencies>
 
 	<build>
+		<resources>
+	     	<resource>
+	       		<directory>src/test/java</directory>
+	     	</resource>
+	   	</resources>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
