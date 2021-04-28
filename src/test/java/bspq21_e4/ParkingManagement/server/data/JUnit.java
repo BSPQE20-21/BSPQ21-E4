@@ -42,7 +42,6 @@ public class JUnit {
 	
 	@Test
 	public void Test() {
-		assertTrue(true);
 		
 	}
 
