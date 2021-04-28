@@ -347,6 +347,70 @@ public class DBManager {
 		return u;
 	}
 	
+	public List<Parking> getParkings() {
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
+        List<Parking> parkings = new ArrayList<>();
+
+        try {
+            System.out.println("Searching parkings...");
+            transaction.begin();
+          
+
+            Extent<Parking> parkingExtent = persistentManager.getExtent(Parking.class, true);
+
+            for (Parking parking : parkingExtent) {
+                persistentManager.makeTransient(parking);
+                parkings.add(parking);
+            }
+
+            transaction.commit();
+        } catch (Exception ex) {
+            System.out.println("$ Error obtaining parkings: " + ex.getMessage());
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
+        return parkings;
+
+    }
+	
+	public List<Slot> getSlots() {
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
+        List<Slot> slots = new ArrayList<>();
+
+        try {
+            System.out.println("Searching slots...");
+            transaction.begin();
+          
+
+            Extent<Slot> slotExtent = persistentManager.getExtent(Slot.class, true);
+
+            for (Slot slot : slotExtent) {
+                persistentManager.makeTransient(slot);
+                slots.add(slot);
+            }
+
+            transaction.commit();
+        } catch (Exception ex) {
+            System.out.println("$ Error obtaining slots: " + ex.getMessage());
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
+        return slots;
+
+    }
+	
     public List<User> getUsers() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
