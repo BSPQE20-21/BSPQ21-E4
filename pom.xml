@@ -18,7 +18,7 @@
 		<config.files.dir>${basedir}/src/main/resources</config.files.dir>
 	</properties>
 
-	
+
 
 	<!-- search for the latest version of dependencies in http://mvnrepository.com -->
 	<dependencies>
@@ -65,6 +65,11 @@
 			<version>2.29</version>
 		</dependency>
 		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
 			<version>2.29</version>
@@ -84,6 +89,24 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>2.29</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.grizzly</groupId>
+			<artifactId>grizzly-http-server</artifactId>
+			<version>2.3.28</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-http</artifactId>
+			<version>2.0-m05-2</version>
+		</dependency>
+
+
+
+		<!-- Thanks for using https://jar-download.com -->
+
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

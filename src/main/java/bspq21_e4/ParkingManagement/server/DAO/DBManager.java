@@ -28,6 +28,8 @@ public class DBManager {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 	}
+	
+
 
 	public static DBManager getInstance() {
 		if (instance == null) {

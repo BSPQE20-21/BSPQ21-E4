@@ -16,7 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import bspq21_e4.ParkingManagement.client.main.ClientSide;
-import bspq21_e4.ParkingManagement.server.DTO.UserDTO;
+
 
 public class AuthWindow extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
@@ -62,12 +62,12 @@ public class AuthWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("# client wants to loggin: " + tfPlate.getText() +  ": " + tfEmail.getText());
 				
-				if(client.logginUser(tfEmail.getText(), tfPlate.getText()) == true) {
-					JOptionPane.showMessageDialog(null, "ususario logeado!!");
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Error en  el login, por favor prueba de nuevo");
-				}
+//				if(client.logginUser(tfEmail.getText(), tfPlate.getText()) == true) {
+//					JOptionPane.showMessageDialog(null, "ususario logeado!!");
+//					
+//				}else {
+//					JOptionPane.showMessageDialog(null, "Error en  el login, por favor prueba de nuevo");
+//				}
 				
 //					if (u != null) {
 //						VentanaBusquedaReservaController controllerReserva = new VentanaBusquedaReservaController(controller.serviceLocator);
@@ -86,11 +86,11 @@ public class AuthWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("# client wants to loggin: " + tfPlate.getText() +  ": " + tfEmail.getText());
 				
-				if(client.registerUser(tfEmail.getText(), tfPlate.getText())== true) {
-					JOptionPane.showMessageDialog(null, "ususario registrado!!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Error en el registro, por favor intentelo de nuevo");
-				}
+//				if(client.registerUser(tfEmail.getText(), tfPlate.getText())== true) {
+//					JOptionPane.showMessageDialog(null, "ususario registrado!!");
+//				}else {
+//					JOptionPane.showMessageDialog(null, "Error en el registro, por favor intentelo de nuevo");
+//				}
 //				VentanaRegController controllerRegistro = new VentanaRegController(controller.serviceLocator);
 //				VentanaReg vr = new VentanaReg(controllerRegistro);
 //				vr.setVisible(true);
