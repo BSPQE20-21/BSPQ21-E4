@@ -378,6 +378,70 @@ public class DBManager {
         return users;
 
     }
+    
+    public List<PremiumUser> getPremiumUsers() {
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
+        List<PremiumUser> users = new ArrayList<>();
+
+        try {
+            System.out.println("Searching users...");
+            transaction.begin();
+          
+
+            Extent<PremiumUser> userExtent = persistentManager.getExtent(PremiumUser.class, true);
+
+            for (PremiumUser user : userExtent) {
+                persistentManager.makeTransient(user);
+                users.add(user);
+            }
+
+            transaction.commit();
+        } catch (Exception ex) {
+            System.out.println("$ Error obtaining users: " + ex.getMessage());
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
+        return users;
+
+    }
+    
+    public List<GuestUser> getGuestUsers() {
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
+        List<GuestUser> users = new ArrayList<>();
+
+        try {
+            System.out.println("Searching users...");
+            transaction.begin();
+          
+
+            Extent<GuestUser> userExtent = persistentManager.getExtent(GuestUser.class, true);
+
+            for (GuestUser user : userExtent) {
+                persistentManager.makeTransient(user);
+                users.add(user);
+            }
+
+            transaction.commit();
+        } catch (Exception ex) {
+            System.out.println("$ Error obtaining users: " + ex.getMessage());
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
+        return users;
+
+    }
 
 	public Parking searchParking(String id) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
