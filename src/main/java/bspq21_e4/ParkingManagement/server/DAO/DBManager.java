@@ -1,5 +1,9 @@
 package bspq21_e4.ParkingManagement.server.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
@@ -342,6 +346,38 @@ public class DBManager {
 		}
 		return u;
 	}
+	
+    public List<User> getUsers() {
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
+        List<User> users = new ArrayList<>();
+
+        try {
+            System.out.println("Searching users...");
+            transaction.begin();
+          
+
+            Extent<User> userExtent = persistentManager.getExtent(User.class, true);
+
+            for (User user : userExtent) {
+                persistentManager.makeTransient(user);
+                users.add(user);
+            }
+
+            transaction.commit();
+        } catch (Exception ex) {
+            System.out.println("$ Error obtaining users: " + ex.getMessage());
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
+        return users;
+
+    }
 
 	public Parking searchParking(String id) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
