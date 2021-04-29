@@ -1,4 +1,4 @@
-package bspq21_e4.ParkingManagement.server.data;
+package bspq21_e4.ParkingManagement.server.data.Test;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,14 @@ import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.JUnit4TestAdapter;
+import bspq21_e4.ParkingManagement.server.data.CalculateFee;
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
+import static org.mockito.Mockito.*;
+
 
 public class JUnit {
 	
@@ -19,10 +26,6 @@ public class JUnit {
 	private GuestUser GU1;
 	private static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 	private static double standardFee = 0.04;
-	
-	public static junit.framework.Test suite() {
-		 return new JUnit4TestAdapter(JUnit.class);
-		}
 	
 	@Before
 	public void setUp() throws ParseException {
@@ -40,9 +43,4 @@ public class JUnit {
 		assertEquals(expected, CalculateFee.calculateFee(minutes), 0);
 	}
 	
-	@Test
-	public void Test() {
-		
-	}
-
 }
