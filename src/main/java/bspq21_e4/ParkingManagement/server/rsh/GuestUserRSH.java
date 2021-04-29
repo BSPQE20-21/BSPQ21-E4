@@ -31,7 +31,7 @@ public class GuestUserRSH {
     public GuestUserRSH() {
         client = ClientBuilder.newClient();
         client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
-        target = client.target("http://localhost:8080/myapp").path("user"); 
+        target = client.target("http://localhost:8080/myapp").path("guestUser"); 
     }
 
 
