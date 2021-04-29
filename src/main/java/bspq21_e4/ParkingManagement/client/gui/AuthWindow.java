@@ -62,21 +62,7 @@ public class AuthWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("# client wants to loggin: " + tfPlate.getText() +  ": " + tfEmail.getText());
 				
-//				if(client.logginUser(tfEmail.getText(), tfPlate.getText()) == true) {
-//					JOptionPane.showMessageDialog(null, "ususario logeado!!");
-//					
-//				}else {
-//					JOptionPane.showMessageDialog(null, "Error en  el login, por favor prueba de nuevo");
-//				}
 				
-//					if (u != null) {
-//						VentanaBusquedaReservaController controllerReserva = new VentanaBusquedaReservaController(controller.serviceLocator);
-//						VentanaBusquedaReserva vr = new VentanaBusquedaReserva(controllerReserva, u);
-//						vr.setVisible(true);
-//						dispose();
-//					}else {
-//						JOptionPane.showMessageDialog(null, "Error en  el login, por favor prueba de nuevo");
-//					}
 			}
 		});
 		JButton btnRegistrarse = new JButton("Registrarse");
@@ -85,16 +71,7 @@ public class AuthWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("# client wants to loggin: " + tfPlate.getText() +  ": " + tfEmail.getText());
-				
-//				if(client.registerUser(tfEmail.getText(), tfPlate.getText())== true) {
-//					JOptionPane.showMessageDialog(null, "ususario registrado!!");
-//				}else {
-//					JOptionPane.showMessageDialog(null, "Error en el registro, por favor intentelo de nuevo");
-//				}
-//				VentanaRegController controllerRegistro = new VentanaRegController(controller.serviceLocator);
-//				VentanaReg vr = new VentanaReg(controllerRegistro);
-//				vr.setVisible(true);
-//				dispose();
+
 
 			}
 		});
