@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import bspq21_e4.ParkingManagement.client.gui.AuthWindow;
+import bspq21_e4.ParkingManagement.client.main.ClientSide;
 import bspq21_e4.ParkingManagement.server.DAO.DBManager;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.User;
@@ -33,7 +34,61 @@ import bspq21_e4.ParkingManagement.server.data.User;
 public class Server {
 	
 	
-	
+	public static final String BASE_URI = "http://localhost:8080/myapp/";
+
+    /**
+     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
+     * application.
+     * 
+     * @return Grizzly HTTP server.
+     */
+    public static HttpServer startServer() {
+
+        final ResourceConfig rc = new ResourceConfig().packages(true, "bspq21_e4", "bspq21_e4.ParkingManagement", "bspq21_e4.ParkingManagement.resource");
+
+        // create and start a new instance of grizzly http server
+        // exposing the Jersey application at BASE_URI
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+ 
+    }
+
+    /**
+     * Main method.
+     * 
+     * @param args
+     * @throws IOException
+     */
+    public static void main(String[] args) throws IOException {
+        // Lanzar la ventana si se ejecuta desde el jar normal
+        // Lanzar el servidor si se ejecuta desde la consola
+    	
+    	final ClientSide client = new ClientSide();
+        if (args.length == 1 && args[0].equals("--server")) {
+            // Para ejecturar el servidor " mvn exec:java -Dexec.args="--server" "
+            // En power shell es " mvn exec:java "-Dexec.args='--server'" "
+            // Si args esta vacio lanzamos el servidor
+
+            final HttpServer server = startServer();
+            System.out.println(String.format(
+                    "Jersey app started with WADL available at " + "%sapplication.wadl\n Hit enter to stop it...",
+                    BASE_URI));
+            System.in.read();
+            server.shutdownNow();
+        } else {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        
+                        AuthWindow frame = new AuthWindow(client);
+                        frame.setVisible(true);
+                    } catch (Exception e) {
+                    }
+                }
+            });
+        }
+    }
+}
 
 
 //	private int cont = 0;
@@ -209,4 +264,4 @@ public class Server {
 	
 	
 	
-}
+

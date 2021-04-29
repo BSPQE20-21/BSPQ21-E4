@@ -42,6 +42,5 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/jonma/Downloads/grizzly-http-server-3.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
