@@ -35,7 +35,7 @@ public class GuestUserRSH {
     }
 
 
-    public List<GuestUser> checkUsers() {
+    public List<GuestUser> checkGuestUsers() {
         Invocation.Builder ib = target.request(); // Construir la petición
         Response response = ib.get(); // Realizar una petición GET
         List<GuestUser> users = response.readEntity(new GenericType<List<GuestUser>>() { 
