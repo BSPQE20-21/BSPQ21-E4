@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>bspq21_e4.ParkingManagement.server.data</groupId>
-	<artifactId>ParkingManagement</artifactId>
+	<groupId>ParkingApp</groupId>
+	<artifactId>BSQPQ21-E4</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>ParkingManagement</name>
 	<url>http://maven.apache.org</url>
@@ -45,8 +45,14 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+		  	<groupId>org.mockito</groupId>
+		  	<artifactId>mockito-all</artifactId>
+		  	<version>1.9.5</version>
+		  	<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.databene</groupId>
@@ -118,21 +124,10 @@
 
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.12</version>
+			<version>1.2.17</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>[1.2.17, )</version>
 		</dependency>
 	</dependencies>
 
@@ -146,26 +141,6 @@
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
@@ -187,10 +162,21 @@
 				</executions>
 			</plugin>
 			<plugin>
+			  	<groupId>org.apache.maven.plugins</groupId>
+			  	<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+				    <forkCount>3</forkCount>
+				    <reuseForks>true</reuseForks>
+				    <!-- <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine> -->
+				</configuration>
+			</plugin>
+			
+			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.4.19.v20190610</version>
 			</plugin>
+<<<<<<< HEAD
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -205,6 +191,46 @@
 				<configuration>
 					<mainClass>bspq21_e4.ParkingManagement.server.Server</mainClass>
 				</configuration>
+=======
+			
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.6</version>
+				<configuration>
+					 <rules>
+						 <rule>
+							 <element>BUNDLE</element>
+							 	<limits>
+									 <limit>
+										<counter>INSTRUCTION</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>0.90</minimum>
+									 </limit>
+									 <limit>
+										<counter>BRANCH</counter>
+										<value>COVEREDRATIO</value>
+										<minimum>0.50</minimum>
+									 </limit>
+						 		</limits>
+						 </rule>
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+>>>>>>> BSQP21-E4-JC
 			</plugin>
 		</plugins>
 	</build>
@@ -239,6 +265,56 @@
 			</build>
 		</profile>
 	</profiles>
+	
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.0</version>
+		 		<configuration>
+		 			<show>private</show>
+		 			<nohelp>true</nohelp>
+		 		</configuration>
+			</plugin>
+		 <plugin>
+		 <groupId>org.apache.maven.plugins</groupId>
+		 <artifactId>maven-project-info-reports-plugin</artifactId>
+		 <version>2.9</version>
+		 </plugin>
+		 <plugin>
+		 <groupId>org.apache.maven.plugins</groupId>
+		 <artifactId>maven-checkstyle-plugin</artifactId>
+		 <version>3.0.0</version>
+		 </plugin>
+		 <plugin>
+		 <groupId>org.codehaus.mojo</groupId>
+		 <artifactId>jdepend-maven-plugin</artifactId>
+		 <version>2.0</version>
+		 </plugin>
+		 <plugin>
+		 <groupId>org.apache.maven.plugins</groupId>
+		 <artifactId>maven-surefire-report-plugin</artifactId>
+		 <version>2.21.0</version>
+		 </plugin>
+		 <plugin>
+		 <groupId>com.googlecode.maven-overview-plugin</groupId>
+		 <artifactId>maven-overview-plugin</artifactId>
+		 <version>1.6</version>
+		 </plugin>
+		 <plugin>
+		 <groupId>org.jacoco</groupId>
+		 <artifactId>jacoco-maven-plugin</artifactId>
+		 <version>0.8.3</version>
+		 </plugin>
+		 <plugin>
+		 <groupId>org.apache.maven.plugins</groupId>
+		 <artifactId>maven-pmd-plugin</artifactId>
+		 <version>3.11.0</version>
+		 </plugin>
+	 </plugins>
+</reporting>
+
 	<repositories>
 		<repository>
 			<id>DN_M2_Repo</id>
