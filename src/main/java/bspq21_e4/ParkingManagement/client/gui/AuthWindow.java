@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +18,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import bspq21_e4.ParkingManagement.client.main.ClientSide;
-
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
+import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 
 public class AuthWindow extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
@@ -60,9 +64,48 @@ public class AuthWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("# client wants to loggin: " + tfPlate.getText() +  ": " + tfEmail.getText());
-				
-				
+				System.out.println("# client wants to loggin: " + tfPlate.getText() + ": " + tfEmail.getText());
+				try {
+					PremiumUser user = null;
+					boolean found = false;
+					List<PremiumUser> userList = PremiumUserRSH.getInstance().checkPremiumUsers();
+					for (PremiumUser u : userList) {
+						if (u.getEmail().equals(tfEmail.getText())) {
+							System.out.println(u);
+							user = u;
+							found = true;
+						}
+					}
+
+					if (!found) {
+						JOptionPane.showMessageDialog(null, "User not found");
+					}else {
+						if (!user.getPlate().equals(tfPlate.getText())) {
+							JOptionPane.showMessageDialog(null, "Unknown plate");
+						}else {
+							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
+								PremiumUserConnected.getConnectedUsers().add(user);
+								dispose();
+								//to implement slots and parking view
+							} else {
+								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
+									if (user.equals(u)) {
+										JOptionPane.showMessageDialog(null, "This user is already connected");
+										tfEmail.setText("");
+										tfPlate.setText("");
+									} else {
+										PremiumUserConnected.getConnectedUsers().add(user);
+										dispose();
+										//to implement parking view;
+									}
+								}
+							}
+						}
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
 			}
 		});
 		JButton btnRegistrarse = new JButton("Registrarse");
@@ -70,31 +113,28 @@ public class AuthWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("# client wants to loggin: " + tfPlate.getText() +  ": " + tfEmail.getText());
-
+				System.out.println("# client wants to loggin: " + tfPlate.getText() + ": " + tfEmail.getText());
 
 			}
 		});
 
 		JLabel lb2 = new JLabel("");
-		panelDerInf.add(btnLogin);	
+		panelDerInf.add(btnLogin);
 		panelDerInf.add(btnRegistrarse);
 		panelDerInf.add(lb2);
 
-		//Panel Central(Usuario y contraseï¿½a) solo los texfield y labels
+		// Panel Central(Usuario y contraseï¿½a) solo los texfield y labels
 		JPanel panelCentral = new JPanel();
 		panelCentral.setBackground(Color.WHITE);
 		panelCentral.setLayout(new BorderLayout(0, 0));
 		panelContenidos.add(panelCentral, BorderLayout.CENTER);
-		
-		//Panel superior
+
+		// Panel superior
 		JPanel panelCentralSup = new JPanel();
 		panelCentralSup.setBackground(Color.WHITE);
-		panelCentralSup.setLayout(new GridLayout(1,1));
+		panelCentralSup.setLayout(new GridLayout(1, 1));
 		panelCentral.add(panelCentralSup, BorderLayout.NORTH);
 
-
-		
 		// Panel central inferior
 		JPanel panelCentralInf = new JPanel();
 		panelCentralInf.setBackground(Color.WHITE);
@@ -106,8 +146,6 @@ public class AuthWindow extends JFrame {
 
 		tfEmail = new JTextField();
 		tfPlate = new JTextField();
-
-		
 
 		panelCentralInf.add(lbEmail);
 		panelCentralInf.add(tfEmail);
