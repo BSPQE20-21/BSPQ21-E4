@@ -2,6 +2,7 @@ package bspq21_e4.ParkingManagement.server.rsh;
 
 import java.util.List;
 
+
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
