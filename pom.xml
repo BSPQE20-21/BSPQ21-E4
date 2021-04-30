@@ -176,7 +176,7 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.4.19.v20190610</version>
 			</plugin>
-<<<<<<< HEAD
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -191,8 +191,8 @@
 				<configuration>
 					<mainClass>bspq21_e4.ParkingManagement.server.Server</mainClass>
 				</configuration>
-=======
-			
+
+			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -230,7 +230,6 @@
 						</goals>
 					</execution>
 				</executions>
->>>>>>> BSQP21-E4-JC
 			</plugin>
 		</plugins>
 	</build>
