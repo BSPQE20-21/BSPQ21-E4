@@ -65,7 +65,7 @@ public class AuthWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("login_try" + tfPlate.getText() + ": " + tfEmail.getText());
+				System.out.println(resourceBundle.getString("login_try") + tfPlate.getText() + ": " + tfEmail.getText());
 				try {
 					PremiumUser user = null;
 					boolean found = false;
