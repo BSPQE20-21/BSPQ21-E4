@@ -58,6 +58,7 @@ public class feeCalculationTest {
         String right = PU1.getEmail();
         assertTrue(solution);
         assertTrue(right);
+        
     }
 	
 }
