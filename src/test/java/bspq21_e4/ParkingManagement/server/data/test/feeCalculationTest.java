@@ -43,16 +43,19 @@ public class feeCalculationTest {
 		assertEquals(expected, CalculateFee.calculateFee(CalculateFee.getDifferenceBetwenDates(GU1.getEntranceDate(), sdfResult.parse("10:00"))), 0);
 	}
 	
+	@Test
 	public void guestPlateValidation() throws ParseException {
         String solution = GU1.getPlate();
         assertTrue(solution);
     }
 
+	@Test
     public void premiumPlateValidation() throws ParseException {
         String solution = PU1.getPlate();
         assertTrue(solution);
     }
     
+	@Test
     public void emailValidation() throws ParseException {
         String solution = GU1.getEmail();
         String right = PU1.getEmail();
