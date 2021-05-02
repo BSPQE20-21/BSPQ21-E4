@@ -27,6 +27,9 @@ import bspq21_e4.ParkingManagement.server.DAO.DBManager;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.User;
 
+import java.util.ResourceBundle;
+import java.util.Locale;
+
 //@Path("/server")
 //@Produces(MediaType.APPLICATION_JSON)
 //@Consumes(MediaType.APPLICATION_JSON)
@@ -61,6 +64,9 @@ public class Server {
     public static void main(String[] args) throws IOException {
         // Lanzar la ventana si se ejecuta desde el jar normal
         // Lanzar el servidor si se ejecuta desde la consola
+    	
+    	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
+    	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
     	
     	final ClientSide client = new ClientSide();
         if (args.length == 1 && args[0].equals("--server")) {

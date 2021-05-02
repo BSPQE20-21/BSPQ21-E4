@@ -20,11 +20,9 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 
+
 public class AuthWindow extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
-	
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
 
 	public JTextField tfEmail;
 	public JTextField tfPlate;
@@ -60,12 +58,11 @@ public class AuthWindow extends JFrame {
 		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
 
-		JButton btnLogin = new JButton(resourceBundle.getString("Login"));
+		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(resourceBundle.getString("login_try") + tfPlate.getText() + ": " + tfEmail.getText());
 				try {
 					PremiumUser user = null;
 					boolean found = false;
@@ -79,10 +76,10 @@ public class AuthWindow extends JFrame {
 					}
 
 					if (!found) {
-						JOptionPane.showMessageDialog(null, resourceBundle.getString("user_not_found"));
+						JOptionPane.showMessageDialog(null, "User not found");
 					}else {
 						if (!user.getPlate().equals(tfPlate.getText())) {
-							JOptionPane.showMessageDialog(null, resourceBundle.getString("unknown_plate"));
+							JOptionPane.showMessageDialog(null, "Unknown plate");
 						}else {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
@@ -91,7 +88,7 @@ public class AuthWindow extends JFrame {
 							} else {
 								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
 									if (user.equals(u)) {
-										JOptionPane.showMessageDialog(null, resourceBundle.getString("user_already_connected"));
+										JOptionPane.showMessageDialog(null, "This user is already connected");
 										tfEmail.setText("");
 										tfPlate.setText("");
 									} else {
@@ -109,12 +106,12 @@ public class AuthWindow extends JFrame {
 
 			}
 		});
-		JButton btnRegistrarse = new JButton(resourceBundle.getString("register_button"));
+		JButton btnRegistrarse = new JButton("Register");
 		btnRegistrarse.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(resourceBundle.getString("login_try") + tfPlate.getText() + ": " + tfEmail.getText());
+				System.out.println("# client wants to login:" + tfPlate.getText() + ": " + tfEmail.getText());
 
 			}
 		});
@@ -142,8 +139,8 @@ public class AuthWindow extends JFrame {
 		panelCentralInf.setLayout(new GridLayout(3, 2, 5, 5));
 		panelCentral.add(panelCentralInf, BorderLayout.SOUTH);
 
-		lbEmail = new JLabel(resourceBundle.getString("email"));
-		lbPlate = new JLabel(resourceBundle.getString("plate"));
+		lbEmail = new JLabel("Email");
+		lbPlate = new JLabel("Plate");
 
 		tfEmail = new JTextField();
 		tfPlate = new JTextField();

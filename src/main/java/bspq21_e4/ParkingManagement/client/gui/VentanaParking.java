@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,6 +25,9 @@ import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 
+import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
+
+
 public class VentanaParking extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
 	private Slot selectedSlot;
@@ -32,10 +35,7 @@ public class VentanaParking extends JFrame {
 	private JButton selectSlot;
 	private JList<Slot> slotL;
 	private DefaultListModel slotDL;
-	private List<PremiumUser> slotAL = SlotRSH.getInstance().checkSlots();
-	
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
+	private List<Slot> slotAL = SlotRSH.getInstance().checkSlots();
 	
 	public VentanaParking() {
 		setResizable(false);
@@ -98,13 +98,13 @@ public class VentanaParking extends JFrame {
 		
 		slotL.setModel(slotDL);
 		
-		JButton selectSlot = new JButton(resourceBundle.getString("select_button"));
+		JButton selectSlot = new JButton("Select");
 		
 		selectSlot.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(resourceBundle.getString("select_try"));
+				//System.out.println(resourceBundle.getString("select_try"));
 				System.out.println(selectedSlot.toString());
 //				try {
 //					PremiumUser user = null;
