@@ -34,6 +34,9 @@ public class VentanaParking extends JFrame {
 	private DefaultListModel slotDL;
 	private ArrayList<Slot> slotAL = new ArrayList<>();
 	
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
+	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
+	
 	public VentanaParking() {
 		setResizable(false);
 	}
@@ -95,13 +98,13 @@ public class VentanaParking extends JFrame {
 		
 		slotL.setModel(slotDL);
 		
-		JButton selectSlot = new JButton("Select");
+		JButton selectSlot = new JButton(resourceBundle.getString("select_button"));
 		
 		selectSlot.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("# client wants to select the slot: " );
+				System.out.println(resourceBundle.getString("select_try"));
 				System.out.println(selectedSlot.toString());
 //				try {
 //					PremiumUser user = null;
