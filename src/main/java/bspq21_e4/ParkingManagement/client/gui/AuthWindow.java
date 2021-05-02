@@ -139,7 +139,7 @@ public class AuthWindow extends JFrame {
 		panelCentralInf.setLayout(new GridLayout(3, 2, 5, 5));
 		panelCentral.add(panelCentralInf, BorderLayout.SOUTH);
 
-		lbEmail = new JLabel("Email: ");
+		lbEmail = new JLabel("Email ");
 		lbPlate = new JLabel("Plate");
 
 		tfEmail = new JTextField();
