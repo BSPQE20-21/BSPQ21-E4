@@ -32,7 +32,7 @@ public class VentanaParking extends JFrame {
 	private JButton selectSlot;
 	private JList<Slot> slotL;
 	private DefaultListModel slotDL;
-	private ArrayList<Slot> slotAL = new ArrayList<>();
+	private List<PremiumUser> slotAL = SlotRSH.getInstance().checkSlots();
 	
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
@@ -43,18 +43,18 @@ public class VentanaParking extends JFrame {
 
 	public void initialize() {
 		
-		Parking p = new Parking(1,"Bilbao",5, 3, 2, 1);
-		Slot s1 = new Slot(1, 1, SlotAvailability.GREEN,p);
-		Slot s2 = new Slot(2, 1, SlotAvailability.YELLOW,p);
-		Slot s3 = new Slot(3, 1, SlotAvailability.RED,p);
-		Slot s4 = new Slot(4, 1, SlotAvailability.GREEN,p);
-		Slot s5 = new Slot(5, 1, SlotAvailability.GREEN,p);
-		
-		slotAL.add(s1);
-		slotAL.add(s2);
-		slotAL.add(s3);
-		slotAL.add(s4);
-		slotAL.add(s5);
+//		Parking p = new Parking(1,"Bilbao",5, 3, 2, 1);
+//		Slot s1 = new Slot(1, 1, SlotAvailability.GREEN,p);
+//		Slot s2 = new Slot(2, 1, SlotAvailability.YELLOW,p);
+//		Slot s3 = new Slot(3, 1, SlotAvailability.RED,p);
+//		Slot s4 = new Slot(4, 1, SlotAvailability.GREEN,p);
+//		Slot s5 = new Slot(5, 1, SlotAvailability.GREEN,p);
+//		
+//		slotAL.add(s1);
+//		slotAL.add(s2);
+//		slotAL.add(s3);
+//		slotAL.add(s4);
+//		slotAL.add(s5);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
