@@ -1,26 +1,6 @@
 package bspq21_e4.ParkingManagement.client.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-	
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import bspq21_e4.ParkingManagement.client.main.ClientSide;
-import bspq21_e4.ParkingManagement.server.data.PremiumUser;
-import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
-import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
-import bspq21_e4.ParkingManagement.client.gui.VentanaParking;
-
 
 public class AuthWindow extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
@@ -58,9 +38,11 @@ public class AuthWindow extends JFrame {
 		panelDerInf.setBackground(Color.WHITE);
 		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
+		
 
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
+		
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
