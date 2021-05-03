@@ -64,6 +64,7 @@ public class dbTest {
         GU1U = new GuestUser("7494 NVZ", sdfResult.parse("12:00"), S5, "Paypal");
 
 		logger.info("Leaving setUp");
+		
 	}
 	
 	@Test
