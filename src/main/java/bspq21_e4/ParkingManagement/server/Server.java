@@ -30,6 +30,10 @@ import bspq21_e4.ParkingManagement.server.data.User;
 import java.util.ResourceBundle;
 import java.util.Locale;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.LoggerFactory;
+
 //@Path("/server")
 //@Produces(MediaType.APPLICATION_JSON)
 //@Consumes(MediaType.APPLICATION_JSON)
@@ -38,6 +42,7 @@ public class Server {
 	
 	
 	public static final String BASE_URI = "http://localhost:8080/myapp/";
+	final Logger logger = LoggerFactory.getLogger(dbTest.class);
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
@@ -69,12 +74,14 @@ public class Server {
     	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
     	
     	final ClientSide client = new ClientSide();
+    	logger.info(resourceBundle.getString("client_side"));
         if (args.length == 1 && args[0].equals("--server")) {
             // Para ejecturar el servidor " mvn exec:java -Dexec.args="--server" "
             // En power shell es " mvn exec:java "-Dexec.args='--server'" "
             // Si args esta vacio lanzamos el servidor
 
             final HttpServer server = startServer();
+            logger.info(resourceBundle.getString("server_on"));
             System.out.println(String.format(
                     "Jersey app started with WADL available at " + "%sapplication.wadl\n Hit enter to stop it...",
                     BASE_URI));
@@ -88,6 +95,7 @@ public class Server {
                         
                         AuthWindow frame = new AuthWindow(client);
                         frame.setVisible(true);
+                        logger.info(resourceBundle.getString("login_window_on"));
                     } catch (Exception e) {
                     }
                 }
