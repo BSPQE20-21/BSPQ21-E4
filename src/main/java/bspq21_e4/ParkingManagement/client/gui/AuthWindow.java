@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
+	
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +19,7 @@ import bspq21_e4.ParkingManagement.client.main.ClientSide;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
+import bspq21_e4.ParkingManagement.client.gui.VentanaParking;
 
 
 public class AuthWindow extends JFrame {
@@ -72,6 +73,7 @@ public class AuthWindow extends JFrame {
 							System.out.println(u);
 							user = u;
 							found = true;
+							
 						}
 					}
 
@@ -94,6 +96,8 @@ public class AuthWindow extends JFrame {
 									} else {
 										PremiumUserConnected.getConnectedUsers().add(user);
 										dispose();
+										new VentanaParking().setVisible(true);
+										
 										//to implement parking view;
 									}
 								}
@@ -111,8 +115,7 @@ public class AuthWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("# client wants to login:" + tfPlate.getText() + ": " + tfEmail.getText());
-
+				
 			}
 		});
 

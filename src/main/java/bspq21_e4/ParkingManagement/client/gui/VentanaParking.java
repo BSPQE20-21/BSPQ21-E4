@@ -39,8 +39,8 @@ public class VentanaParking extends JFrame {
 	
 	public VentanaParking() {
 		setResizable(false);
+		initialize();
 	}
-
 	public void initialize() {
 		
 //		Parking p = new Parking(1,"Bilbao",5, 3, 2, 1);
@@ -157,8 +157,5 @@ public class VentanaParking extends JFrame {
 		this.setVisible(true);
 
 	}
-	public static void main(String[] args) throws ParseException {
-		VentanaParking vp = new VentanaParking();
-		vp.initialize();
-	}
+
 }
