@@ -4,15 +4,9 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.URI;
-
-
-
-import bspq21_e4.ParkingManagement.client.gui.AuthWindow;
-
 
 import java.util.ResourceBundle;
 import java.util.Locale;
@@ -20,9 +14,11 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Server{
+import bspq21_e4.ParkingManagement.client.gui.AuthWindow;
 
-	public static final String BASE_URI = "http://127.0.0.1:8077/myapp/";
+public class Server {
+
+	public static final String BASE_URI = "http://localhost:8080/myapp/";
 	public static Logger logger = LoggerFactory.getLogger(Server.class);
 
 	/**

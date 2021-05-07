@@ -112,6 +112,7 @@ public class RegisterWindow extends JFrame {
 				user.setPlate(plate);
 
 				PremiumUserRSH.getInstance().savePremiumUsers(user);
+				
 
 			}
 
