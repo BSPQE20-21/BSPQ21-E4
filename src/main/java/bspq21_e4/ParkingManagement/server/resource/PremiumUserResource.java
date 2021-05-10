@@ -27,28 +27,28 @@ public class PremiumUserResource {
 	}
 	
 	
-	@PATCH
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-	public String modifyPremiumUser(PremiumUser user) {
-		DBManager.getInstance().updatePremiumUser(user);;
-		return "User updated";
-	}
-	
-	@PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-	public String insertPremiumUser(PremiumUser user) {
-		DBManager.getInstance().insertPremiumUser(user);;
-		return "Premium user created";	
-	}
-	
-	@DELETE
-    @Path("/id/{userPlate}")
-    @Produces(MediaType.TEXT_PLAIN)
-	public String deletePremiumUser(@PathParam("userPlate")PremiumUser user) {
-		DBManager.getInstance().deletePremiumUser(user);
-		return "Premium User deleted";
-	}
+//	@PATCH
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//	public String modifyPremiumUser(PremiumUser user) {
+//		DBManager.getInstance().updatePremiumUser(user);;
+//		return "User updated";
+//	}
+//	
+//	@PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//	public String insertPremiumUser(PremiumUser user) {
+//		DBManager.getInstance().insertPremiumUser(user);;
+//		return "Premium user created";	
+//	}
+//	
+//	@DELETE
+//    @Path("/id/{userPlate}")
+//    @Produces(MediaType.TEXT_PLAIN)
+//	public String deletePremiumUser(@PathParam("userPlate")PremiumUser user) {
+//		DBManager.getInstance().deletePremiumUser(user);
+//		return "Premium User deleted";
+//	}
 
 }

@@ -29,8 +29,7 @@ public class Server {
 	 */
 	public static HttpServer startServer() {
 
-		final ResourceConfig rc = new ResourceConfig().packages(true, "bspq21_e4", "bspq21_e4.ParkingManagement",
-				"bspq21_e4.ParkingManagement.server", "bspq21_e4.ParkingManagement.server.resource");
+		final ResourceConfig rc = new ResourceConfig().packages("bspq21_e4.ParkingManagement.server.resource");
 
 		// create and start a new instance of grizzly http server
 		// exposing the Jersey application at BASE_URI
