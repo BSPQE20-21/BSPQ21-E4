@@ -27,28 +27,30 @@ public class SlotResource {
 	}
 	
 	
-//	@PATCH
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//	public String modifySlot(Slot slot) {
-//		DBManager.getInstance().updateSlot(slot);
-//		return "Slot updated";
-//	}
-//	
-//	@PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//	public String insertSlot(Slot slot) {
-//		DBManager.getInstance().insertSlot(slot);
-//		return "Slot created";	
-//	}
-//	
-//	@DELETE
-//    @Path("/id/{slotId}")
-//    @Produces(MediaType.TEXT_PLAIN)
-//	public String deleteSlot(@PathParam("slotId")Slot slot) {
-//		DBManager.getInstance().deleteSlot(slot);
-//		return "Slot deleted";
-//	}
+	@PATCH
+	@Path("/modify")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public String modifySlot(Slot slot) {
+		DBManager.getInstance().updateSlot(slot);
+		return "Slot updated";
+	}
+	
+	@PUT
+	@Path("/insert")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public String insertSlot(Slot slot) {
+		DBManager.getInstance().insertSlot(slot);
+		return "Slot created";	
+	}
+	
+	@DELETE
+    @Path("delete/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteSlot(Slot slot) {
+		DBManager.getInstance().deleteSlot(slot);
+		return "Slot deleted";
+	}
 
 }

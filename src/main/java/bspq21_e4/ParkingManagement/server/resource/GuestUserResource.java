@@ -28,29 +28,31 @@ public class GuestUserResource {
 	}
 	
 	
-//	@PATCH
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//	public String modifyGuestUser(GuestUser user) {
-//		DBManager.getInstance().updateGuestUser(user);;
-//		return "Guest user updated";
-//	}
-//	
-//	@PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//	public String insertGuestUser(GuestUser user) {
-//		DBManager.getInstance().insertGuestUser(user);;
-//		return "Guest user created";	
-//	}
-//	
-//	@DELETE
-//    @Path("/id/{userPlate}")
-//    @Produces(MediaType.TEXT_PLAIN)
-//	public String deleteGuestUser(@PathParam("userPlate")GuestUser user) {
-//		DBManager.getInstance().deleteGuestUser(user);
-//		return "Guest User deleted";
-//	}
+	@PATCH
+	@Path("/modify")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public String modifyGuestUser(GuestUser user) {
+		DBManager.getInstance().updateGuestUser(user);;
+		return "Guest user updated";
+	}
+	
+	@PUT
+	@Path("/insert")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public String insertGuestUser(GuestUser user) {
+		DBManager.getInstance().insertGuestUser(user);;
+		return "Guest user created";	
+	}
+	
+	@DELETE
+    @Path("/ids/{userPlate}")
+    @Produces(MediaType.TEXT_PLAIN)
+	public String deleteGuestUser(GuestUser user) {
+		DBManager.getInstance().deleteGuestUser(user);
+		return "Guest User deleted";
+	}
 
 
 }

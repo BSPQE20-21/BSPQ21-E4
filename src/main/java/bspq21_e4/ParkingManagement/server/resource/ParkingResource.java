@@ -24,31 +24,33 @@ public class ParkingResource {
 		return parkings;
 		
 	}
-//	
-//	
-//	@Path("/modify")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//	public String modifyParking(Parking parking) {
-//		DBManager.getInstance().updateParking(parking);
-//		return "Parking updated";
-//	}
-//	
-//	@PUT
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//	public String insertParking(Parking parking) {
-//		DBManager.getInstance().insertParking(parking);
-//		return "Parking created";	
-//	}
-//	
-//	@DELETE
-//    @Path("delete/id/{parkingId}")
-//    @Produces(MediaType.TEXT_PLAIN)
-//	public String deleteParking(@PathParam("parkingId")Parking parking) {
-//		DBManager.getInstance().deleteParking(parking);
-//		return "Parking deleted";
-//	}
+	
+	
+	@PATCH
+	@Path("/modify")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public String modifyParking(Parking parking) {
+		DBManager.getInstance().updateParking(parking);
+		return "Parking updated";
+	}
+	
+	@PUT
+	@Path("/insert")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+	public String insertParking(Parking parking) {
+		DBManager.getInstance().insertParking(parking);
+		return "Parking created";	
+	}
+	
+	@DELETE
+    @Path("delete/{parkingId}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteParking(Parking parking) {
+		DBManager.getInstance().deleteParking(parking);
+		return "Parking deleted";
+	}
 
 
 }
