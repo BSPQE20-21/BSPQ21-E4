@@ -45,8 +45,8 @@ public class ParkingRSH {
 
 
     public Parking saveParking(Parking parking) {
-    	Invocation.Builder ib = target.path("/insert").request();
-//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//    	Invocation.Builder ib = target.path("/insert").request();
+        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.put(Entity.entity(parking, MediaType.APPLICATION_JSON));
         Parking parkingId = response.readEntity(Parking.class);
         return parkingId;
@@ -54,9 +54,8 @@ public class ParkingRSH {
 
 
     public Parking modifyParking(Parking parking) {
-    	Invocation.Builder ib = target.path("/modify").request();
-
-//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//    	Invocation.Builder ib = target.path("/modify").request();
+        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.build("PATCH", Entity.json(parking)).invoke();
 
         Parking parkingId = response.readEntity(Parking.class);

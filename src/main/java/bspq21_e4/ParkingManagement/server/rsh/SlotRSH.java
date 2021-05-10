@@ -46,8 +46,8 @@ public class SlotRSH {
 
 
     public Slot saveSlots(Slot slots) {
-//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
-    	Invocation.Builder ib = target.path("/insert").request();
+        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//    	Invocation.Builder ib = target.path("/insert").request();
         Response response = ib.put(Entity.entity(slots, MediaType.APPLICATION_JSON));
         Slot slotId = response.readEntity(Slot.class);
         return slotId;
@@ -55,8 +55,8 @@ public class SlotRSH {
 
 
     public Slot modifySlot(Slot slot) {
-//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
-    	Invocation.Builder ib = target.path("/modify").request();
+        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//    	Invocation.Builder ib = target.path("/modify").request();
 
         Response response = ib.build("PATCH", Entity.json(slot)).invoke();
 

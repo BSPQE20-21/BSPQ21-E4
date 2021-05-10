@@ -92,6 +92,8 @@ public class AuthWindow extends JFrame {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
+								new VentanaParking().setVisible(true);
+								
 								// to implement slots and parking view
 							} else {
 								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {

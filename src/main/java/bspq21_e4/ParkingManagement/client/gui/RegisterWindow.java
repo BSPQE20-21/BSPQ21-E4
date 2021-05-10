@@ -5,8 +5,11 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,53 +25,49 @@ import javax.swing.border.EmptyBorder;
 
 public class RegisterWindow extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField tfEmail;
-	private JTextField tfPlate;
+	public JTextField tfEmail;
+	public JTextField tfPlate;
+	private JLabel lbEmail;
+	private JLabel lbPlate;
+	private JPanel panelContenidos;
+	private JLabel lb;
 
 	public RegisterWindow() {
 
+		setResizable(false);
+		initialize();
+
+	}
+
+	public void initialize() {
 		setTitle("Sing up user");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 631, 375);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 500, 250);
+		this.setMinimumSize(new Dimension(250, 250));
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(72, 61, 139));
-		panel.setForeground(new Color(0, 128, 128));
-		panel.setBounds(0, 21, 615, 43);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		panelContenidos = new JPanel();
+		panelContenidos.setBackground(Color.WHITE);
+		setContentPane(panelContenidos);
+		panelContenidos.setLayout(new BorderLayout(15, 15));
 
-		JLabel lbemail = new JLabel("Email");
-		lbemail.setBounds(268, 11, 77, 32);
-		lbemail.setHorizontalAlignment(SwingConstants.CENTER);
-		lbemail.setForeground(SystemColor.text);
-		panel.add(lbemail);
+//Panel Central
 
-		tfEmail = new JTextField();
-		tfEmail.setBounds(285, 82, 96, 19);
-		contentPane.add(tfEmail);
-		tfEmail.setColumns(10);
-
-		JLabel lbPlate = new JLabel("Plate:");
-		lbPlate.setBounds(208, 85, 57, 13);
-		contentPane.add(lbPlate);
-
-		tfPlate = new JTextField();
-		tfPlate.setColumns(10);
-		tfPlate.setBounds(285, 113, 96, 19);
-		contentPane.add(tfPlate);
+		JPanel panelCentral = new JPanel();
+		panelCentral.setBackground(Color.WHITE);
+		panelCentral.setLayout(new GridLayout(2,2));
+		panelContenidos.add(panelCentral, BorderLayout.CENTER);
+		
+		
+//Panel Inferior
+		
+		JPanel panelInferior = new JPanel();
+		panelInferior.setBackground(Color.white);
+		panelInferior.setLayout(new GridLayout(1, 3));
+		panelContenidos.add(panelInferior, BorderLayout.SOUTH);
 
 		JButton btnVolver = new JButton("Return");
 		btnVolver.setForeground(Color.WHITE);
 		btnVolver.setBackground(new Color(72, 61, 139));
-		btnVolver.setBounds(10, 294, 80, 31);
-		contentPane.add(btnVolver);
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
@@ -83,24 +82,8 @@ public class RegisterWindow extends JFrame {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setForeground(Color.WHITE);
 		btnRegister.setBackground(new Color(72, 61, 139));
-		btnRegister.setBounds(235, 230, 141, 36);
-		contentPane.add(btnRegister);
-
-		JButton btnClose = new JButton("Close");
-		btnClose.setForeground(Color.WHITE);
-		btnClose.setBackground(new Color(72, 61, 139));
-		btnClose.setBounds(517, 294, 80, 31);
-		contentPane.add(btnClose);
-		btnClose.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-
 		btnRegister.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -112,11 +95,39 @@ public class RegisterWindow extends JFrame {
 				user.setPlate(plate);
 
 				PremiumUserRSH.getInstance().savePremiumUsers(user);
-				
 
 			}
-
 		});
+		
+
+		JButton btnClose = new JButton("Close");
+		btnClose.setForeground(Color.WHITE);
+		btnClose.setBackground(new Color(72, 61, 139));
+		btnClose.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+
+
+
+		lbEmail = new JLabel("Email:");
+		lbPlate = new JLabel("Plate:");
+
+		tfEmail = new JTextField();
+		tfPlate = new JTextField();
+
+		panelCentral.add(lbEmail);
+		panelCentral.add(tfEmail);
+
+		panelCentral.add(lbPlate);
+		panelCentral.add(tfPlate);
+		
+		panelInferior.add(btnClose);
+		panelInferior.add(btnRegister);
+		panelInferior.add(btnVolver);
 	}
 
 }
