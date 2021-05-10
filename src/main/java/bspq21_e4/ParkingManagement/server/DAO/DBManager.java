@@ -20,6 +20,7 @@ public class DBManager {
 	private static PersistenceManagerFactory persistentManagerFactory;
 	private static PersistenceManager persistentManager;
 	private static Transaction transaction;
+	
 
 	public DBManager() {
 		persistentManagerFactory = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
