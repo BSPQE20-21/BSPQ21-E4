@@ -45,7 +45,8 @@ public class UserRSH {
 
 
     public User saveUsers(User user) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/insert").request();
         Response response = ib.put(Entity.entity(user, MediaType.APPLICATION_JSON));
         User userPlate = response.readEntity(User.class);
         return userPlate;
@@ -53,7 +54,9 @@ public class UserRSH {
 
 
     public User modifyUser(User user) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/modify").request();
+
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.build("PATCH", Entity.json(user)).invoke();
 
         User userPlate = response.readEntity(User.class);
@@ -62,7 +65,7 @@ public class UserRSH {
 
 
     public void deleteUser(User user) {
-        Invocation.Builder ib = target.path("/id/" + user.getPlate()).request();
+        Invocation.Builder ib = target.path("/delete/" + user.getPlate()).request();
         ib.delete();
     }
 }

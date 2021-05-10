@@ -45,7 +45,9 @@ public class PremiumUserRSH {
 
 
     public PremiumUser savePremiumUsers(PremiumUser user) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/insert").request();
+
         Response response = ib.put(Entity.entity(user, MediaType.APPLICATION_JSON));
         PremiumUser userPlate = response.readEntity(PremiumUser.class);
         return userPlate;
@@ -53,7 +55,8 @@ public class PremiumUserRSH {
 
 
     public PremiumUser modifyPremiumUser(PremiumUser user) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/modify").request();    	
         Response response = ib.build("PATCH", Entity.json(user)).invoke();
 
         PremiumUser userPlate = response.readEntity(PremiumUser.class);
@@ -62,7 +65,7 @@ public class PremiumUserRSH {
 
 
     public void deletePremiumUser(PremiumUser user) {
-        Invocation.Builder ib = target.path("/id/" + user.getPlate()).request();
+        Invocation.Builder ib = target.path("/delete/" + user.getPlate()).request();
         ib.delete();
     }
 }

@@ -45,7 +45,9 @@ public class GuestUserRSH {
 
 
     public GuestUser saveGuestUsers(GuestUser user) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/insert").request();
+
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.put(Entity.entity(user, MediaType.APPLICATION_JSON));
         GuestUser userPlate = response.readEntity(GuestUser.class);
         return userPlate;
@@ -53,7 +55,9 @@ public class GuestUserRSH {
 
 
     public GuestUser modifyGuestUser(GuestUser user) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/modify").request();
+
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.build("PATCH", Entity.json(user)).invoke();
 
         GuestUser userPlate = response.readEntity(GuestUser.class);
@@ -62,7 +66,7 @@ public class GuestUserRSH {
 
 
     public void deleteGuestUser(GuestUser user) {
-        Invocation.Builder ib = target.path("/id/" + user.getPlate()).request();
+        Invocation.Builder ib = target.path("/delete/" + user.getPlate()).request();
         ib.delete();
     }
 }

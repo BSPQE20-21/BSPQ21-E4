@@ -35,6 +35,7 @@ public class ParkingRSH {
 
 
     public List<Parking> checkParkings() {
+    	
         Invocation.Builder ib = target.request(); // Construir la petición
         Response response = ib.get(); // Realizar una petición GET
         List<Parking> parkings = response.readEntity(new GenericType<List<Parking>>() { // Crear una lista de clientes
@@ -44,7 +45,8 @@ public class ParkingRSH {
 
 
     public Parking saveParking(Parking parking) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/insert").request();
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.put(Entity.entity(parking, MediaType.APPLICATION_JSON));
         Parking parkingId = response.readEntity(Parking.class);
         return parkingId;
@@ -52,7 +54,9 @@ public class ParkingRSH {
 
 
     public Parking modifyParking(Parking parking) {
-        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
+    	Invocation.Builder ib = target.path("/modify").request();
+
+//        Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
         Response response = ib.build("PATCH", Entity.json(parking)).invoke();
 
         Parking parkingId = response.readEntity(Parking.class);
@@ -61,7 +65,7 @@ public class ParkingRSH {
 
 
     public void deleteParking(Parking parking) {
-        Invocation.Builder ib = target.path("/id/" + parking.getId()).request();
+        Invocation.Builder ib = target.path("/delete/" + parking.getId()).request();
         ib.delete();
     }
 

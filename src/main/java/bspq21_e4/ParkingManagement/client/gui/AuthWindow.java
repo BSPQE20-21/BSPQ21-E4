@@ -22,6 +22,9 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
 
 public class AuthWindow extends JFrame {
 	public JTextField tfEmail;
@@ -30,6 +33,8 @@ public class AuthWindow extends JFrame {
 	private JLabel lbPlate;
 	private JPanel panelContenidos;
 	private JLabel lb;
+	
+
 
 	public AuthWindow() {
 		setResizable(false);
