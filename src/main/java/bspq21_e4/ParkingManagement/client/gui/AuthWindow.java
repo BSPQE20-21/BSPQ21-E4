@@ -92,22 +92,21 @@ public class AuthWindow extends JFrame {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
-								new VentanaParking().setVisible(true);
+								new VentanaParking(user).setVisible(true);
 								
-								// to implement slots and parking view
 							} else {
-								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
-									if (user.equals(u)) {
-										JOptionPane.showMessageDialog(null, "This user is already connected");
-										tfEmail.setText("");
-										tfPlate.setText("");
-									} else {
-										PremiumUserConnected.getConnectedUsers().add(user);
-										dispose();
-										new VentanaParking().setVisible(true);
-
-									}
-								}
+//								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
+//									if (user.equals(u)) {
+//										JOptionPane.showMessageDialog(null, "This user is already connected");
+//										tfEmail.setText("");
+//										tfPlate.setText("");
+//									} else {
+//										PremiumUserConnected.getConnectedUsers().add(user);
+//										dispose();
+//										new VentanaParking(user).setVisible(true);
+//
+//									}
+//								}
 							}
 						}
 					}
@@ -133,50 +132,68 @@ public class AuthWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					GuestUser user = null;
-					boolean found = false;
-					List<GuestUser> userList = GuestUserRSH.getInstance().checkGuestUsers();
-					for (GuestUser u : userList) {
-						if (u.getPlate().equals(tfPlate.getText())) {
-							System.out.println(u);
-							user = u;
-							found = true;
+				
+				if(tfPlate.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Error. Plate cannot be null");
+					tfPlate.setText("");
 
-						}
-					}
+				}else {
+					String plate = tfPlate.getText();
 
-					if (!found) {
-						JOptionPane.showMessageDialog(null, "User not found");
-						GuestUser newUser = new GuestUser();
-						newUser.setPlate(tfPlate.getText());
+					GuestUser user = new GuestUser();
+					user.setPlate(plate);
 
-						GuestUserRSH.getInstance().saveGuestUsers(newUser);
-
-					} else {
-
-						if (GuestUserConnected.getConnectedUsers().isEmpty()) {
-							GuestUserConnected.getConnectedUsers().add(user);
-							dispose();
-							// to implement slots and parking view
-						} else {
-							for (GuestUser u : GuestUserConnected.getConnectedUsers()) {
-								if (user.equals(u)) {
-									JOptionPane.showMessageDialog(null, "This user is already connected");
-									tfPlate.setText("");
-								} else {
-									GuestUserConnected.getConnectedUsers().add(user);
-									dispose();
-									new VentanaParking().setVisible(true);
-
-								}
-							}
-						}
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
+					GuestUserRSH.getInstance().saveGuestUsers(user);
+					System.out.println(plate);
+					VentanaParking v = new VentanaParking(user);
+					v.setVisible(true);
+					dispose();
 				}
+
+//				try {
+//					GuestUser user = null;
+//					boolean found = false;
+//					List<GuestUser> userList = GuestUserRSH.getInstance().checkGuestUsers();
+//					for (GuestUser u : userList) {
+//						if (u.getPlate().equals(tfPlate.getText())) {
+//							System.out.println(u);
+//							user = u;
+//							found = true;
+//
+//						}
+//					}
+//
+//					if (!found) {
+//						JOptionPane.showMessageDialog(null, "User not found");
+//						GuestUser newUser = new GuestUser();
+//						newUser.setPlate(tfPlate.getText());
+//
+//						GuestUserRSH.getInstance().saveGuestUsers(newUser);
+//
+//					} else {
+//
+//						if (GuestUserConnected.getConnectedUsers().isEmpty()) {
+//							GuestUserConnected.getConnectedUsers().add(user);
+//							dispose();
+//							// to implement slots and parking view
+//						} else {
+//							for (GuestUser u : GuestUserConnected.getConnectedUsers()) {
+//								if (user.equals(u)) {
+//									JOptionPane.showMessageDialog(null, "This user is already connected");
+//									tfPlate.setText("");
+//								} else {
+//									GuestUserConnected.getConnectedUsers().add(user);
+//									dispose();
+//									new VentanaParking().setVisible(true);
+//
+//								}
+//							}
+//						}
+//					}
+//
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
 
 			}
 		});

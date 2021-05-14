@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -15,6 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -22,10 +26,17 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
+import bspq21_e4.ParkingManagement.server.data.User;
+import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
+import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
+import jakarta.ws.rs.core.GenericType;
 
 public class VentanaParking extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
@@ -34,27 +45,19 @@ public class VentanaParking extends JFrame {
 	private JButton selectSlot;
 	private JList<Slot> slotL;
 	private DefaultListModel slotDL;
+	private JMenuBar menu;
+	private JMenu menuUsuarios;
+	private JMenuItem menuItem;
 	private List<Slot> slotAL = SlotRSH.getInstance().checkSlots();
 
-	public VentanaParking() {
+	public VentanaParking(User u) {
 		setResizable(false);
-		initialize();
+		initialize(u);
 	}
 
-	public void initialize() {
+	public void initialize(final User u) {
 
-//		Parking p = new Parking(1,"Bilbao",5, 3, 2, 1);
-//		Slot s1 = new Slot(1, 1, SlotAvailability.GREEN,p);
-//		Slot s2 = new Slot(2, 1, SlotAvailability.YELLOW,p);
-//		Slot s3 = new Slot(3, 1, SlotAvailability.RED,p);
-//		Slot s4 = new Slot(4, 1, SlotAvailability.GREEN,p);
-//		Slot s5 = new Slot(5, 1, SlotAvailability.GREEN,p);
-//		
-//		slotAL.add(s1);
-//		slotAL.add(s2);
-//		slotAL.add(s3);
-//		slotAL.add(s4);
-//		slotAL.add(s5);
+
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -154,6 +157,92 @@ public class VentanaParking extends JFrame {
 		panelCent.add(slotL);
 
 		this.setVisible(true);
+		
+		
+
+		// Panel izquierdo --> superior
+		JPanel panelSuperior = new JPanel();
+		panelSuperior.setBackground(Color.WHITE);
+		panelSuperior.setLayout(new BorderLayout(0,0));
+		contentPanel.add(panelSuperior, BorderLayout.NORTH);
+		menu = new JMenuBar();
+		menuUsuarios = new JMenu(u.getPlate());
+		menu.add(menuUsuarios);
+		menuItem = new JMenuItem("Sign out");
+		menuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				dispose();
+				
+				AuthWindow vi = new AuthWindow();
+				vi.setVisible(true);
+			}
+		});
+
+		menuUsuarios.add(menuItem);
+		
+		
+		JMenuItem menuItem2 = new JMenuItem("Delete User");
+		menuItem2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+				if(u instanceof PremiumUser) {
+					UserRSH.getInstance().deleteUser(u);
+					PremiumUserRSH.getInstance().deletePremiumUser((PremiumUser) u);
+					List<PremiumUser> listaComprobacion = PremiumUserRSH.getInstance().checkPremiumUsers();
+					
+					for (PremiumUser user : listaComprobacion) {
+						if(user.getPlate().equals(u.getPlate())) {
+							JOptionPane.showMessageDialog(null, "Error. User cannot be deleted");
+						}else {
+							dispose();
+							AuthWindow v = new AuthWindow();
+							v.setVisible(true);
+						}
+					}
+
+					
+				}else if(u instanceof GuestUser) {
+					GuestUserRSH.getInstance().deleteGuestUser((GuestUser) u);
+				}
+
+				
+			}
+		});
+		menuUsuarios.add(menuItem2);
+		
+		JMenuItem menuItem3 = new JMenuItem("Modify");
+		menuItem3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		menuUsuarios.add(menuItem3);
+		
+		JMenuItem menuItem4 = new JMenuItem("Exit");
+		
+		menuItem4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);				
+			}
+		});
+		
+		menuUsuarios.add(menuItem4);
+		
+
+		
+		
+		panelSuperior.add(menu);
 
 	}
 
