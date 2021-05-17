@@ -38,6 +38,12 @@ import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
 import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
 import jakarta.ws.rs.core.GenericType;
 
+
+/**
+ * @class VentanaParking
+ * Window which shows the available slots in order for the user to select where to park
+ * @author BSPQ21-E4
+ */
 public class VentanaParking extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
 	private Slot selectedSlot;
@@ -50,11 +56,21 @@ public class VentanaParking extends JFrame {
 	private JMenuItem menuItem;
 	private List<Slot> slotAL = SlotRSH.getInstance().checkSlots();
 
+    /**
+     * Constructor of the window just receives the user logged
+     * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+     * @param User
+     */
 	public VentanaParking(User u) {
 		setResizable(false);
 		initialize(u);
 	}
 
+	/**
+	 * Initializing the contents of the frame.
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+     * @param User
+	 */
 	public void initialize(final User u) {
 
 
