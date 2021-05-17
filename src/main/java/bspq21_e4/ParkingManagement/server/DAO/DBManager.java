@@ -9,32 +9,54 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
+import org.apache.log4j.Logger;
+
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.User;
 
+/**
+ * @class DBManager
+ * Window which allows database interaction
+ * @author BSPQ21-E4
+ */
 public class DBManager {
 	private static DBManager instance = null;
 	private static PersistenceManagerFactory persistentManagerFactory;
 	private static PersistenceManager persistentManager;
+	private static Logger logger = Logger.getLogger(DBManager.class.getName());
 	private static Transaction transaction;
 	
 
+	/**
+     * Constructor of the window just receives the user logged
+     * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+     * @param User
+     */
 	public DBManager() {
 		persistentManagerFactory = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 	}
 
+	/**
+	 * Method that creates a DBManager instance if needed and returns it.
+	 * @return DBManager instance
+	 */
 	public static DBManager getInstance() {
 		if (instance == null) {
 			instance = new DBManager();
 		}
+		logger.info("DBManager instance returned");
 		return instance;
 	}
 
+	/**
+	 * Stores the parking in the DB 
+	 * @param parking
+	 */
 	public void insertParking(Parking parking) {
 		transaction.begin();
 		persistentManager.makePersistent(parking);
@@ -42,6 +64,10 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Updates the parking from the DB 
+	 * @param parking
+	 */
 	public void updateParking(Parking parking) {
 		try {
 			transaction.begin();
@@ -68,6 +94,10 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Deletes the parking from the DB 
+	 * @param parking
+	 */
 	public void deleteParking(Parking parking) {
 		// Delete data using Extent
 		persistentManager = persistentManagerFactory.getPersistenceManager();
@@ -96,6 +126,10 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Stores the slot in the DB 
+	 * @param slot
+	 */
 	public void insertSlot(Slot slot) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -105,6 +139,10 @@ public class DBManager {
 		transaction.commit();
 	}
 
+	/**
+	 * Updates the slot from the DB 
+	 * @param slot
+	 */
 	public void updateSlot(Slot slot) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -135,6 +173,10 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Deletes the slot from the DB 
+	 * @param slot
+	 */
 	public void deleteSlot(Slot slot) {
 
 		// Delete data using Extent
@@ -166,6 +208,10 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Stores the premium user in the DB 
+	 * @param user
+	 */
 	public void insertPremiumUser(PremiumUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -175,6 +221,10 @@ public class DBManager {
 		transaction.commit();
 	}
 
+	/**
+	 * Updates the premium user from the DB 
+	 * @param user
+	 */
 	public void updatePremiumUser(PremiumUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -206,6 +256,10 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Deletes the premium user from the DB 
+	 * @param user
+	 */
 	public void deletePremiumUser(PremiumUser user) {
 
 		// Delete data using Extent
@@ -236,6 +290,10 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Stores the guest user in the DB 
+	 * @param user
+	 */
 	public void insertGuestUser(GuestUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -245,6 +303,10 @@ public class DBManager {
 		transaction.commit();
 	}
 
+	/**
+	 * Updates the guest user from the DB 
+	 * @param user
+	 */
 	public void updateGuestUser(GuestUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -275,6 +337,10 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Deletes the guest user from the DB 
+	 * @param user
+	 */
 	public void deleteGuestUser(GuestUser user) {
 
 		// Delete data using Extent
@@ -304,7 +370,10 @@ public class DBManager {
 			persistentManager.close();
 		}
 	}
-
+	
+	/**
+	 * Creating and inserting parkings to the DB
+	 */
 	public void createParkings() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -319,6 +388,10 @@ public class DBManager {
 		}
 	}
 
+	/**
+	 * Getting a user from the DB given its cars plates
+	 * @param plate
+	 */
 	public User getUser(String plate) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -346,6 +419,9 @@ public class DBManager {
 		return u;
 	}
 
+	/**
+	 * Getting the list of parkings
+	 */
 	public List<Parking> getParkings() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -376,7 +452,10 @@ public class DBManager {
 		return parkings;
 
 	}
-
+	
+	/**
+	 * Getting the list of slots
+	 */
 	public List<Slot> getSlots() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -408,6 +487,9 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Getting the list of users
+	 */
 	public List<User> getUsers() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -439,6 +521,9 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Getting the list of premium users
+	 */
 	public List<PremiumUser> getPremiumUsers() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -470,6 +555,9 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Getting the list of guest users
+	 */
 	public List<GuestUser> getGuestUsers() {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
@@ -501,6 +589,9 @@ public class DBManager {
 
 	}
 
+	/**
+	 * Getting a parking given its id
+	 */
 	public Parking searchParking(String id) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
