@@ -16,6 +16,12 @@ import org.slf4j.LoggerFactory;
 
 import bspq21_e4.ParkingManagement.client.gui.AuthWindow;
 
+/**
+ * @class Server
+ * This class is the most important part of the server side
+ * @author BSPQ21-E4
+ */
+
 public class Server {
 
 	public static final String BASE_URI = "http://localhost:8080/myapp/";
