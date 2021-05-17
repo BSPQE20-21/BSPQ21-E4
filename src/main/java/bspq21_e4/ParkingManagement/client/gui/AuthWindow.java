@@ -26,6 +26,12 @@ import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 
+/**
+ * @class AuthWindow
+ * Initial window that allows both premium and guest users to enter the application if they are already registered.
+ * If they are not registered they can access the register window @see bspq21_e4.ParkingManagement.client.RegisterWindow;
+ * @author BSPQ21-E4
+ */
 public class AuthWindow extends JFrame {
 	public JTextField tfEmail;
 	public JTextField tfPlate;
@@ -35,12 +41,17 @@ public class AuthWindow extends JFrame {
 	private JLabel lb;
 	
 
-
+	/**
+	 * Creating the application.
+	 */
 	public AuthWindow() {
 		setResizable(false);
 		initialize();
 	}
-
+	
+	/**
+	 * Initializing the contents of the frame.
+	 */
 	public void initialize() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -51,7 +62,7 @@ public class AuthWindow extends JFrame {
 		setContentPane(panelContenidos);
 		panelContenidos.setLayout(new BorderLayout(15, 15));
 
-//Panel derecho
+		//Panel derecho
 		JPanel panelDer = new JPanel();
 		panelDer.setBackground(Color.WHITE);
 		panelDer.setLayout(new BorderLayout(0, 0));
@@ -64,8 +75,16 @@ public class AuthWindow extends JFrame {
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
 
 		JButton btnLogin = new JButton("Login");
+		
+		/**
+	     * This action listener is related with the login button
+	     * The user introduces the email and the plate and the method checkPremiumUsers() @see bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH gets the list of premium users from the DB
+	     * This way it will be checked whether the regarding user email and plate correspond to any of the DB
+	     * If the credentials are okay the window with the available slots will be shown @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	     * 
+	     */
 		btnLogin.addActionListener(new ActionListener() {
-
+		   
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -117,8 +136,14 @@ public class AuthWindow extends JFrame {
 			}
 		});
 		JButton btnRegistrarse = new JButton("Register");
+		
+		/**
+	     * This action listener is related with the register button
+	     * If the user is not registered and clicks the register button, the register window will be displayed 
+	     *	@see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
+	     */
 		btnRegistrarse.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				RegisterWindow frame = new RegisterWindow();
@@ -127,7 +152,14 @@ public class AuthWindow extends JFrame {
 			}
 		});
 
+		
 		JButton btnGuestUser = new JButton("Log as guest");
+		
+		/**
+	     * This action listener is related with the log as guest button
+	     * If the user is not premium and clicks the log as guest button he will be able of logging just by entering a car plate
+	     * Afterwards the available slots will be shown @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	     */
 		btnGuestUser.addActionListener(new ActionListener() {
 
 			@Override

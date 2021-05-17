@@ -23,6 +23,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+
+/**
+ * @class RegisterWindow
+ * Window which allows registering premium users
+ * @author BSPQ21-E4
+ */
 public class RegisterWindow extends JFrame {
 
 	public JTextField tfEmail;
@@ -32,6 +38,9 @@ public class RegisterWindow extends JFrame {
 	private JPanel panelContenidos;
 	private JLabel lb;
 
+	/**
+	 * Creating the application.
+	 */
 	public RegisterWindow() {
 
 		setResizable(false);
@@ -39,6 +48,9 @@ public class RegisterWindow extends JFrame {
 
 	}
 
+	/**
+	 * Initializing the contents of the frame.
+	 */
 	public void initialize() {
 		setTitle("Sing up user");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,6 +80,12 @@ public class RegisterWindow extends JFrame {
 		JButton btnVolver = new JButton("Return");
 		btnVolver.setForeground(Color.WHITE);
 		btnVolver.setBackground(new Color(72, 61, 139));
+		
+		/**
+	     * This action listener is related with the return button
+	     * When this button is clicked this window will be closed and the authorization or logging window will be displayed again
+	     * @see bspq21_e4.ParkingManagement.client.gui.AuthWindow
+	     */
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
@@ -82,6 +100,12 @@ public class RegisterWindow extends JFrame {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setForeground(Color.WHITE);
 		btnRegister.setBackground(new Color(72, 61, 139));
+		
+		/**
+	     * This action listener is related with the register button
+	     * When this button is clicked a new Premium user will be created and stored in the DB
+	     * @see bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH
+	     */
 		btnRegister.addActionListener(new ActionListener() {
 			
 			@Override
@@ -103,6 +127,11 @@ public class RegisterWindow extends JFrame {
 		JButton btnClose = new JButton("Close");
 		btnClose.setForeground(Color.WHITE);
 		btnClose.setBackground(new Color(72, 61, 139));
+		
+		/**
+	     * This action listener is related with the close button
+	     * When this button is clicked the window will be closed and the program ends
+	     */
 		btnClose.addActionListener(new ActionListener() {
 
 			@Override
