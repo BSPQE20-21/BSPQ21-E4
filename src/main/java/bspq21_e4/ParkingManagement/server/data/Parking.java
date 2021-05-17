@@ -6,6 +6,12 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable = "true")
+
+/**
+ * @class Parking
+ * Class which defines parkings
+ * @author BSPQ21-E4
+ */
 public class Parking {
 
 	@PrimaryKey

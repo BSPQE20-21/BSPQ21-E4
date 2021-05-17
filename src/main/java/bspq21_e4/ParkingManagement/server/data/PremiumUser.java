@@ -6,6 +6,13 @@ import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable(detachable = "true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
+
+/**
+ * @class PremiumUser
+ * Class which defines premium users
+ * @see bspq21_e4.ParkingManagement.server.data.User
+ * @author BSPQ21-E4
+ */
 public class PremiumUser extends User{
 	
 	String email;

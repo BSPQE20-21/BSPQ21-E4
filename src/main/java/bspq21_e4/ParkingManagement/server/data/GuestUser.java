@@ -10,6 +10,13 @@ import javax.jdo.annotations.PersistenceCapable;
 
 @PersistenceCapable(detachable = "true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
+
+/**
+ * @class GuestUser
+ * Class which defines guest users
+ * @see bspq21_e4.ParkingManagement.server.data.User
+ * @author BSPQ21-E4
+ */
 public class GuestUser extends User {
 
 	Date entranceDate;

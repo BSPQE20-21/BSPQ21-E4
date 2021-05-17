@@ -8,6 +8,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable = "true")
 @Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
+
+/**
+ * @class User
+ * Class which defines users
+ * @author BSPQ21-E4
+ */
 public abstract class User {
 	@PrimaryKey
 	String plate;

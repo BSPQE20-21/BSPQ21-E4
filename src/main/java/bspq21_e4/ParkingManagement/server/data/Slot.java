@@ -7,6 +7,12 @@ import javax.jdo.annotations.PrimaryKey;
 
 
 @PersistenceCapable(detachable = "true")
+
+/**
+ * @class Slot
+ * Class which defines slots
+ * @author BSPQ21-E4
+ */
 public class Slot{
 	
 	@PrimaryKey

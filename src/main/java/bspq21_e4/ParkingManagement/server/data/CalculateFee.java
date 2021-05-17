@@ -6,6 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * @class CalculateFee
+ * Class to calculate the fee that each user has to pay
+ * @author BSPQ21-E4
+ */
 public class CalculateFee {
 
 public static SimpleDateFormat sdf = new SimpleDateFormat("h:mm", Locale.US);
@@ -14,7 +19,11 @@ public static SimpleDateFormat sdfResultMinutos = new SimpleDateFormat("m", Loca
 public static double standardFee = 0.04;
 
 
-
+/**
+ * Method which calculates the time between two given dates
+ * @param dateInicio
+ * @param dateFinal
+ */
 public static int getDifferenceBetwenDates(Date dateInicio, Date dateFinal) {
       long milliseconds = dateFinal.getTime() - dateInicio.getTime();
        int minutes = (int) ((milliseconds / 1000) / 60);
@@ -24,6 +33,10 @@ public static int getDifferenceBetwenDates(Date dateInicio, Date dateFinal) {
        return minutes;
     }
 
+/**
+ * Method which calculates the the fee to pay out of the spent time
+ * @param minutes
+ */
 public static double calculateFee(int minutes) {
 
     double amount = minutes * standardFee;
