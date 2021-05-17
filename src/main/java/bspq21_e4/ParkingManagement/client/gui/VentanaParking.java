@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -55,6 +56,12 @@ public class VentanaParking extends JFrame {
 	private JMenu menuUsuarios;
 	private JMenuItem menuItem;
 	private List<Slot> slotAL = SlotRSH.getInstance().checkSlots();
+	private static ResourceBundle resourceBundle;
+	
+	public ResourceBundle getResourceBundle(){
+		return resourceBundle; 
+	}
+
 
     /**
      * Constructor of the window just receives the user logged
@@ -118,7 +125,7 @@ public class VentanaParking extends JFrame {
 
 		slotL.setModel(slotDL);
 
-		JButton selectSlot = new JButton("Select");
+		JButton selectSlot = new JButton(getResourceBundle().getString("select"));
 
 		selectSlot.addActionListener(new ActionListener() {
 
@@ -185,7 +192,7 @@ public class VentanaParking extends JFrame {
 		menu = new JMenuBar();
 		menuUsuarios = new JMenu(u.getPlate());
 		menu.add(menuUsuarios);
-		menuItem = new JMenuItem("Sign out");
+		menuItem = new JMenuItem(getResourceBundle().getString("signOut"));
 		menuItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -201,7 +208,7 @@ public class VentanaParking extends JFrame {
 		menuUsuarios.add(menuItem);
 		
 		
-		JMenuItem menuItem2 = new JMenuItem("Delete User");
+		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString("deleteUser"));
 		menuItem2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -214,7 +221,7 @@ public class VentanaParking extends JFrame {
 					
 					for (PremiumUser user : listaComprobacion) {
 						if(user.getPlate().equals(u.getPlate())) {
-							JOptionPane.showMessageDialog(null, "Error. User cannot be deleted");
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
 						}else {
 							dispose();
 							AuthWindow v = new AuthWindow();
@@ -232,7 +239,7 @@ public class VentanaParking extends JFrame {
 		});
 		menuUsuarios.add(menuItem2);
 		
-		JMenuItem menuItem3 = new JMenuItem("Modify");
+		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
 		menuItem3.addActionListener(new ActionListener() {
 			
 			@Override
@@ -244,7 +251,7 @@ public class VentanaParking extends JFrame {
 		
 		menuUsuarios.add(menuItem3);
 		
-		JMenuItem menuItem4 = new JMenuItem("Exit");
+		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 		
 		menuItem4.addActionListener(new ActionListener() {
 			

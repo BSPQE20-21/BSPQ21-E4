@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,8 +40,13 @@ public class AuthWindow extends JFrame {
 	private JLabel lbPlate;
 	private JPanel panelContenidos;
 	private JLabel lb;
+	private static ResourceBundle resourceBundle; 
 	
 
+	public ResourceBundle getResourceBundle(){
+		return resourceBundle; 
+	}
+	
 	/**
 	 * Creating the application.
 	 */
@@ -74,7 +80,7 @@ public class AuthWindow extends JFrame {
 		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
 
-		JButton btnLogin = new JButton("Login");
+		JButton btnLogin = new JButton(getResourceBundle().getString("login"));
 		
 		/**
 	     * This action listener is related with the login button
@@ -101,12 +107,12 @@ public class AuthWindow extends JFrame {
 					}
 
 					if (!found) {
-						JOptionPane.showMessageDialog(null, "User not found");
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
 
 
 					} else {
 						if (!user.getPlate().equals(tfPlate.getText())) {
-							JOptionPane.showMessageDialog(null, "Unknown plate");
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("unknownPlate"));
 						} else {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
@@ -135,7 +141,7 @@ public class AuthWindow extends JFrame {
 
 			}
 		});
-		JButton btnRegistrarse = new JButton("Register");
+		JButton btnRegistrarse = new JButton(getResourceBundle().getString("register"));
 		
 		/**
 	     * This action listener is related with the register button
@@ -153,7 +159,7 @@ public class AuthWindow extends JFrame {
 		});
 
 		
-		JButton btnGuestUser = new JButton("Log as guest");
+		JButton btnGuestUser = new JButton(getResourceBundle().getString("logAsGuest"));
 		
 		/**
 	     * This action listener is related with the log as guest button
@@ -166,7 +172,7 @@ public class AuthWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if(tfPlate.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "Error. Plate cannot be null");
+					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
 				}else {
@@ -254,8 +260,8 @@ public class AuthWindow extends JFrame {
 		panelCentralInf.setLayout(new GridLayout(3, 2, 5, 5));
 		panelCentral.add(panelCentralInf, BorderLayout.SOUTH);
 
-		lbEmail = new JLabel("Email");
-		lbPlate = new JLabel("Plate");
+		lbEmail = new JLabel(getResourceBundle().getString("email"));
+		lbPlate = new JLabel(getResourceBundle().getString("plate"));
 
 		tfEmail = new JTextField();
 		tfPlate = new JTextField();

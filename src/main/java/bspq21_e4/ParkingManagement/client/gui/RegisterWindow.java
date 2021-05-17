@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,6 +38,8 @@ public class RegisterWindow extends JFrame {
 	private JLabel lbPlate;
 	private JPanel panelContenidos;
 	private JLabel lb;
+	
+	private static ResourceBundle resourceBundle; 
 
 	/**
 	 * Creating the application.
@@ -47,12 +50,15 @@ public class RegisterWindow extends JFrame {
 		initialize();
 
 	}
+	
+	public ResourceBundle getResourceBundle(){
+		return resourceBundle; 
+	}
 
 	/**
 	 * Initializing the contents of the frame.
 	 */
 	public void initialize() {
-		setTitle("Sing up user");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
 		this.setMinimumSize(new Dimension(250, 250));
@@ -97,7 +103,7 @@ public class RegisterWindow extends JFrame {
 			}
 		});
 
-		JButton btnRegister = new JButton("Register");
+		JButton btnRegister = new JButton(getResourceBundle().getString("register"));
 		btnRegister.setForeground(Color.WHITE);
 		btnRegister.setBackground(new Color(72, 61, 139));
 		
@@ -124,7 +130,7 @@ public class RegisterWindow extends JFrame {
 		});
 		
 
-		JButton btnClose = new JButton("Close");
+		JButton btnClose = new JButton(getResourceBundle().getString("close"));
 		btnClose.setForeground(Color.WHITE);
 		btnClose.setBackground(new Color(72, 61, 139));
 		
@@ -142,8 +148,8 @@ public class RegisterWindow extends JFrame {
 
 
 
-		lbEmail = new JLabel("Email:");
-		lbPlate = new JLabel("Plate:");
+		lbEmail = new JLabel(getResourceBundle().getString("email"));
+		lbPlate = new JLabel(getResourceBundle().getString("plate"));
 
 		tfEmail = new JTextField();
 		tfPlate = new JTextField();
