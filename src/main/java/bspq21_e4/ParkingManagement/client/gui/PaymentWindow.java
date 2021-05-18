@@ -31,6 +31,12 @@ import bspq21_e4.ParkingManagement.server.data.User;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import net.miginfocom.swing.MigLayout;
 
 public class PaymentWindow extends JFrame{
 	
@@ -74,100 +80,116 @@ public class PaymentWindow extends JFrame{
 		
 		panelPaypal = new JPanel();
 		panelPaypal.setBackground(Color.WHITE);
-		panelPaypal.setLayout(new GridLayout(2,2));
 		panelCentral.add(panelPaypal, BorderLayout.EAST);
 		panelPaypal.setVisible(false);
 
 		
 		panelVisa = new JPanel();
 		panelVisa.setBackground(Color.WHITE);
-		panelVisa.setLayout(new GridLayout(4,2));
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
-
 		
-		
-		
-		cbPayMethod = new JComboBox<String>();
-		
-		cbPayMethod.setModel(new DefaultComboBoxModel<String>() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			private boolean seleccionPermitida = true;
-			@Override
-			public void setSelectedItem(Object objeto) {
-				if (!noSelectableOptionPay.equals(objeto)) {
-					super.setSelectedItem(objeto);
-
-				} else if (seleccionPermitida) {
-					seleccionPermitida = false;
-					super.setSelectedItem(objeto);
-				}
-
-			}
-		});
-		
-		cbPayMethod.addItem(noSelectableOptionPay);
-		cbPayMethod.addItem("Paypal");
-		cbPayMethod.addItem("Visa");
-		
-		
-		cbPayMethod.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int selectionPago = cbPayMethod.getSelectedIndex();
 				
 				
-				switch (selectionPago) {
-				case 1:
-					panelVisa.setVisible(false);
-					panelPaypal.setVisible(true);
+				
+				cbPayMethod = new JComboBox<String>();
+				cbPayMethod.setBounds(10, 50, 122, 40);
+				
+				cbPayMethod.setModel(new DefaultComboBoxModel<String>() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+					private boolean seleccionPermitida = true;
+					@Override
+					public void setSelectedItem(Object objeto) {
+						if (!noSelectableOptionPay.equals(objeto)) {
+							super.setSelectedItem(objeto);
+
+						} else if (seleccionPermitida) {
+							seleccionPermitida = false;
+							super.setSelectedItem(objeto);
+						}
+
+					}
+				});
+				
+				cbPayMethod.addItem(noSelectableOptionPay);
+				cbPayMethod.addItem("Paypal");
+				cbPayMethod.addItem("Visa");
+				
+				
+				cbPayMethod.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						int selectionPago = cbPayMethod.getSelectedIndex();
+						
+						
+						switch (selectionPago) {
+						case 1:
+							panelVisa.setVisible(false);
+							panelPaypal.setVisible(true);
 	
 
 
-					break;
-				case 2:
+							break;
+						case 2:
 
-					panelPaypal.setVisible(false);
-					panelVisa.setVisible(true);
+							panelPaypal.setVisible(false);
+							panelVisa.setVisible(true);
 
-					break;
-				}
+							break;
+						}
+						
+					}
+				});
+				panelCb.setLayout(null);
+				panelCb.add(cbPayMethod);
+		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));
+		
+		JLabel label = new JLabel("");
+		panelPaypal.add(label);
+		
+		JLabel label_1 = new JLabel("");
+		panelPaypal.add(label_1);
+		
+				JLabel  lbEmail= new JLabel("Email");
 				
-			}
-		});
-		panelCentral.add(cbPayMethod);
-
-		JLabel  lbEmail= new JLabel("Email");
+				panelPaypal.add(lbEmail);
 		JTextField tfEmail = new JTextField();
-		
-		JLabel  lbPassword= new JLabel("Password");
-		JPasswordField pfPassword = new JPasswordField();
-		
-		panelPaypal.add(lbEmail);
 		panelPaypal.add(tfEmail);
 		
+		JLabel  lbPassword= new JLabel("Password");
+		
 		panelPaypal.add(lbPassword);
+		JPasswordField pfPassword = new JPasswordField();
 		panelPaypal.add(pfPassword);
 		
 		
 
 		
 		JLabel lbName = new JLabel("Name");
+		lbName.setBounds(0, 1, 81, 34);
 		JTextField tfName = new JTextField();
+		tfName.setBounds(81, 1, 81, 34);
 		
 		JLabel lbCardNumber = new JLabel("Card Number");
+		lbCardNumber.setBounds(0, 35, 81, 34);
 		JTextField tfCardNumber = new JTextField();
+		tfCardNumber.setBounds(81, 35, 81, 34);
 		
 		JLabel lbExpiration = new JLabel("Expiration");
+		lbExpiration.setBounds(0, 69, 81, 34);
 		JTextField tfExpiration = new JTextField();
+		tfExpiration.setBounds(81, 69, 81, 34);
 		
 		
 		JLabel  lbCvv= new JLabel("CVV");
+		lbCvv.setBounds(0, 103, 81, 34);
 		JTextField tfCVV = new JTextField(3);
+		tfCVV.setBounds(81, 103, 81, 34);
+		panelVisa.setLayout(null);
 		
 		panelVisa.add(lbName);
 		panelVisa.add(tfName);
@@ -200,13 +222,18 @@ public class PaymentWindow extends JFrame{
 		
 		panelInferior.add(btnReturn);
 		
+		JButton btnPay = new JButton("Pay");
+		btnPay.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//este boton lo que tiene que hacer es liberar el slot tras haber abonadoel importe correspondiente
+				
+				
+			}
+		});
 		
-		
-		
-		
-		
-		
-		
+		panelInferior.add(btnPay);
 		
 		
 		// Panel izquierdo --> superior
