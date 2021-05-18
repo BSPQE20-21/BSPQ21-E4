@@ -65,20 +65,24 @@ public class PaymentWindow extends JFrame{
 		//PanelCentral 
 		JPanel panelCentral = new JPanel();
 		panelCentral.setBackground(Color.WHITE);
-		panelCentral.setLayout(new BorderLayout());
+		panelCentral.setLayout(new GridLayout());
 		panelContenidos.add(panelCentral, BorderLayout.CENTER);
+		
+		JPanel panelCb = new JPanel();
+		panelCb.setBackground(Color.WHITE);
+		panelCentral.add(panelCb, BorderLayout.WEST);
 		
 		panelPaypal = new JPanel();
 		panelPaypal.setBackground(Color.WHITE);
 		panelPaypal.setLayout(new GridLayout(2,2));
-		panelCentral.add(panelPaypal, BorderLayout.SOUTH);
+		panelCentral.add(panelPaypal, BorderLayout.EAST);
 		panelPaypal.setVisible(false);
 
 		
 		panelVisa = new JPanel();
 		panelVisa.setBackground(Color.WHITE);
 		panelVisa.setLayout(new GridLayout(4,2));
-		panelCentral.add(panelVisa, BorderLayout.SOUTH);
+		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
 
 		
@@ -109,12 +113,6 @@ public class PaymentWindow extends JFrame{
 		cbPayMethod.addItem("Paypal");
 		cbPayMethod.addItem("Visa");
 		
-	
-		
-		
-
-		
-
 		
 		cbPayMethod.addActionListener(new ActionListener() {
 			
@@ -122,17 +120,16 @@ public class PaymentWindow extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				int selectionPago = cbPayMethod.getSelectedIndex();
 				
-
 				
 				switch (selectionPago) {
-				case 0:
+				case 1:
 					panelVisa.setVisible(false);
 					panelPaypal.setVisible(true);
 	
 
 
 					break;
-				case 1:
+				case 2:
 
 					panelPaypal.setVisible(false);
 					panelVisa.setVisible(true);
@@ -172,17 +169,18 @@ public class PaymentWindow extends JFrame{
 		JLabel  lbCvv= new JLabel("CVV");
 		JTextField tfCVV = new JTextField(3);
 		
-		panelCentral.add(lbName);
-		panelCentral.add(tfName);
+		panelVisa.add(lbName);
+		panelVisa.add(tfName);
 		
-		panelCentral.add(lbCardNumber);
-		panelCentral.add(tfCardNumber);
+		panelVisa.add(lbCardNumber);
+		panelVisa.add(tfCardNumber);
 		
-		panelCentral.add(lbExpiration);
-		panelCentral.add(tfExpiration);
+		panelVisa.add(lbExpiration);
+		panelVisa.add(tfExpiration);
 		
-		panelCentral.add(lbCvv);
-		panelCentral.add(tfCVV);
+		panelVisa.add(lbCvv);
+		panelVisa.add(tfCVV);
+		
 		//Panel Botones
 		JPanel panelInferior = new JPanel();
 		panelInferior.setBackground(Color.WHITE);
