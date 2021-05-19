@@ -93,7 +93,7 @@ public class VentanaParking extends JFrame {
 
 		JPanel panelDer = new JPanel();
 		panelDer.setBackground(Color.WHITE);
-		panelDer.setLayout(new BorderLayout(0, 0));
+		panelDer.setLayout(new GridLayout(1, 2));
 		contentPanel.add(panelDer, BorderLayout.SOUTH);
 
 		JPanel panelCent = new JPanel();
@@ -179,7 +179,21 @@ public class VentanaParking extends JFrame {
 
 		panelDer.add(selectSlot);
 		panelCent.add(slotL);
-
+		
+		JButton btnPay = new JButton("Retire and Pay");
+		
+		btnPay.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				PaymentWindow pw = new PaymentWindow(u);
+				pw.setVisible(true);
+				
+				
+			}
+		});
+		panelDer.add(btnPay);
 		this.setVisible(true);
 		
 		
