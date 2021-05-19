@@ -52,6 +52,7 @@ public class Server {
 	public static void main(String[] args) throws IOException {
 		// Lanzar la ventana si se ejecuta desde el jar normal
 	
+		
 		// Lanzar el servidor si se ejecuta desde la consola
 
 		final ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
