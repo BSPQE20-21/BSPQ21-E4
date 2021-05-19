@@ -242,6 +242,7 @@ public class VentanaParking extends JFrame {
 							dispose();
 							AuthWindow v = new AuthWindow();
 							v.setVisible(true);
+							break;
 						}
 					}
 
@@ -279,7 +280,7 @@ public class VentanaParking extends JFrame {
 		
 		menuUsuarios.add(menuItem4);
 		
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("Booking history"));
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("bookingHistory"));
 		
 		menuItem5.addActionListener(new ActionListener() {
 			

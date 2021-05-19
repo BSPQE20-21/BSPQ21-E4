@@ -1,5 +1,6 @@
 package bspq21_e4.ParkingManagement.server.DAO;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.jdo.Extent;
@@ -309,34 +310,57 @@ public class DBManager {
 	 * Deletes the premium user from the DB 
 	 * @param user
 	 */
-	public void deletePremiumUser(PremiumUser user) {
+	public void deletePremiumUser(String plate) {
 
-		// Delete data using Extent
+//		// Delete data using Extent
+//		persistentManager = persistentManagerFactory.getPersistenceManager();
+//		transaction = persistentManager.currentTransaction();
+//
+//		try {
+//			transaction.begin();
+//
+//			@SuppressWarnings("unchecked")
+//			Query<PremiumUser> userQuery = persistentManager
+//					.newQuery("SELECT FROM " + PremiumUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
+//
+//			userQuery.execute();
+//
+//			System.out.println("- Deleted user from db: " + user.getPlate());
+//			persistentManager.deletePersistent(user);
+//
+//			transaction.commit();
+//		} catch (Exception ex) {
+//			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
+//		} finally {
+//			if (transaction.isActive()) {
+//				transaction.rollback();
+//			}
+//
+//			persistentManager.close();
+//		}
+//	
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
+        try {
+        	transaction.begin();
+            Extent<PremiumUser> e = persistentManager.getExtent(PremiumUser.class, true);
+            Iterator<PremiumUser> iter = e.iterator();
+            while (iter.hasNext()) {
+            	PremiumUser user = (PremiumUser) iter.next();
+                if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {
+                    persistentManager.deletePersistent(user);
+                }
+            }
 
-		try {
-			transaction.begin();
-
-			@SuppressWarnings("unchecked")
-			Query<PremiumUser> userQuery = persistentManager
-					.newQuery("SELECT FROM " + PremiumUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
-
-			userQuery.execute();
-
-			System.out.println("- Deleted user from db: " + user.getPlate());
-			persistentManager.deletePersistent(user);
-
-			transaction.commit();
-		} catch (Exception ex) {
-			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-		} finally {
-			if (transaction.isActive()) {
-				transaction.rollback();
-			}
-
-			persistentManager.close();
-		}
+            transaction.commit();
+        } catch (Exception ex) {
+            
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            persistentManager.close();
+        }
 	}
 
 	/**

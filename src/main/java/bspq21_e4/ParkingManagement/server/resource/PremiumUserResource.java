@@ -46,9 +46,9 @@ public class PremiumUserResource {
 	@DELETE
     @Path("/delete/{userPlate}")
     @Produces(MediaType.TEXT_PLAIN)
-	public PremiumUser deletePremiumUser(PremiumUser user) {
+	public String deletePremiumUser(@PathParam("userPlate") String user) {
 		DBManager.getInstance().deletePremiumUser(user);
-		return user;
+		return "Deleted";
 	}
 
 }

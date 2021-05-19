@@ -192,7 +192,9 @@ public class AuthWindow extends JFrame {
 							VentanaParking v = new VentanaParking(user);
 							v.setVisible(true);
 							dispose();
+							break;
 						}else {
+							found = false;
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
 							GuestUser newUser = new GuestUser();
 							newUser.setPlate(plate);
