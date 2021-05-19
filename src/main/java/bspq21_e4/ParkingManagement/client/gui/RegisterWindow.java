@@ -125,6 +125,8 @@ public class RegisterWindow extends JFrame {
 				PremiumUser user = new PremiumUser();
 				user.setEmail(email);
 				user.setPlate(plate);
+				
+				
 
 				PremiumUserRSH.getInstance().savePremiumUsers(user);
 

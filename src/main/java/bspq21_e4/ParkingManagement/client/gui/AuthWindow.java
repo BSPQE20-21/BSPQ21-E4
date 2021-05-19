@@ -178,17 +178,35 @@ public class AuthWindow extends JFrame {
 					tfPlate.setText("");
 
 				}else {
-					String plate = tfPlate.getText();
-
-					GuestUser user = new GuestUser();
-					user.setPlate(plate);
-
-					GuestUserRSH.getInstance().saveGuestUsers(user);
 					
-					System.out.println(plate);
-					VentanaParking v = new VentanaParking(user);
-					v.setVisible(true);
-					dispose();
+					String plate = tfPlate.getText();
+					
+					GuestUser user = null;
+					boolean found = false;
+					List<GuestUser> userList = GuestUserRSH.getInstance().checkGuestUsers();
+					for (GuestUser u : userList) {
+						if (u.getPlate().equals(tfPlate.getText())) {
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserExists"));
+							user = u;
+							found = true;
+							VentanaParking v = new VentanaParking(user);
+							v.setVisible(true);
+							dispose();
+						}else {
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
+							GuestUser newUser = new GuestUser();
+							newUser.setPlate(plate);
+
+							GuestUserRSH.getInstance().saveGuestUsers(newUser);
+							
+							
+							VentanaParking v = new VentanaParking(newUser);
+							v.setVisible(true);
+							dispose();
+						}
+					}
+
+
 				}
 
 //				try {
