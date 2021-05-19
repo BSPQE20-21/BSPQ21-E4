@@ -58,9 +58,25 @@ public class DBManager {
 	 * @param parking
 	 */
 	public void insertParking(Parking parking) {
-		transaction.begin();
-		persistentManager.makePersistent(parking);
-		transaction.commit();
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
+		
+
+        try {
+            transaction.begin();
+   
+            persistentManager.makePersistent(parking);
+            transaction.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+            	transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
 
 	}
 
@@ -131,12 +147,32 @@ public class DBManager {
 	 * @param slot
 	 */
 	public void insertSlot(Slot slot) {
+		
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 
-		transaction.begin();
-		persistentManager.makePersistent(slot);
-		transaction.commit();
+		
+
+        try {
+            transaction.begin();
+   
+            persistentManager.makePersistent(slot);
+            transaction.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+            	transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
+//		persistentManager = persistentManagerFactory.getPersistenceManager();
+//		transaction = persistentManager.currentTransaction();
+//
+//		transaction.begin();
+//		persistentManager.makePersistent(slot);
+//		transaction.commit();
 	}
 
 	/**
