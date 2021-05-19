@@ -106,7 +106,7 @@ public class dbTest {
 
 		db.updatePremiumUser(PU1U);
 
-		assertNotEquals(PU1, db.getUser(PU1.getPlate()));
+		assertEquals(PU1U, db.getUser(PU1.getPlate()));
 
 		db.deletePremiumUser(PU1);
 		db.deletePremiumUser(PU2);
@@ -121,7 +121,7 @@ public class dbTest {
 
 		db.updateGuestUser(GU1U);
 
-		assertNotEquals(GU1, (GuestUser) db.getUser(GU1.getPlate()));
+		assertEquals(GU1U, (GuestUser) db.getUser(GU1.getPlate()));
 
 		User[] listaU = {PU1,PU2,GU1,GU2};
 
@@ -146,12 +146,13 @@ public class dbTest {
 		db.insertSlot(S1);
 		db.insertSlot(S2);
 		Slot[] listS = { S1, S2 };
+		Slot[] listSU = { S1U, S2 };
 
 		assertArrayEquals(listS, db.getSlots().toArray());
 
 		db.updateSlot(S1U);
 
-		assertNotEquals(listS, db.getSlots().toArray());
+		assertArrayEquals(listSU, db.getSlots().toArray());
 
 		db.deleteSlot(S1);
 		db.deleteSlot(S2);
@@ -175,7 +176,7 @@ public class dbTest {
 
 		db.updateParking(P1U);
 
-		assertNotEquals(P1, db.searchParking("1"));
+		assertEquals(P1U, db.searchParking("1"));
 
 		db.deleteParking(P1);
 		db.searchParking("1");
