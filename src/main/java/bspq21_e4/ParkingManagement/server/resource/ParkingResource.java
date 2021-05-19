@@ -27,7 +27,6 @@ public class ParkingResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Parking modifyParking(Parking parking) {
@@ -36,7 +35,6 @@ public class ParkingResource {
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Parking insertParking(Parking parking) {

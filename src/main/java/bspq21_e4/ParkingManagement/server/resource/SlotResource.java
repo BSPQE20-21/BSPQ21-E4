@@ -28,7 +28,6 @@ public class SlotResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Slot modifySlot(Slot slot) {
@@ -37,7 +36,6 @@ public class SlotResource {
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public Slot insertSlot(Slot slot) {
