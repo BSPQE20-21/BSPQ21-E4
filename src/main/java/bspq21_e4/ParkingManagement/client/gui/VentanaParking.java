@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.DefaultListModel;
@@ -70,6 +71,7 @@ public class VentanaParking extends JFrame {
      */
 	public VentanaParking(User u) {
 		setResizable(false);
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u);
 	}
 

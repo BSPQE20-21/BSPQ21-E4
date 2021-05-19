@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -52,6 +53,7 @@ public class AuthWindow extends JFrame {
 	 */
 	public AuthWindow() {
 		setResizable(false);
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize();
 	}
 	
@@ -274,4 +276,9 @@ public class AuthWindow extends JFrame {
 		panelCentralInf.add(lb);
 	}
 
+	public static void main(String[] args) {
+		AuthWindow n = new AuthWindow();
+		n.setVisible(true);
+	}
+	
 }
