@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.JButton;
@@ -23,6 +24,12 @@ import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
 
+
+/**
+ * @class HistoryWindow
+ * Window which allows to see the record of the parking
+ * @author BSPQ21-E4
+ */
 public class HistoryWindow extends JFrame{
 	
 	private JPanel panelContenidos;
@@ -35,11 +42,18 @@ public class HistoryWindow extends JFrame{
 		return resourceBundle; 
 	}
 	
+	/**
+	 * Creating the application.
+	 */
 	public HistoryWindow(User u) {
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u);
 	}
 	
 	
+	/**
+	 * Initializing the contents of the frame.
+	 */
 	public void initialize(final User u) {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,8 +66,6 @@ public class HistoryWindow extends JFrame{
 		panelContenidos.setLayout(new BorderLayout(15,15));
 		
 		
-		
-		
 //Panel Iferior(botones)
 		
 		JPanel panelInferior = new JPanel();
@@ -63,6 +75,11 @@ public class HistoryWindow extends JFrame{
 		
 		JButton btnVolver = new JButton(getResourceBundle().getString("Return"));
 		
+		
+		/**
+	     * This action listener is related with the return button
+	     * If the button is clicked, the window will be closed
+	     */
 		btnVolver.addActionListener(new ActionListener() {
 			
 			@Override
@@ -71,22 +88,6 @@ public class HistoryWindow extends JFrame{
 				
 			}
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		// Panel izquierdo --> superior
 		JPanel panelSuperior = new JPanel();
@@ -97,6 +98,12 @@ public class HistoryWindow extends JFrame{
 		menuUsuarios = new JMenu(u.getPlate());
 		menu.add(menuUsuarios);
 		menuItem = new JMenuItem(getResourceBundle().getString("signOut"));
+		
+		/**
+	     * This action listener is related with the sign out button
+	     * If the button is clicked, the HistoryWindow will be closed and the AuthWindow opened
+	     * @see bspq21_e4.ParkingManagement.client.gui.AuthWindow
+	     */
 		menuItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -113,6 +120,11 @@ public class HistoryWindow extends JFrame{
 		
 		
 		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString("deleteUser"));
+		
+		/**
+	     * This action listener is related with the delete user button
+	     * If the button is clicked, the selected user will be deleted from the database
+	     */
 		menuItem2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -144,6 +156,11 @@ public class HistoryWindow extends JFrame{
 		menuUsuarios.add(menuItem2);
 		
 		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
+		
+		/**
+	     * This action listener is related with the modify user button
+	     * If the button is clicked, the selected user will be modified in the database
+	     */
 		menuItem3.addActionListener(new ActionListener() {
 			
 			@Override
@@ -157,6 +174,10 @@ public class HistoryWindow extends JFrame{
 		
 		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 		
+		/**
+	     * This action listener is related with the exit button
+	     * If the button is clicked, the application will be closed
+	     */
 		menuItem4.addActionListener(new ActionListener() {
 			
 			@Override
@@ -167,8 +188,13 @@ public class HistoryWindow extends JFrame{
 		
 		menuUsuarios.add(menuItem4);
 		
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("Booking history"));
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("bookingHistory"));
 		
+		/**
+	     * This action listener is related with the booking history button
+	     * If the button is clicked, the history window will be opened
+	     * @see bspq21_e4.ParkingManagement.client.gui.HistoryWindow
+	     */
 		menuItem5.addActionListener(new ActionListener() {
 			
 			@Override

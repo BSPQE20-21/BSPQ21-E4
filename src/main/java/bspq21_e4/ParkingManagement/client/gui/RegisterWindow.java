@@ -85,7 +85,7 @@ public class RegisterWindow extends JFrame {
 		panelInferior.setLayout(new GridLayout(1, 3));
 		panelContenidos.add(panelInferior, BorderLayout.SOUTH);
 
-		JButton btnVolver = new JButton("Return");
+		JButton btnVolver = new JButton(getResourceBundle().getString("return"));
 		btnVolver.setForeground(Color.WHITE);
 		btnVolver.setBackground(new Color(72, 61, 139));
 		

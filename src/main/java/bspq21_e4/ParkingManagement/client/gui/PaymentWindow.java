@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
@@ -38,6 +39,12 @@ import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
+
+/**
+ * @class PaymentWindow
+ * Window which allows to make payments for the time spent in the parking
+ * @author BSPQ21-E4
+ */
 public class PaymentWindow extends JFrame {
 
 	private JPanel panelContenidos;
@@ -59,9 +66,13 @@ public class PaymentWindow extends JFrame {
 
 
 	public PaymentWindow(User u) {
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u);
 	}
 
+	/**
+	 * Creating the application.
+	 */
 	public void initialize(final User u) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,13 +168,13 @@ public class PaymentWindow extends JFrame {
 		JLabel label_1 = new JLabel("");
 		panelPaypal.add(label_1);
 
-		JLabel lbEmail = new JLabel("Email");
+		JLabel lbEmail = new JLabel(getResourceBundle().getString("email"));
 
 		panelPaypal.add(lbEmail);
 		JTextField tfEmail = new JTextField();
 		panelPaypal.add(tfEmail);
 
-		JLabel lbPassword = new JLabel("Password");
+		JLabel lbPassword = new JLabel(getResourceBundle().getString("password"));
 
 		panelPaypal.add(lbPassword);
 		JPasswordField pfPassword = new JPasswordField();
@@ -208,7 +219,7 @@ public class PaymentWindow extends JFrame {
 		panelInferior.setLayout(new GridLayout(1, 3));
 		panelContenidos.add(panelInferior, BorderLayout.SOUTH);
 
-		JButton btnReturn = new JButton("Return");
+		JButton btnReturn = new JButton(getResourceBundle().getString("return"));
 		btnReturn.addActionListener(new ActionListener() {
 
 			@Override
@@ -220,7 +231,7 @@ public class PaymentWindow extends JFrame {
 
 		panelInferior.add(btnReturn);
 
-		JButton btnPay = new JButton("Pay");
+		JButton btnPay = new JButton(getResourceBundle().getString("pay"));
 		btnPay.addActionListener(new ActionListener() {
 
 			@Override
@@ -241,7 +252,7 @@ public class PaymentWindow extends JFrame {
 		menu = new JMenuBar();
 		menuUsuarios = new JMenu(u.getPlate());
 		menu.add(menuUsuarios);
-		menuItem = new JMenuItem("Sign out");
+		menuItem = new JMenuItem(getResourceBundle().getString("signOut"));
 		menuItem.addActionListener(new ActionListener() {
 
 			@Override
@@ -256,7 +267,7 @@ public class PaymentWindow extends JFrame {
 
 		menuUsuarios.add(menuItem);
 
-		JMenuItem menuItem2 = new JMenuItem("Delete User");
+		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString("deleteUser"));
 		menuItem2.addActionListener(new ActionListener() {
 
 			@Override
@@ -269,7 +280,7 @@ public class PaymentWindow extends JFrame {
 
 					for (PremiumUser user : listaComprobacion) {
 						if (user.getPlate().equals(u.getPlate())) {
-							JOptionPane.showMessageDialog(null, "Error. User cannot be deleted");
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
 						} else {
 							dispose();
 							AuthWindow v = new AuthWindow();
@@ -285,7 +296,7 @@ public class PaymentWindow extends JFrame {
 		});
 		menuUsuarios.add(menuItem2);
 
-		JMenuItem menuItem3 = new JMenuItem("Modify");
+		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
 		menuItem3.addActionListener(new ActionListener() {
 
 			@Override
@@ -297,7 +308,7 @@ public class PaymentWindow extends JFrame {
 
 		menuUsuarios.add(menuItem3);
 
-		JMenuItem menuItem4 = new JMenuItem("Exit");
+		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 
 		menuItem4.addActionListener(new ActionListener() {
 
@@ -309,7 +320,7 @@ public class PaymentWindow extends JFrame {
 
 		menuUsuarios.add(menuItem4);
 		
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("Booking history"));
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(getResourceBundle().getString("bookingHistory")));
 		
 		menuItem5.addActionListener(new ActionListener() {
 			
