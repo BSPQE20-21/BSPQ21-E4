@@ -28,7 +28,6 @@ public class PremiumUserResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public PremiumUser modifyPremiumUser(PremiumUser user) {

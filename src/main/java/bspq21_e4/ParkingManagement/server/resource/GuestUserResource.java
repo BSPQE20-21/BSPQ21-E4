@@ -29,7 +29,6 @@ public class GuestUserResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public GuestUser modifyGuestUser(GuestUser user) {
