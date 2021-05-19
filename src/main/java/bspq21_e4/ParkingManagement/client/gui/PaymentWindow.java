@@ -36,7 +36,6 @@ import javax.swing.BoxLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import net.miginfocom.swing.MigLayout;
 
 public class PaymentWindow extends JFrame {
 
