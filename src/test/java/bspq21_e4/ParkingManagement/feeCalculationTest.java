@@ -92,7 +92,7 @@ public class feeCalculationTest {
     @Required(max = 120, average = 30)
     public void emailValidation() throws ParseException, InterruptedException {
 		logger.info("Starting guestPlateValidation");
-        String solution = PU1.getEmail();
+        String solution = PU1.getPlate();
         String right = PU1.getEmail();
         assertEquals(solution, "8534 GHL");
         assertEquals(right, "jonmaeztu@opendeusto.es");
