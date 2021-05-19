@@ -121,7 +121,7 @@ public class dbTest {
 
 		db.updateGuestUser(GU1U);
 
-		assertNotEquals(GU1, db.getUser(GU1.getPlate()));
+		assertNotEquals(GU1, (GuestUser) db.getUser(GU1.getPlate()));
 
 		User[] listaU = {PU1,PU2,GU1,GU2};
 
