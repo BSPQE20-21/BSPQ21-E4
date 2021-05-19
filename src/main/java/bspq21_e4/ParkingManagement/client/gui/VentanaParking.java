@@ -180,7 +180,7 @@ public class VentanaParking extends JFrame {
 		panelDer.add(selectSlot);
 		panelCent.add(slotL);
 		
-		JButton btnPay = new JButton("Retire and Pay");
+		JButton btnPay = new JButton(getResourceBundle().getString("retireAndPay"));
 		
 		btnPay.addActionListener(new ActionListener() {
 			
