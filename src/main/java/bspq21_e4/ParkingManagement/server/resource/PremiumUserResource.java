@@ -31,26 +31,26 @@ public class PremiumUserResource {
 	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String modifyPremiumUser(PremiumUser user) {
+	public PremiumUser modifyPremiumUser(PremiumUser user) {
 		DBManager.getInstance().updatePremiumUser(user);;
-		return "User updated";
+		return user;
 	}
 	
 	@PUT
 	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String insertPremiumUser(PremiumUser user) {
+	public PremiumUser insertPremiumUser(PremiumUser user) {
 		DBManager.getInstance().insertPremiumUser(user);;
-		return "Premium user created";	
+		return user;	
 	}
 	
 	@DELETE
     @Path("/delete/{userPlate}")
     @Produces(MediaType.TEXT_PLAIN)
-	public String deletePremiumUser(PremiumUser user) {
+	public PremiumUser deletePremiumUser(PremiumUser user) {
 		DBManager.getInstance().deletePremiumUser(user);
-		return "Premium User deleted";
+		return user;
 	}
 
 }

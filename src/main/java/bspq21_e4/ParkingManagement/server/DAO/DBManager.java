@@ -213,8 +213,8 @@ public class DBManager {
 	 * @param user
 	 */
 	public void insertPremiumUser(PremiumUser user) {
-//		persistentManager = persistentManagerFactory.getPersistenceManager();
-//		transaction = persistentManager.currentTransaction();
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
 //
 //		transaction.begin();
 //		persistentManager.makePersistent(user);
