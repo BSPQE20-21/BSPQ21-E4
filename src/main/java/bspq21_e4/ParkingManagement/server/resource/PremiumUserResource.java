@@ -37,7 +37,6 @@ public class PremiumUserResource {
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public PremiumUser insertPremiumUser(PremiumUser user) {

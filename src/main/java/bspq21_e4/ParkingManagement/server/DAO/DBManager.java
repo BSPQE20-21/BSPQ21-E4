@@ -215,10 +215,7 @@ public class DBManager {
 	public void insertPremiumUser(PremiumUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
-//
-//		transaction.begin();
-//		persistentManager.makePersistent(user);
-//		transaction.commit();
+
 		
 
         try {
@@ -314,9 +311,22 @@ public class DBManager {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 
-		transaction.begin();
-		persistentManager.makePersistent(user);
-		transaction.commit();
+		
+
+        try {
+            transaction.begin();
+   
+            persistentManager.makePersistent(user);
+            transaction.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+            	transaction.rollback();
+            }
+
+            persistentManager.close();
+        }
 	}
 
 	/**

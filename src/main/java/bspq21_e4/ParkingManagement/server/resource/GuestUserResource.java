@@ -38,7 +38,6 @@ public class GuestUserResource {
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
 	public GuestUser insertGuestUser(GuestUser user) {

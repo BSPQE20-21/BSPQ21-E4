@@ -184,10 +184,11 @@ public class AuthWindow extends JFrame {
 					user.setPlate(plate);
 
 					GuestUserRSH.getInstance().saveGuestUsers(user);
+					
 					System.out.println(plate);
-					VentanaParking v = new VentanaParking(user);
-					v.setVisible(true);
-					dispose();
+//					VentanaParking v = new VentanaParking(user);
+//					v.setVisible(true);
+					//dispose();
 				}
 
 //				try {
