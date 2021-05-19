@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -49,6 +50,13 @@ public class PaymentWindow extends JFrame {
 
 	private JComboBox<String> cbPayMethod;
 	private String noSelectableOptionPay = "Payment Method";
+	
+	private static ResourceBundle resourceBundle;
+	
+	public ResourceBundle getResourceBundle(){
+		return resourceBundle; 
+	}
+
 
 	public PaymentWindow(User u) {
 		initialize(u);
@@ -300,6 +308,20 @@ public class PaymentWindow extends JFrame {
 		});
 
 		menuUsuarios.add(menuItem4);
+		
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("Booking history"));
+		
+		menuItem5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				HistoryWindow v = new HistoryWindow(u);
+				v.setVisible(true);
+				
+			}
+		});
+		
+		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 
