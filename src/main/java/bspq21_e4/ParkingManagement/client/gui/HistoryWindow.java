@@ -58,7 +58,7 @@ public class HistoryWindow extends JFrame{
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
-		this.setMinimumSize(new Dimension(250, 250));
+		this.setMinimumSize(new Dimension(750, 500));
 		
 		panelContenidos = new JPanel();
 		panelContenidos.setBackground(Color.WHITE);
