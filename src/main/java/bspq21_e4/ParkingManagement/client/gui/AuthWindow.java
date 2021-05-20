@@ -119,7 +119,7 @@ public class AuthWindow extends JFrame {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
-								new VentanaParking(user).setVisible(true);
+//								new VentanaParking(user).setVisible(true);
 								
 							} else {
 //								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
@@ -189,8 +189,8 @@ public class AuthWindow extends JFrame {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserExists"));
 							user = u;
 							found = true;
-							VentanaParking v = new VentanaParking(user);
-							v.setVisible(true);
+//							VentanaParking v = new VentanaParking(user);
+//							v.setVisible(true);
 							dispose();
 							break;
 						}else {
@@ -202,8 +202,8 @@ public class AuthWindow extends JFrame {
 							GuestUserRSH.getInstance().saveGuestUsers(newUser);
 							
 							
-							VentanaParking v = new VentanaParking(newUser);
-							v.setVisible(true);
+//							VentanaParking v = new VentanaParking(newUser);
+//							v.setVisible(true);
 							dispose();
 							break;
 						}

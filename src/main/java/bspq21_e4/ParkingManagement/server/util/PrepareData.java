@@ -38,9 +38,9 @@ public class PrepareData {
 				floor = 3;
 			}
 
-			for (int j = 0; i < parkingName.length; i++) {
+			for (int j = 0; j < parkingName.length; j++) {
 				DBManager.getInstance().insertSlot(
-						new Slot(i, floor, SlotAvailability.GREEN, new Parking(i + 1, parkingName[i], 300, 300, 0, 3)));
+						new Slot(i, floor, SlotAvailability.GREEN, new Parking(j + 1, parkingName[j], 300, 300, 0, 3)));
 			}
 
 		}

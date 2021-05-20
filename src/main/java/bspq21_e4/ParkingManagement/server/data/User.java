@@ -1,13 +1,17 @@
 package bspq21_e4.ParkingManagement.server.data;
 
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.ForeignKeyAction;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 
-@PersistenceCapable(detachable = "true")
-@Inheritance(strategy=InheritanceStrategy.NEW_TABLE)
+//@PersistenceCapable(detachable = "true")
+//@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 
 /**
  * @class User
@@ -15,9 +19,12 @@ import javax.jdo.annotations.PrimaryKey;
  * @author BSPQ21-E4
  */
 public abstract class User {
-	@PrimaryKey
+//	@PrimaryKey
+//	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
 	String plate;
 	String paymentMethod;
+	
+//	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
 	Slot selectedSlot;
 	public User(String plate, Slot selectedSlot, String paymentMethod) {
 		this.plate = plate;
