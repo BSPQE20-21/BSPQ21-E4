@@ -24,7 +24,7 @@ public class PremiumUser{
 	int monthfee;
 	
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
+	//@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
 	String plate;
 	String paymentMethod;
 	
