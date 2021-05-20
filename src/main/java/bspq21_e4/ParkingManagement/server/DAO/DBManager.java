@@ -427,34 +427,57 @@ public class DBManager {
 	 * Deletes the guest user from the DB 
 	 * @param user
 	 */
-	public void deleteGuestUser(GuestUser user) {
+	public void deleteGuestUser(String plate) {
 
 		// Delete data using Extent
+//		persistentManager = persistentManagerFactory.getPersistenceManager();
+//		transaction = persistentManager.currentTransaction();
+//
+//		try {
+//			transaction.begin();
+//
+//			@SuppressWarnings("unchecked")
+//			Query<GuestUser> userQuery = persistentManager
+//					.newQuery("SELECT FROM " + GuestUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
+//
+//			userQuery.execute();
+//
+//			System.out.println("- Deleted user from db: " + user.getPlate());
+//			persistentManager.deletePersistent(user);
+//
+//			transaction.commit();
+//		} catch (Exception ex) {
+//			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
+//		} finally {
+//			if (transaction.isActive()) {
+//				transaction.rollback();
+//			}
+//
+//			persistentManager.close();
+//		}
+		
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
+        try {
+        	transaction.begin();
+            Extent<GuestUser> e = persistentManager.getExtent(GuestUser.class, true);
+            Iterator<GuestUser> iter = e.iterator();
+            while (iter.hasNext()) {
+            	GuestUser user = (GuestUser) iter.next();
+                if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {
+                    persistentManager.deletePersistent(user);
+                }
+            }
 
-		try {
-			transaction.begin();
-
-			@SuppressWarnings("unchecked")
-			Query<GuestUser> userQuery = persistentManager
-					.newQuery("SELECT FROM " + GuestUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
-
-			userQuery.execute();
-
-			System.out.println("- Deleted user from db: " + user.getPlate());
-			persistentManager.deletePersistent(user);
-
-			transaction.commit();
-		} catch (Exception ex) {
-			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-		} finally {
-			if (transaction.isActive()) {
-				transaction.rollback();
-			}
-
-			persistentManager.close();
-		}
+            transaction.commit();
+        } catch (Exception ex) {
+            
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            persistentManager.close();
+        }
 	}
 	
 	/**

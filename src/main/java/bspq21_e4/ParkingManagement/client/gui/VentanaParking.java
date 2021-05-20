@@ -231,7 +231,7 @@ public class VentanaParking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			
 				if(u instanceof PremiumUser) {
-					UserRSH.getInstance().deleteUser(u);
+//					UserRSH.getInstance().deleteUser(u);
 					PremiumUserRSH.getInstance().deletePremiumUser((PremiumUser) u);
 					List<PremiumUser> listaComprobacion = PremiumUserRSH.getInstance().checkPremiumUsers();
 					
@@ -248,7 +248,20 @@ public class VentanaParking extends JFrame {
 
 					
 				}else if(u instanceof GuestUser) {
+//					UserRSH.getInstance().deleteUser(u);
 					GuestUserRSH.getInstance().deleteGuestUser((GuestUser) u);
+					List<GuestUser> listaComprobacion = GuestUserRSH.getInstance().checkGuestUsers();
+					
+					for (GuestUser user : listaComprobacion) {
+						if(user.getPlate().equals(u.getPlate())) {
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
+						}else {
+							dispose();
+							AuthWindow v = new AuthWindow();
+							v.setVisible(true);
+							break;
+						}
+					}
 				}
 
 				

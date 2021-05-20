@@ -205,6 +205,7 @@ public class AuthWindow extends JFrame {
 							VentanaParking v = new VentanaParking(newUser);
 							v.setVisible(true);
 							dispose();
+							break;
 						}
 					}
 
