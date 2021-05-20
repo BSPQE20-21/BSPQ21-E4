@@ -193,6 +193,7 @@ public class VentanaParking extends JFrame {
 				pw.setVisible(true);
 				
 				
+				
 			}
 		});
 		panelDer.add(btnPay);
