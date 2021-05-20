@@ -22,7 +22,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Slot{
 	
     @PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
+   // @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
 	int id;
 	int floor;
 	SlotAvailability sl;
