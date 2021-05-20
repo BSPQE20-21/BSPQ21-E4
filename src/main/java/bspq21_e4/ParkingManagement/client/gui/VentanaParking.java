@@ -86,7 +86,7 @@ public class VentanaParking extends JFrame {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
-		this.setMinimumSize(new Dimension(250, 250));
+		this.setMinimumSize(new Dimension(750, 500));
 
 		contentPanel = new JPanel();
 		contentPanel.setBackground(Color.WHITE);
