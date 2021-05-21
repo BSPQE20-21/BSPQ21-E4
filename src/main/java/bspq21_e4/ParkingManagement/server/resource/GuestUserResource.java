@@ -45,12 +45,11 @@ public class GuestUserResource {
 	}
 	
 	@DELETE
-    @Path("/ids/{userPlate}")
+    @Path("/delete/{userPlate}")
     @Produces(MediaType.TEXT_PLAIN)
-	public String deleteGuestUser(@PathParam("userPlate") String userPlate) {
-		DBManager.getInstance().deleteGuestUser(userPlate);
+	public String deleteGuestUser(@PathParam("userPlate") String user) {
+		DBManager.getInstance().deleteGuestUser(user);
 		return "Deleted";
 	}
-
-
+	
 }
