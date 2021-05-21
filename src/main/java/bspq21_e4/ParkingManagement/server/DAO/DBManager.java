@@ -189,10 +189,10 @@ public class DBManager {
 
 			@SuppressWarnings("unchecked")
 			Query<Slot> slotQuery = persistentManager
-					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getId());
+					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getPk());
 
 			slotQuery.execute();
-			System.out.println("- updated slot from db: " + slot.getId());
+			System.out.println("- updated slot from db: " + slot.getPk());
 
 			slot.setFloor(slot.getFloor());
 			slot.setIdParking(slot.getIdParking());
@@ -292,7 +292,7 @@ public class DBManager {
 			user.setEmail(user.getEmail());
 			user.setMonthfee(user.getMonthfee());
 			user.setPaymentMethod(user.getPaymentMethod());
-			user.setSelectedSlot(user.getSelectedSlot());
+			user.setSlotPk(user.getSlotPk());
 
 			transaction.commit();
 		} catch (Exception ex) {
@@ -409,7 +409,7 @@ public class DBManager {
 			System.out.println("- updated user from db: " + user.getPlate());
 			user.setEntranceDate(user.getEntranceDate());
 			user.setPaymentMethod(user.getPaymentMethod());
-			user.setSelectedSlot(user.getSelectedSlot());
+			user.setSlotPk(user.getSlotPk());
 
 			transaction.commit();
 		} catch (Exception ex) {

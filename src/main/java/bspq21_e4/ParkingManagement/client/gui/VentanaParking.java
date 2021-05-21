@@ -35,6 +35,7 @@ import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 import bspq21_e4.ParkingManagement.server.data.User;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
 import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
@@ -135,46 +136,20 @@ public class VentanaParking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// System.out.println(resourceBundle.getString("select_try"));
 				System.out.println(selectedSlot.toString());
-//				try {
-//					PremiumUser user = null;
-//					boolean found = false;
-//					List<PremiumUser> userList = PremiumUserRSH.getInstance().checkPremiumUsers();
-//					for (PremiumUser u : userList) {
-//						if (u.getEmail().equals(tfEmail.getText())) {
-//							System.out.println(u);
-//							user = u;
-//							found = true;
-//						}
-//					}
-//
-//					if (!found) {
-//						JOptionPane.showMessageDialog(null, "User not found");
-//					}else {
-//						if (!user.getPlate().equals(tfPlate.getText())) {
-//							JOptionPane.showMessageDialog(null, "Unknown plate");
-//						}else {
-//							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
-//								PremiumUserConnected.getConnectedUsers().add(user);
-//								dispose();
-//								//to implement slots and parking view
-//							} else {
-//								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
-//									if (user.equals(u)) {
-//										JOptionPane.showMessageDialog(null, "This user is already connected");
-//										tfEmail.setText("");
-//										tfPlate.setText("");
-//									} else {
-//										PremiumUserConnected.getConnectedUsers().add(user);
-//										dispose();
-//										//to implement parking view;
-//									}
-//								}
-//							}
-//						}
-//					}
-//				} catch (Exception e1) {
-//					e1.printStackTrace();
-//				}
+				selectedSlot.setSl(SlotAvailability.YELLOW);
+				
+				u.setSlotPk(selectedSlot.getPk());
+				SlotRSH.getInstance().modifySlot(selectedSlot);
+				PremiumUserRSH.getInstance().modifyPremiumUser(u);
+				
+//						ParkingRSH.getInstance().modifyParking(selectedSlot.getIdParking())
+
+			
+				
+
+				
+					
+					
 
 			}
 		});
