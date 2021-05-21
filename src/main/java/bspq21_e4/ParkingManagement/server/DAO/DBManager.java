@@ -480,22 +480,7 @@ public class DBManager {
         }
 	}
 	
-	/**
-	 * Creating and inserting parkings to the DB
-	 */
-	public void createParkings() {
-		persistentManager = persistentManagerFactory.getPersistenceManager();
-		transaction = persistentManager.currentTransaction();
-		String[] parkingName = { "Bilbao", "Vitoria", "San Sebastian", "Santander", "LogroÃ±o", "Pamplona", "Gijon",
-				"Madrid", "Barcelona", "Oviedo", "Burgos", "Valencia", "Sevilla", "Cadiz", "Almeria", "Murcia",
-				"Salamanca", "Zamora", "Biarritz", "Salou", "Granada" };
 
-		for (int i = 0; i < parkingName.length; i++) {
-			transaction.begin();
-			persistentManager.makePersistent(new Parking(i + 1, parkingName[i], 300, 300, 0, 3));
-			transaction.commit();
-		}
-	}
 
 	/**
 	 * Getting a user from the DB given its cars plates

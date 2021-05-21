@@ -29,9 +29,10 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 
 /**
- * @class AuthWindow
- * Initial window that allows both premium and guest users to enter the application if they are already registered.
- * If they are not registered they can access the register window @see bspq21_e4.ParkingManagement.client.RegisterWindow;
+ * @class AuthWindow Initial window that allows both premium and guest users to
+ *        enter the application if they are already registered. If they are not
+ *        registered they can access the register window @see
+ *        bspq21_e4.ParkingManagement.client.RegisterWindow;
  * @author BSPQ21-E4
  */
 public class AuthWindow extends JFrame {
@@ -41,13 +42,12 @@ public class AuthWindow extends JFrame {
 	private JLabel lbPlate;
 	private JPanel panelContenidos;
 	private JLabel lb;
-	private static ResourceBundle resourceBundle; 
-	
+	private static ResourceBundle resourceBundle;
 
-	public ResourceBundle getResourceBundle(){
-		return resourceBundle; 
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
 	}
-	
+
 	/**
 	 * Creating the application.
 	 */
@@ -56,7 +56,7 @@ public class AuthWindow extends JFrame {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize();
 	}
-	
+
 	/**
 	 * Initializing the contents of the frame.
 	 */
@@ -70,7 +70,7 @@ public class AuthWindow extends JFrame {
 		setContentPane(panelContenidos);
 		panelContenidos.setLayout(new BorderLayout(15, 15));
 
-		//Panel derecho
+		// Panel derecho
 		JPanel panelDer = new JPanel();
 		panelDer.setBackground(Color.WHITE);
 		panelDer.setLayout(new BorderLayout(0, 0));
@@ -83,16 +83,19 @@ public class AuthWindow extends JFrame {
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
 
 		JButton btnLogin = new JButton(getResourceBundle().getString("login"));
-		
+
 		/**
-	     * This action listener is related with the login button
-	     * The user introduces the email and the plate and the method checkPremiumUsers() @see bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH gets the list of premium users from the DB
-	     * This way it will be checked whether the regarding user email and plate correspond to any of the DB
-	     * If the credentials are okay the window with the available slots will be shown @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
-	     * 
-	     */
+		 * This action listener is related with the login button The user introduces the
+		 * email and the plate and the method checkPremiumUsers() @see
+		 * bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH gets the list of
+		 * premium users from the DB This way it will be checked whether the regarding
+		 * user email and plate correspond to any of the DB If the credentials are okay
+		 * the window with the available slots will be shown @see
+		 * bspq21_e4.ParkingManagement.client.gui.VentanaParking
+		 * 
+		 */
 		btnLogin.addActionListener(new ActionListener() {
-		   
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -111,7 +114,6 @@ public class AuthWindow extends JFrame {
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
 
-
 					} else {
 						if (!user.getPlate().equals(tfPlate.getText())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("unknownPlate"));
@@ -120,20 +122,20 @@ public class AuthWindow extends JFrame {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
 								new VentanaParking(user).setVisible(true);
-								
+
 							} else {
-//								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
-//									if (user.equals(u)) {
-//										JOptionPane.showMessageDialog(null, "This user is already connected");
-//										tfEmail.setText("");
-//										tfPlate.setText("");
-//									} else {
-//										PremiumUserConnected.getConnectedUsers().add(user);
-//										dispose();
-//										new VentanaParking(user).setVisible(true);
-//
-//									}
-//								}
+								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
+									if (user.equals(u)) {
+										JOptionPane.showMessageDialog(null, "This user is already connected");
+										tfEmail.setText("");
+										tfPlate.setText("");
+									} else {
+										PremiumUserConnected.getConnectedUsers().add(user);
+										dispose();
+										new VentanaParking(user).setVisible(true);
+
+									}
+								}
 							}
 						}
 					}
@@ -144,14 +146,16 @@ public class AuthWindow extends JFrame {
 			}
 		});
 		JButton btnRegistrarse = new JButton(getResourceBundle().getString("register"));
-		
+
 		/**
-	     * This action listener is related with the register button
-	     * If the user is not registered and clicks the register button, the register window will be displayed 
-	     *	@see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
-	     */
+		 * This action listener is related with the register button If the user is not
+		 * registered and clicks the register button, the register window will be
+		 * displayed
+		 * 
+		 * @see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
+		 */
 		btnRegistrarse.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				RegisterWindow frame = new RegisterWindow();
@@ -160,102 +164,59 @@ public class AuthWindow extends JFrame {
 			}
 		});
 
-		
 		JButton btnGuestUser = new JButton(getResourceBundle().getString("logAsGuest"));
-		
+
 		/**
-	     * This action listener is related with the log as guest button
-	     * If the user is not premium and clicks the log as guest button he will be able of logging just by entering a car plate
-	     * Afterwards the available slots will be shown @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
-	     */
+		 * This action listener is related with the log as guest button If the user is
+		 * not premium and clicks the log as guest button he will be able of logging
+		 * just by entering a car plate Afterwards the available slots will be
+		 * shown @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+		 */
 		btnGuestUser.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(tfPlate.getText().equals("")){
+
+				if (tfPlate.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
-				}else {
-					
+				} else {
+
 					String plate = tfPlate.getText();
-					
+
 					GuestUser user = null;
 					boolean found = false;
-					List<GuestUser> userList = GuestUserRSH.getInstance().checkGuestUsers();
-					for (GuestUser u : userList) {
-						if (u.getPlate().equals(tfPlate.getText())) {
-							JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserExists"));
-							user = u;
-							found = true;
-//							VentanaParking v = new VentanaParking(user);
-//							v.setVisible(true);
-							dispose();
-							break;
-						}else {
-							found = false;
-							JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
-							GuestUser newUser = new GuestUser();
-							newUser.setPlate(plate);
 
-							GuestUserRSH.getInstance().saveGuestUsers(newUser);
-							
-							
-//							VentanaParking v = new VentanaParking(newUser);
-//							v.setVisible(true);
-							dispose();
-							break;
+					List<GuestUser> userList = GuestUserRSH.getInstance().checkGuestUsers();
+					if (userList.size() != 0) {
+						for (GuestUser u : userList) {
+							if (u.getPlate().equals(tfPlate.getText())) {
+								found = true;
+								JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserExists"));
+								user = u;
+
+								VentanaParking v = new VentanaParking(user);
+								v.setVisible(true);
+								dispose();
+								break;
+							}
+
 						}
 					}
+					if (!found) {
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
+						GuestUser newUser = new GuestUser();
+						newUser.setPlate(plate);
 
+						GuestUserRSH.getInstance().saveGuestUsers(newUser);
+
+						VentanaParking v = new VentanaParking(newUser);
+						v.setVisible(true);
+						dispose();
+					}
 
 				}
-
-//				try {
-//					GuestUser user = null;
-//					boolean found = false;
-//					List<GuestUser> userList = GuestUserRSH.getInstance().checkGuestUsers();
-//					for (GuestUser u : userList) {
-//						if (u.getPlate().equals(tfPlate.getText())) {
-//							System.out.println(u);
-//							user = u;
-//							found = true;
-//
-//						}
-//					}
-//
-//					if (!found) {
-//						JOptionPane.showMessageDialog(null, "User not found");
-//						GuestUser newUser = new GuestUser();
-//						newUser.setPlate(tfPlate.getText());
-//
-//						GuestUserRSH.getInstance().saveGuestUsers(newUser);
-//
-//					} else {
-//
-//						if (GuestUserConnected.getConnectedUsers().isEmpty()) {
-//							GuestUserConnected.getConnectedUsers().add(user);
-//							dispose();
-//							// to implement slots and parking view
-//						} else {
-//							for (GuestUser u : GuestUserConnected.getConnectedUsers()) {
-//								if (user.equals(u)) {
-//									JOptionPane.showMessageDialog(null, "This user is already connected");
-//									tfPlate.setText("");
-//								} else {
-//									GuestUserConnected.getConnectedUsers().add(user);
-//									dispose();
-//									new VentanaParking().setVisible(true);
-//
-//								}
-//							}
-//						}
-//					}
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
 
 			}
 		});
@@ -302,5 +263,5 @@ public class AuthWindow extends JFrame {
 		AuthWindow n = new AuthWindow();
 		n.setVisible(true);
 	}
-	
+
 }
