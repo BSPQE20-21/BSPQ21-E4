@@ -29,13 +29,13 @@ public class PremiumUser{
 	String paymentMethod;
 	
 	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
-	Slot selectedSlot;
+	int slotPk;
 	
 
 
-	public PremiumUser(String email, String plate, int monthfee, Slot selectedSlot, String paymentMethod) {
+	public PremiumUser(String email, String plate, int monthfee, int slotPk, String paymentMethod) {
 		this.plate = plate;
-		this.selectedSlot = selectedSlot;
+		this.slotPk = slotPk;
 		this.paymentMethod = paymentMethod;
 		this.email = email;
 		this.monthfee = monthfee;
@@ -79,18 +79,18 @@ public class PremiumUser{
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Slot getSelectedSlot() {
-		return selectedSlot;
+	public int getSlotPk() {
+		return slotPk;
 	}
 
-	public void setSelectedSlot(Slot selectedSlot) {
-		this.selectedSlot = selectedSlot;
+	public void setSlotPk(int slotPk) {
+		this.slotPk = slotPk;
 	}
 
 	@Override
 	public String toString() {
 		return "PremiumUser [email=" + email + ", plate=" + plate + ", monthfee=" + monthfee + ", selectedSlot="
-				+ selectedSlot + "]";
+				+ slotPk + "]";
 	}
 
 }

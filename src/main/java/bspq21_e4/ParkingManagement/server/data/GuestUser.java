@@ -29,17 +29,17 @@ public class GuestUser {
 	String paymentMethod;
 
 	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
-	Slot selectedSlot;
+	int slotPk;
 
 	Date entranceDate;
 
 	public static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 
-	public GuestUser(String plate, Date entranceDate, Slot selectedSlot, String paymentMethod) {
+	public GuestUser(String plate, Date entranceDate, int slotPk, String paymentMethod) {
 
 		this.plate = plate;
 		this.entranceDate = entranceDate;
-		this.selectedSlot = selectedSlot;
+		this.slotPk = slotPk;
 		this.paymentMethod = paymentMethod;
 
 	}
@@ -66,12 +66,12 @@ public class GuestUser {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Slot getSelectedSlot() {
-		return selectedSlot;
+	public int getSlotPk() {
+		return slotPk;
 	}
 
-	public void setSelectedSlot(Slot selectedSlot) {
-		this.selectedSlot = selectedSlot;
+	public void setSlotPk(int slotPk) {
+		this.slotPk = slotPk;
 	}
 
 	public Date getEntranceDate() {
@@ -92,7 +92,7 @@ public class GuestUser {
 
 	@Override
 	public String toString() {
-		return "GuestUser [plate=" + plate + ", entranceDate=" + entranceDate + ", selectedSlot=" + selectedSlot + "]";
+		return "GuestUser [plate=" + plate + ", entranceDate=" + entranceDate + ", selectedSlot=" + slotPk + "]";
 	}
 
 }
