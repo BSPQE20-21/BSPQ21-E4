@@ -24,7 +24,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class GuestUser {
 
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
+	//@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
 	String plate;
 	String paymentMethod;
 

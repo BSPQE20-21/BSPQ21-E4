@@ -22,27 +22,36 @@ import javax.jdo.annotations.PrimaryKey;
 public class Slot{
 	
     @PrimaryKey
-   // @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, primaryKey = "true")
+    int pk;
 	int id;
 	int floor;
 	SlotAvailability sl;
 	
-	 @ForeignKey(deleteAction = ForeignKeyAction.NONE)
-	Parking parking;
+	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
+	int idParking;
 	
-	public Slot(int id, int floor, SlotAvailability sl, Parking parking) {
+	public Slot(int pk, int id, int floor, SlotAvailability sl, int idParking) {
+		this.pk = pk;
 		this.id = id;
 		this.floor = floor;
 		this.sl = sl;
-		this.parking = parking;
+		this.idParking = idParking;
 	}
 
-	public Parking getParking() {
-		return parking;
+	public int getPk() {
+		return pk;
 	}
 
-	public void setParking(Parking parking) {
-		this.parking = parking;
+	public void setPk(int pk) {
+		this.pk = pk;
+	}
+
+	public int getIdParking() {
+		return idParking;
+	}
+
+	public void setIdParking(int idParking) {
+		this.idParking = idParking;
 	}
 
 	public int getId() {
@@ -73,7 +82,7 @@ public class Slot{
 
 	@Override
 	public String toString() {
-		return "Slot [id=" + id + ", floor=" + floor + ", sl=" + sl + ", parking=" + parking + "]";
+		return "Slot [id=" + id + ", floor=" + floor + ", sl=" + sl + ", IDparking=" + idParking + "]";
 	}
 
 

@@ -119,7 +119,7 @@ public class AuthWindow extends JFrame {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
-//								new VentanaParking(user).setVisible(true);
+								new VentanaParking(user).setVisible(true);
 								
 							} else {
 //								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {

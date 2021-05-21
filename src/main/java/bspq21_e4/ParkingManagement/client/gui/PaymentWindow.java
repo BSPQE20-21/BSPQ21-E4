@@ -65,7 +65,7 @@ public class PaymentWindow extends JFrame {
 	}
 
 
-	public PaymentWindow(User u) {
+	public PaymentWindow(PremiumUser u) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u);
 	}
@@ -73,7 +73,7 @@ public class PaymentWindow extends JFrame {
 	/**
 	 * Creating the application.
 	 */
-	public void initialize(final User u) {
+	public void initialize(final PremiumUser u) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);

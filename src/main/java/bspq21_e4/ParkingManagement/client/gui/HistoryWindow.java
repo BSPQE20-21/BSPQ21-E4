@@ -45,7 +45,7 @@ public class HistoryWindow extends JFrame{
 	/**
 	 * Creating the application.
 	 */
-	public HistoryWindow(User u) {
+	public HistoryWindow(PremiumUser u) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u);
 	}
@@ -54,7 +54,7 @@ public class HistoryWindow extends JFrame{
 	/**
 	 * Initializing the contents of the frame.
 	 */
-	public void initialize(final User u) {
+	public void initialize(final PremiumUser u) {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);

@@ -195,7 +195,7 @@ public class DBManager {
 			System.out.println("- updated slot from db: " + slot.getId());
 
 			slot.setFloor(slot.getFloor());
-			slot.setParking(slot.getParking());
+			slot.setIdParking(slot.getIdParking());
 			slot.setSl(slot.getSl());
 
 			transaction.commit();

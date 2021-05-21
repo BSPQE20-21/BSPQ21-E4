@@ -69,7 +69,7 @@ public class VentanaParking extends JFrame {
      * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
      * @param User
      */
-	public VentanaParking(User u) {
+	public VentanaParking(PremiumUser u) {
 		setResizable(false);
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u);
@@ -80,7 +80,7 @@ public class VentanaParking extends JFrame {
 	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
      * @param User
 	 */
-	public void initialize(final User u) {
+	public void initialize(final PremiumUser u) {
 
 
 
