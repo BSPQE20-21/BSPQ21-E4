@@ -16,11 +16,21 @@ import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 
+
+/**
+ * @class PremiumUserRSH Class which allows obtaining information of the premium users from the
+ *        server side
+ * @author BSPQ21-E4
+ * @see bspq21_e4.ParkingManagement.server.data.PremiumUser
+ */
 public class PremiumUserRSH {
 	static PremiumUserRSH instance = null;
     Client client;
     WebTarget target;
 
+	/**
+	 * Creating singleton pattern
+	 */
     public static PremiumUserRSH getInstance() {
         if (instance == null) {
             instance = new PremiumUserRSH();
@@ -28,13 +38,18 @@ public class PremiumUserRSH {
         return instance;
     }
 
+	/**
+	 * Class constructor
+	 */
     public PremiumUserRSH() {
         client = ClientBuilder.newClient();
         client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
         target = client.target("http://localhost:8080/myapp").path("premiumUser"); 
     }
 
-
+	/**
+	 * Asks the server side for the list of premium users stored in the Database
+	 */
     public List<PremiumUser> checkPremiumUsers() {
         Invocation.Builder ib = target.request(); // Construir la petición
         Response response = ib.get(); // Realizar una petición GET
@@ -43,7 +58,9 @@ public class PremiumUserRSH {
         return users;
     }
 
-
+	/**
+	 * Asks the server side to store a premium user in the Database
+	 */
     public PremiumUser savePremiumUsers(PremiumUser user) {
         Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
 //    	Invocation.Builder ib = target.path("/insert").request();
@@ -53,7 +70,9 @@ public class PremiumUserRSH {
         return userPlate;
     }
 
-
+	/**
+	 * Asks the server side to modify a premium user in the Database
+	 */
     public PremiumUser modifyPremiumUser(PremiumUser user) {
         Invocation.Builder ib = target.request(MediaType.APPLICATION_JSON);
 //    	Invocation.Builder ib = target.path("/modify").request();    	
@@ -63,7 +82,9 @@ public class PremiumUserRSH {
         return userPlate;
     }
 
-
+	/**
+	 * Asks the server side to delete a premium user from the Database
+	 */
     public void deletePremiumUser(PremiumUser u) {
         Invocation.Builder ib = target.path("/delete/" + u.getPlate()).request();
         ib.delete();
