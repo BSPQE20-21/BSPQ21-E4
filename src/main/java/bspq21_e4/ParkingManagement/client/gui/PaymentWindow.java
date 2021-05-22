@@ -341,6 +341,9 @@ public class PaymentWindow extends JFrame {
 
 	}
 
+	/**
+	 * @wbp.parser.constructor
+	 */
 	public PaymentWindow(GuestUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initializeGU(u, p);
@@ -387,7 +390,7 @@ public class PaymentWindow extends JFrame {
 		String minuto = separador[1];
 		String segundo = separador[2];
 
-		float entradaMinutos = (Integer.parseInt(hora) * 60) + Integer.parseInt(minuto) + (Integer.parseInt(segundo)/60);
+		float entradaMinutos = (Integer.parseInt(hora) * 60 + Integer.parseInt(minuto) + (Integer.parseInt(segundo)/60));
 		
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 
@@ -398,16 +401,16 @@ public class PaymentWindow extends JFrame {
 		String minutoSalida = separadorSalida[1];
 		String segundoSalida = separadorSalida[2];
 		
-		float salidaMinutos = (Integer.parseInt(horaSalida) * 60) + Integer.parseInt(minutoSalida) + (Integer.parseInt(segundoSalida)/60);
-		
+		float salidaMinutos = (Integer.parseInt(horaSalida) * 60 + Integer.parseInt(minutoSalida) + (Integer.parseInt(segundoSalida)/60));
 		
 		float total = salidaMinutos-entradaMinutos;
-		
 		CalculateFee.calculateFee(total);
 		
 		
 
 		importe = new JLabel("Importe: " + total + "€");
+		importe.setSize(210, 25);
+		importe.setLocation(25, 25);
 		panelCb.add(importe);
 		noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
 		cbPayMethod = new JComboBox<String>();
