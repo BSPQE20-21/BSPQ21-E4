@@ -33,6 +33,10 @@ public class Parking {
 		this.occupiedSlots = occupiedSlots;
 		this.floors = floors;
 	}
+	
+	public Parking() {
+		
+	}
 
 	public String getNombre() {
 		return nombre;

@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,9 +22,11 @@ import javax.swing.JTextField;
 
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.GuestUserConnected;
+import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -42,6 +46,9 @@ public class AuthWindow extends JFrame {
 	private JLabel lbPlate;
 	private JPanel panelContenidos;
 	private JLabel lb;
+	private JComboBox<String> cbParking;
+	private String noSelectableOptionName = "Parking name";
+	private String parkingSeleccionado;
 	private static ResourceBundle resourceBundle;
 
 	public ResourceBundle getResourceBundle() {
@@ -81,6 +88,48 @@ public class AuthWindow extends JFrame {
 		panelDerInf.setBackground(Color.WHITE);
 		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
+		cbParking = new JComboBox<String>();
+
+		cbParking.setModel(new DefaultComboBoxModel<String>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			private boolean seleccionPermitida = true;
+
+			@Override
+			public void setSelectedItem(Object objeto) {
+				if (!noSelectableOptionName.equals(objeto)) {
+					super.setSelectedItem(objeto);
+
+				} else if (seleccionPermitida) {
+					seleccionPermitida = false;
+					super.setSelectedItem(objeto);
+				}
+
+			}
+		});
+
+		cbParking.addItem( noSelectableOptionName);
+		
+		cbParking.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//checkparkings
+				List<Parking> nomParking = ParkingRSH.getInstance().checkParkings();
+				for(Parking p: nomParking) {
+					cbParking.addItem(p.getNombre());
+				}
+				
+				parkingSeleccionado = cbParking.getSelectedItem().toString();
+				
+			}
+			
+			
+		});
+		
+
 
 		JButton btnLogin = new JButton(getResourceBundle().getString("login"));
 
@@ -121,7 +170,7 @@ public class AuthWindow extends JFrame {
 							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
-								new VentanaParking(user).setVisible(true);
+								new VentanaParking(user, parkingSeleccionado).setVisible(true);
 
 							} else {
 								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
@@ -132,7 +181,7 @@ public class AuthWindow extends JFrame {
 									} else {
 										PremiumUserConnected.getConnectedUsers().add(user);
 										dispose();
-										new VentanaParking(user).setVisible(true);
+										new VentanaParking(user, parkingSeleccionado).setVisible(true);
 
 									}
 								}
@@ -196,7 +245,7 @@ public class AuthWindow extends JFrame {
 								JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserExists"));
 								user = u;
 
-								VentanaParking v = new VentanaParking(user);
+								VentanaParking v = new VentanaParking(user, parkingSeleccionado);
 								v.setVisible(true);
 								dispose();
 								break;
@@ -211,7 +260,7 @@ public class AuthWindow extends JFrame {
 
 						GuestUserRSH.getInstance().saveGuestUsers(newUser);
 
-						VentanaParking v = new VentanaParking(newUser);
+						VentanaParking v = new VentanaParking(newUser, parkingSeleccionado);
 						v.setVisible(true);
 						dispose();
 					}
@@ -255,8 +304,9 @@ public class AuthWindow extends JFrame {
 		panelCentralInf.add(tfEmail);
 		panelCentralInf.add(lbPlate);
 		panelCentralInf.add(tfPlate);
-		lb = new JLabel("");
-		panelCentralInf.add(lb);
+		panelCentralInf.add(cbParking);
+		
+	
 	}
 
 	public static void main(String[] args) {

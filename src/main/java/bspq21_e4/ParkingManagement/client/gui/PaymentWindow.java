@@ -64,7 +64,7 @@ public class PaymentWindow extends JFrame {
 	}
 
 
-	public PaymentWindow(PremiumUser u, Parking p) {
+	public PaymentWindow(PremiumUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u, p);
 	}
@@ -72,7 +72,7 @@ public class PaymentWindow extends JFrame {
 	/**
 	 * Creating the application.
 	 */
-	public void initialize(final PremiumUser u, final Parking p) {
+	public void initialize(final PremiumUser u, final String p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -333,7 +333,7 @@ public class PaymentWindow extends JFrame {
 
 	}
 	
-	public PaymentWindow(GuestUser u, Parking p) {
+	public PaymentWindow(GuestUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initializeGU(u, p);
 	}
@@ -341,7 +341,7 @@ public class PaymentWindow extends JFrame {
 	/**
 	 * Creating the application.
 	 */
-	public void initializeGU(final GuestUser u, final Parking p) {
+	public void initializeGU(final GuestUser u, final String p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);

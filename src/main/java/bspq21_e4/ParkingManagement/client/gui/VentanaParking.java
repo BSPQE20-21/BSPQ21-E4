@@ -67,13 +67,13 @@ public class VentanaParking extends JFrame {
 	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
 	 * @param User
 	 */
-	public VentanaParking(PremiumUser u, Parking p) {
+	public VentanaParking(PremiumUser u, String p) {
 		setResizable(false);
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u, p);
 	}
 
-	public void initialize(final PremiumUser u, final Parking p) {
+	public void initialize(final PremiumUser u, final String p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -98,9 +98,27 @@ public class VentanaParking extends JFrame {
 		DefaultListModel<Slot> slotDL = new DefaultListModel<>();
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
+		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
+		Parking parkingElegido = new Parking();
+		System.out.println(p);
+
+		for (Parking parking : parkingList) {
+
+			if (parking.getNombre().equals(p)) {
+				parkingElegido = parking;
+
+			}
+		}
+
 		for (int i = 0; i < slotList.size(); i++) {
-				slotDL.add(counter, slotList.get(i));
-				counter++;		
+
+			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {
+				if (slotList.get(i).getSl().toString() == "GREEN") {
+					slotDL.add(counter, slotList.get(i));
+					counter++;
+				}
+			}
+
 		}
 
 		slotL.addListSelectionListener(new ListSelectionListener() {
@@ -127,8 +145,7 @@ public class VentanaParking extends JFrame {
 				selectedSlot.setSl(SlotAvailability.YELLOW);
 				u.setSlotPk(selectedSlot.getPk());
 				SlotRSH.getInstance().modifySlot(selectedSlot);
-				
-				
+
 				PremiumUserRSH.getInstance().modifyPremiumUser(u);
 
 //						ParkingRSH.getInstance().modifyParking(selectedSlot.getIdParking())
@@ -146,7 +163,7 @@ public class VentanaParking extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				PaymentWindow pw = new PaymentWindow(u);
+				PaymentWindow pw = new PaymentWindow(u, p);
 				pw.setVisible(true);
 
 			}
@@ -187,11 +204,11 @@ public class VentanaParking extends JFrame {
 
 				List<PremiumUser> listaComprobacion = PremiumUserRSH.getInstance().checkPremiumUsers();
 
-				if(listaComprobacion.size()==0) {
+				if (listaComprobacion.size() == 0) {
 					dispose();
 					AuthWindow v = new AuthWindow();
 					v.setVisible(true);
-				}else {
+				} else {
 					for (PremiumUser user : listaComprobacion) {
 						if (user.getPlate().equals(u.getPlate())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
@@ -199,7 +216,7 @@ public class VentanaParking extends JFrame {
 							dispose();
 							AuthWindow v = new AuthWindow();
 							v.setVisible(true);
-					
+
 							break;
 						}
 					}
@@ -251,13 +268,13 @@ public class VentanaParking extends JFrame {
 
 	}
 
-	public VentanaParking(GuestUser u, Parking p) {
+	public VentanaParking(GuestUser u, String p) {
 		setResizable(false);
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initializeGU(u, p);
 	}
 
-	public void initializeGU(final GuestUser u, final Parking p) {
+	public void initializeGU(final GuestUser u, final String p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -282,11 +299,27 @@ public class VentanaParking extends JFrame {
 		DefaultListModel<Slot> slotDL = new DefaultListModel<>();
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
-		for (int i = 0; i < slotList.size(); i++) {
-			if (slotList.get(i).getSl().toString() == "GREEN") {
-				slotDL.add(counter, slotList.get(i));
-				counter++;
+		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
+		Parking parkingElegido = new Parking();
+		System.out.println(p);
+
+		for (Parking parking : parkingList) {
+
+			if (parking.getNombre().equals(p)) {
+				parkingElegido = parking;
+
 			}
+		}
+
+		for (int i = 0; i < slotList.size(); i++) {
+
+			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {
+				if (slotList.get(i).getSl().toString() == "GREEN") {
+					slotDL.add(counter, slotList.get(i));
+					counter++;
+				}
+			}
+
 		}
 
 		slotL.addListSelectionListener(new ListSelectionListener() {
@@ -331,7 +364,7 @@ public class VentanaParking extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				PaymentWindow pw = new PaymentWindow(u);
+				PaymentWindow pw = new PaymentWindow(u, p);
 				pw.setVisible(true);
 
 			}
@@ -369,13 +402,13 @@ public class VentanaParking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				GuestUserRSH.getInstance().deleteGuestUser(u);
-				
+
 				List<GuestUser> listaComprobacion = GuestUserRSH.getInstance().checkGuestUsers();
-				if(listaComprobacion.size()==0) {
+				if (listaComprobacion.size() == 0) {
 					dispose();
 					AuthWindow v = new AuthWindow();
 					v.setVisible(true);
-				}else {
+				} else {
 					for (GuestUser user : listaComprobacion) {
 						if (user.getPlate().equals(u.getPlate())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
