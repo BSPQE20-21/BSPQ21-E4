@@ -37,6 +37,10 @@ public class Slot{
 		this.sl = sl;
 		this.idParking = idParking;
 	}
+	
+	public Slot() {
+		
+	}
 
 	public int getPk() {
 		return pk;
