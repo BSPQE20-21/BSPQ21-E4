@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
@@ -63,15 +64,15 @@ public class PaymentWindow extends JFrame {
 	}
 
 
-	public PaymentWindow(PremiumUser u) {
+	public PaymentWindow(PremiumUser u, Parking p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-		initialize(u);
+		initialize(u, p);
 	}
 	
 	/**
 	 * Creating the application.
 	 */
-	public void initialize(final PremiumUser u) {
+	public void initialize(final PremiumUser u, final Parking p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -332,15 +333,15 @@ public class PaymentWindow extends JFrame {
 
 	}
 	
-	public PaymentWindow(GuestUser u) {
+	public PaymentWindow(GuestUser u, Parking p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-		initializeGU(u);
+		initializeGU(u, p);
 	}
 	
 	/**
 	 * Creating the application.
 	 */
-	public void initializeGU(final GuestUser u) {
+	public void initializeGU(final GuestUser u, final Parking p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);

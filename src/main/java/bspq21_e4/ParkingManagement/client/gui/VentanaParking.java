@@ -67,13 +67,13 @@ public class VentanaParking extends JFrame {
 	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
 	 * @param User
 	 */
-	public VentanaParking(PremiumUser u) {
+	public VentanaParking(PremiumUser u, Parking p) {
 		setResizable(false);
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-		initialize(u);
+		initialize(u, p);
 	}
 
-	public void initialize(final PremiumUser u) {
+	public void initialize(final PremiumUser u, final Parking p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
@@ -125,9 +125,10 @@ public class VentanaParking extends JFrame {
 				// System.out.println(resourceBundle.getString("select_try"));
 				System.out.println(selectedSlot.toString());
 				selectedSlot.setSl(SlotAvailability.YELLOW);
-
 				u.setSlotPk(selectedSlot.getPk());
 				SlotRSH.getInstance().modifySlot(selectedSlot);
+				
+				
 				PremiumUserRSH.getInstance().modifyPremiumUser(u);
 
 //						ParkingRSH.getInstance().modifyParking(selectedSlot.getIdParking())
@@ -250,13 +251,13 @@ public class VentanaParking extends JFrame {
 
 	}
 
-	public VentanaParking(GuestUser u) {
+	public VentanaParking(GuestUser u, Parking p) {
 		setResizable(false);
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-		initializeGU(u);
+		initializeGU(u, p);
 	}
 
-	public void initializeGU(final GuestUser u) {
+	public void initializeGU(final GuestUser u, final Parking p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 250);
