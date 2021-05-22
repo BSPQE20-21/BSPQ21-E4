@@ -315,7 +315,7 @@ public class PaymentWindow extends JFrame {
 
 		menuUsuarios.add(menuItem4);
 		
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(getResourceBundle().getString("bookingHistory")));
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));
 		
 		menuItem5.addActionListener(new ActionListener() {
 			
@@ -589,8 +589,7 @@ public class PaymentWindow extends JFrame {
 
 		menuUsuarios.add(menuItem4);
 		
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(getResourceBundle().getString("bookingHistory")));
-		
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));		
 		menuItem5.addActionListener(new ActionListener() {
 			
 			@Override
