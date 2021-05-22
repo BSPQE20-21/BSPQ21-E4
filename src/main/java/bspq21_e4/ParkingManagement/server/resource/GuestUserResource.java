@@ -29,30 +29,27 @@ public class GuestUserResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String modifyGuestUser(GuestUser user) {
+	public GuestUser modifyGuestUser(GuestUser user) {
 		DBManager.getInstance().updateGuestUser(user);;
-		return "Guest user updated";
+		return user;
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String insertGuestUser(GuestUser user) {
+	public GuestUser insertGuestUser(GuestUser user) {
 		DBManager.getInstance().insertGuestUser(user);;
-		return "Guest user created";	
+		return user;	
 	}
 	
 	@DELETE
-    @Path("/ids/{userPlate}")
+    @Path("/delete/{userPlate}")
     @Produces(MediaType.TEXT_PLAIN)
-	public String deleteGuestUser(GuestUser user) {
+	public String deleteGuestUser(@PathParam("userPlate") String user) {
 		DBManager.getInstance().deleteGuestUser(user);
-		return "Guest User deleted";
+		return "Deleted";
 	}
-
-
+	
 }

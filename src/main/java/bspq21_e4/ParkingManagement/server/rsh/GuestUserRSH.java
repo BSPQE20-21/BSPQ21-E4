@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
-import bspq21_e4.ParkingManagement.server.data.User;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 
 public class GuestUserRSH {
 	static GuestUserRSH instance = null;
@@ -51,6 +51,8 @@ public class GuestUserRSH {
         Response response = ib.put(Entity.entity(user, MediaType.APPLICATION_JSON));
         GuestUser userPlate = response.readEntity(GuestUser.class);
         return userPlate;
+        
+
     }
 
 

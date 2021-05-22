@@ -15,7 +15,6 @@ import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
-import bspq21_e4.ParkingManagement.server.data.User;
 
 public class PremiumUserRSH {
 	static PremiumUserRSH instance = null;

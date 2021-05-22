@@ -28,29 +28,27 @@ public class SlotResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String modifySlot(Slot slot) {
+	public Slot modifySlot(Slot slot) {
 		DBManager.getInstance().updateSlot(slot);
-		return "Slot updated";
+		return slot;
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String insertSlot(Slot slot) {
+	public Slot insertSlot(Slot slot) {
 		DBManager.getInstance().insertSlot(slot);
-		return "Slot created";	
+		return slot;	
 	}
 	
 	@DELETE
     @Path("delete/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteSlot(Slot slot) {
+	public Slot deleteSlot(Slot slot) {
 		DBManager.getInstance().deleteSlot(slot);
-		return "Slot deleted";
+		return slot;
 	}
 
 }

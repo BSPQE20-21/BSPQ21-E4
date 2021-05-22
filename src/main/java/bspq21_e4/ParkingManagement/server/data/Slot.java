@@ -1,12 +1,18 @@
 package bspq21_e4.ParkingManagement.server.data;
 
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.ForeignKeyAction;
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 
+
 @PersistenceCapable(detachable = "true")
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 
 /**
  * @class Slot
@@ -15,26 +21,37 @@ import javax.jdo.annotations.PrimaryKey;
  */
 public class Slot{
 	
-	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
+    @PrimaryKey
+    int pk;
 	int id;
 	int floor;
 	SlotAvailability sl;
-	Parking parking;
 	
-	public Slot(int id, int floor, SlotAvailability sl, Parking parking) {
+	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
+	int idParking;
+	
+	public Slot(int pk, int id, int floor, SlotAvailability sl, int idParking) {
+		this.pk = pk;
 		this.id = id;
 		this.floor = floor;
 		this.sl = sl;
-		this.parking = parking;
+		this.idParking = idParking;
 	}
 
-	public Parking getParking() {
-		return parking;
+	public int getPk() {
+		return pk;
 	}
 
-	public void setParking(Parking parking) {
-		this.parking = parking;
+	public void setPk(int pk) {
+		this.pk = pk;
+	}
+
+	public int getIdParking() {
+		return idParking;
+	}
+
+	public void setIdParking(int idParking) {
+		this.idParking = idParking;
 	}
 
 	public int getId() {
@@ -60,20 +77,13 @@ public class Slot{
 	public void setSl(SlotAvailability newSl) {
 	    this.sl = newSl;
 	  }
-	
-	public static void main(String[] args) {
-		Parking p = new Parking(1,"Bilbao",100, 100, 0, 1);
-		Slot s = new Slot(1, 1, SlotAvailability.GREEN,p);
-		System.out.println(s.toString());
-		System.out.println(s.getSl());
-		s.setSl(SlotAvailability.RED);
-		System.out.println(s.toString());
-	}
 
 	@Override
 	public String toString() {
-		return "Slot [id=" + id + ", floor=" + floor + ", sl=" + sl + ", parking=" + parking + "]";
+		return "Slot [pk=" + pk + ", id=" + id + ", floor=" + floor + ", sl=" + sl + ", idParking=" + idParking + "]";
 	}
+	
+
 
 
 	

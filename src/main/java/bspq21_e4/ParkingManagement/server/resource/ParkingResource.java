@@ -8,7 +8,6 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import bspq21_e4.ParkingManagement.server.DAO.DBManager;
@@ -27,29 +26,27 @@ public class ParkingResource {
 	
 	
 	@PATCH
-	@Path("/modify")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String modifyParking(Parking parking) {
+	public Parking modifyParking(Parking parking) {
 		DBManager.getInstance().updateParking(parking);
-		return "Parking updated";
+		return parking;
 	}
 	
 	@PUT
-	@Path("/insert")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-	public String insertParking(Parking parking) {
+	public Parking insertParking(Parking parking) {
 		DBManager.getInstance().insertParking(parking);
-		return "Parking created";	
+		return parking;	
 	}
 	
 	@DELETE
     @Path("delete/{parkingId}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteParking(Parking parking) {
+	public Parking deleteParking(Parking parking) {
 		DBManager.getInstance().deleteParking(parking);
-		return "Parking deleted";
+		return parking;
 	}
 
 
