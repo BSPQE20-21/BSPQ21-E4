@@ -235,6 +235,9 @@ public class AuthWindow extends JFrame {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
+				}else if(cbParking.getSelectedItem().toString().equals("Parking name")){
+					JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
+					
 				} else {
 
 					String plate = tfPlate.getText();

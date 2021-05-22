@@ -28,6 +28,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -103,6 +104,11 @@ public class VentanaParking extends JFrame {
 
 		final JList<Slot> slotL = new JList<>();
 		DefaultListModel<Slot> slotDL = new DefaultListModel<>();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(slotL);
+		slotL.setLayoutOrientation(JList.VERTICAL);
+		
+
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
@@ -175,7 +181,8 @@ public class VentanaParking extends JFrame {
 		});
 
 		panelDer.add(selectSlot);
-		panelCent.add(slotL);
+		panelCent.add(scrollPane);
+
 
 		JButton btnPay = new JButton(getResourceBundle().getString("retireAndPay"));
 
@@ -318,6 +325,10 @@ public class VentanaParking extends JFrame {
 
 		final JList<Slot> slotL = new JList<>();
 		DefaultListModel<Slot> slotDL = new DefaultListModel<>();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(slotL);
+		slotL.setLayoutOrientation(JList.VERTICAL);
+		
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
@@ -393,7 +404,7 @@ public class VentanaParking extends JFrame {
 		});
 
 		panelDer.add(selectSlot);
-		panelCent.add(slotL);
+		panelCent.add(scrollPane);
 
 		JButton btnPay = new JButton(getResourceBundle().getString("retireAndPay"));
 
