@@ -542,16 +542,22 @@ public class PaymentWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				GuestUserRSH.getInstance().deleteGuestUser(u);
-				List<GuestUser> listaComprobacion = GuestUserRSH.getInstance().checkGuestUsers();
 
-				for (GuestUser user : listaComprobacion) {
-					if (user.getPlate().equals(u.getPlate())) {
-						JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
-					} else {
-						dispose();
-						AuthWindow v = new AuthWindow();
-						v.setVisible(true);
-						break;
+				List<GuestUser> listaComprobacion = GuestUserRSH.getInstance().checkGuestUsers();
+				if (listaComprobacion.size() == 0) {
+					dispose();
+					AuthWindow v = new AuthWindow();
+					v.setVisible(true);
+				} else {
+					for (GuestUser user : listaComprobacion) {
+						if (user.getPlate().equals(u.getPlate())) {
+							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
+						} else {
+							dispose();
+							AuthWindow v = new AuthWindow();
+							v.setVisible(true);
+							break;
+						}
 					}
 				}
 

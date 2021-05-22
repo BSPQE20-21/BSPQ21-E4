@@ -163,7 +163,11 @@ public class AuthWindow extends JFrame {
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
 
-					} else {
+					}else if(cbParking.getSelectedItem().toString().equals("Parking name")){
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
+					
+					}else {
+						
 						if (!user.getPlate().equals(tfPlate.getText())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("unknownPlate"));
 						} else {
@@ -171,6 +175,7 @@ public class AuthWindow extends JFrame {
 								PremiumUserConnected.getConnectedUsers().add(user);
 								dispose();
 								new VentanaParking(user, parkingSeleccionado).setVisible(true);
+							
 
 							} else {
 								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
