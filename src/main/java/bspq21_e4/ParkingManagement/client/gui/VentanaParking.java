@@ -113,10 +113,10 @@ public class VentanaParking extends JFrame {
 		for (int i = 0; i < slotList.size(); i++) {
 
 			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {
-				if (slotList.get(i).getSl().toString() == "GREEN") {
-					slotDL.add(counter, slotList.get(i));
-					counter++;
-				}
+
+				slotDL.add(counter, slotList.get(i));
+				counter++;
+
 			}
 
 		}
@@ -145,10 +145,21 @@ public class VentanaParking extends JFrame {
 				selectedSlot.setSl(SlotAvailability.YELLOW);
 				u.setSlotPk(selectedSlot.getPk());
 				SlotRSH.getInstance().modifySlot(selectedSlot);
+				List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
+				Parking parkingModified = new Parking();
+				for (Parking parking : listaComprobacion) {
 
-				PremiumUserRSH.getInstance().modifyPremiumUser(u);
+					if (parking.getNombre().equals(p)) {
+						parkingModified = parking;
 
-//						ParkingRSH.getInstance().modifyParking(selectedSlot.getIdParking())
+					}
+					// PremiumUserRSH.getInstance().modifyPremiumUser(u);
+				}
+				parkingModified.setId(selectedSlot.getIdParking());
+				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
+				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
+
+				ParkingRSH.getInstance().modifyParking(parkingModified);
 
 			}
 		});
@@ -314,10 +325,10 @@ public class VentanaParking extends JFrame {
 		for (int i = 0; i < slotList.size(); i++) {
 
 			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {
-				if (slotList.get(i).getSl().toString() == "GREEN") {
-					slotDL.add(counter, slotList.get(i));
-					counter++;
-				}
+
+				slotDL.add(counter, slotList.get(i));
+				counter++;
+
 			}
 
 		}
@@ -341,16 +352,25 @@ public class VentanaParking extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println(resourceBundle.getString("select_try"));
 				System.out.println(selectedSlot.toString());
-				selectedSlot.setSl(SlotAvailability.YELLOW);
-
+				selectedSlot.setSl(SlotAvailability.RED);
 				u.setSlotPk(selectedSlot.getPk());
 				SlotRSH.getInstance().modifySlot(selectedSlot);
-				GuestUserRSH.getInstance().modifyGuestUser(u);
+				List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
+				Parking parkingModified = new Parking();
+				for (Parking parking : listaComprobacion) {
 
-//							ParkingRSH.getInstance().modifyParking(selectedSlot.getIdParking())
+					if (parking.getNombre().equals(p)) {
+						parkingModified = parking;
 
+					}
+					// PremiumUserRSH.getInstance().modifyPremiumUser(u);
+				}
+				parkingModified.setId(selectedSlot.getIdParking());
+				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
+				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
+
+				ParkingRSH.getInstance().modifyParking(parkingModified);
 			}
 		});
 
