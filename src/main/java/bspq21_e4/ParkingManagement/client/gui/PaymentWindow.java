@@ -61,7 +61,7 @@ public class PaymentWindow extends JFrame {
 	private JMenuItem menuItem;
 
 	private JComboBox<String> cbPayMethod;
-<<<<<<< HEAD
+
 	private String noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
 	
 	private static ResourceBundle resourceBundle;
@@ -69,15 +69,11 @@ public class PaymentWindow extends JFrame {
 	public ResourceBundle getResourceBundle(){
 		return resourceBundle; 
 	}
-=======
-	private String noSelectableOptionPay = "Payment Method";
->>>>>>> branch 'main' of https://github.com/BSPQE20-21/BSPQ21-E4.git
 
-	private static ResourceBundle resourceBundle;
 
-	public ResourceBundle getResourceBundle() {
-		return resourceBundle;
-	}
+
+
+
 
 	public PaymentWindow(PremiumUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
