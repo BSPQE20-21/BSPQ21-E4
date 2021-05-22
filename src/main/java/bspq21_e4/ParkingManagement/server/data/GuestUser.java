@@ -82,13 +82,7 @@ public class GuestUser {
 		this.entranceDate = entranceDate;
 	}
 
-	public static SimpleDateFormat getSdfResult() {
-		return sdfResult;
-	}
 
-	public static void setSdfResult(SimpleDateFormat sdfResult) {
-		GuestUser.sdfResult = sdfResult;
-	}
 
 	@Override
 	public String toString() {

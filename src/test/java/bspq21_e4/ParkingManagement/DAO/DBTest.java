@@ -70,9 +70,9 @@ public class DBTest {
 		PU2 = new PremiumUser("mikel.arrieta@opendeusto.es", "5322 ASG", 150, 1, "Paypal");
 		PU1U = new PremiumUser("jon.maeztu@opendeusto.es", "7823 GHJ", 300, 2, "VISA");
 
-		GU1 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), 4, "Paypal");
-		GU2 = new GuestUser("8156 BGZ", sdfResult.parse("10:00"), 5, "Paypal");
-		GU1U = new GuestUser("7494 NVZ", sdfResult.parse("12:00"), 6, "Paypal");
+		GU1 = new GuestUser("7494 NVZ", "9:00", 4, "Paypal");
+		GU2 = new GuestUser("8156 BGZ", "10:00", 5, "Paypal");
+		GU1U = new GuestUser("7494 NVZ", "12:00", 6, "Paypal");
 		logger.info("Leaving setUp");
 	}
 

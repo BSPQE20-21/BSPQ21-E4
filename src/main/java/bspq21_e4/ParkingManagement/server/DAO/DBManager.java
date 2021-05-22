@@ -377,7 +377,7 @@ public class DBManager {
 						: userModified.getPlate().equals(user.getPlate())) {
 					userModified.setSlotPk(user.getSlotPk());
 					userModified.setEntranceDate(user.getEntranceDate());
-					userModified.setSdfResult(user.getSdfResult());
+				
 
 				}
 			}
