@@ -11,6 +11,9 @@ import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 
 public class PrepareData {
+	
+	//Para lanzar desde la consola:
+	//mvn -Pdata exec:java
 
 	public static void main(String[] args) {
 

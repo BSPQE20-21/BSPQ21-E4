@@ -33,12 +33,10 @@ import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
-import bspq21_e4.ParkingManagement.server.data.User;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
-import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
 import jakarta.ws.rs.core.GenericType;
 
 /**

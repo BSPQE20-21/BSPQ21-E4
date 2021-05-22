@@ -1,4 +1,5 @@
 package bspq21_e4.ParkingManagement.server.DAO;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,11 +17,9 @@ import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
-import bspq21_e4.ParkingManagement.server.data.User;
 
 /**
- * @class DBManager
- * Window which allows database interaction
+ * @class DBManager Window which allows database interaction
  * @author BSPQ21-E4
  */
 public class DBManager {
@@ -29,13 +28,13 @@ public class DBManager {
 	private static PersistenceManager persistentManager;
 	private static Logger logger = Logger.getLogger(DBManager.class.getName());
 	private static Transaction transaction;
-	
 
 	/**
-     * Constructor of the window just receives the user logged
-     * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
-     * @param User
-     */
+	 * Constructor of the window just receives the user logged
+	 * 
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @param User
+	 */
 	public DBManager() {
 		persistentManagerFactory = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		persistentManager = persistentManagerFactory.getPersistenceManager();
@@ -44,6 +43,7 @@ public class DBManager {
 
 	/**
 	 * Method that creates a DBManager instance if needed and returns it.
+	 * 
 	 * @return DBManager instance
 	 */
 	public static DBManager getInstance() {
@@ -55,34 +55,34 @@ public class DBManager {
 	}
 
 	/**
-	 * Stores the parking in the DB 
+	 * Stores the parking in the DB
+	 * 
 	 * @param parking
 	 */
 	public void insertParking(Parking parking) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 
-		
+		try {
+			transaction.begin();
 
-        try {
-            transaction.begin();
-   
-            persistentManager.makePersistent(parking);
-            transaction.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-            	transaction.rollback();
-            }
+			persistentManager.makePersistent(parking);
+			transaction.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
 
-            persistentManager.close();
-        }
+			persistentManager.close();
+		}
 
 	}
 
 	/**
-	 * Updates the parking from the DB 
+	 * Updates the parking from the DB
+	 * 
 	 * @param parking
 	 */
 	public void updateParking(Parking parking) {
@@ -112,7 +112,8 @@ public class DBManager {
 	}
 
 	/**
-	 * Deletes the parking from the DB 
+	 * Deletes the parking from the DB
+	 * 
 	 * @param parking
 	 */
 	public void deleteParking(Parking parking) {
@@ -144,40 +145,35 @@ public class DBManager {
 	}
 
 	/**
-	 * Stores the slot in the DB 
+	 * Stores the slot in the DB
+	 * 
 	 * @param slot
 	 */
 	public void insertSlot(Slot slot) {
-		
+
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 
-		
+		try {
+			transaction.begin();
 
-        try {
-            transaction.begin();
-   
-            persistentManager.makePersistent(slot);
-            transaction.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-            	transaction.rollback();
-            }
+			persistentManager.makePersistent(slot);
+			transaction.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
 
-            persistentManager.close();
-        }
-//		persistentManager = persistentManagerFactory.getPersistenceManager();
-//		transaction = persistentManager.currentTransaction();
-//
-//		transaction.begin();
-//		persistentManager.makePersistent(slot);
-//		transaction.commit();
+			persistentManager.close();
+		}
+
 	}
 
 	/**
-	 * Updates the slot from the DB 
+	 * Updates the slot from the DB
+	 * 
 	 * @param slot
 	 */
 	public void updateSlot(Slot slot) {
@@ -211,7 +207,8 @@ public class DBManager {
 	}
 
 	/**
-	 * Deletes the slot from the DB 
+	 * Deletes the slot from the DB
+	 * 
 	 * @param slot
 	 */
 	public void deleteSlot(Slot slot) {
@@ -246,33 +243,33 @@ public class DBManager {
 	}
 
 	/**
-	 * Stores the premium user in the DB 
+	 * Stores the premium user in the DB
+	 * 
 	 * @param user
 	 */
 	public void insertPremiumUser(PremiumUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 
-		
+		try {
+			transaction.begin();
 
-        try {
-            transaction.begin();
-   
-            persistentManager.makePersistent(user);
-            transaction.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-            	transaction.rollback();
-            }
+			persistentManager.makePersistent(user);
+			transaction.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
 
-            persistentManager.close();
-        }
+			persistentManager.close();
+		}
 	}
 
 	/**
-	 * Updates the premium user from the DB 
+	 * Updates the premium user from the DB
+	 * 
 	 * @param user
 	 */
 	public void updatePremiumUser(PremiumUser user) {
@@ -307,90 +304,64 @@ public class DBManager {
 	}
 
 	/**
-	 * Deletes the premium user from the DB 
+	 * Deletes the premium user from the DB
+	 * 
 	 * @param user
 	 */
 	public void deletePremiumUser(String plate) {
 
-//		// Delete data using Extent
-//		persistentManager = persistentManagerFactory.getPersistenceManager();
-//		transaction = persistentManager.currentTransaction();
-//
-//		try {
-//			transaction.begin();
-//
-//			@SuppressWarnings("unchecked")
-//			Query<PremiumUser> userQuery = persistentManager
-//					.newQuery("SELECT FROM " + PremiumUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
-//
-//			userQuery.execute();
-//
-//			System.out.println("- Deleted user from db: " + user.getPlate());
-//			persistentManager.deletePersistent(user);
-//
-//			transaction.commit();
-//		} catch (Exception ex) {
-//			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-//		} finally {
-//			if (transaction.isActive()) {
-//				transaction.rollback();
-//			}
-//
-//			persistentManager.close();
-//		}
-//	
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
-        try {
-        	transaction.begin();
-            Extent<PremiumUser> e = persistentManager.getExtent(PremiumUser.class, true);
-            Iterator<PremiumUser> iter = e.iterator();
-            while (iter.hasNext()) {
-            	PremiumUser user = (PremiumUser) iter.next();
-                if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {
-                    persistentManager.deletePersistent(user);
-                }
-            }
+		try {
+			transaction.begin();
+			Extent<PremiumUser> e = persistentManager.getExtent(PremiumUser.class, true);
+			Iterator<PremiumUser> iter = e.iterator();
+			while (iter.hasNext()) {
+				PremiumUser user = (PremiumUser) iter.next();
+				if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {
+					persistentManager.deletePersistent(user);
+				}
+			}
 
-            transaction.commit();
-        } catch (Exception ex) {
-            
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            persistentManager.close();
-        }
+			transaction.commit();
+		} catch (Exception ex) {
+
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
+			persistentManager.close();
+		}
 	}
 
 	/**
-	 * Stores the guest user in the DB 
+	 * Stores the guest user in the DB
+	 * 
 	 * @param user
 	 */
 	public void insertGuestUser(GuestUser user) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 
-		
+		try {
+			transaction.begin();
 
-        try {
-            transaction.begin();
-   
-            persistentManager.makePersistent(user);
-            transaction.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-            	transaction.rollback();
-            }
+			persistentManager.makePersistent(user);
+			transaction.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
 
-            persistentManager.close();
-        }
+			persistentManager.close();
+		}
 	}
 
 	/**
-	 * Updates the guest user from the DB 
+	 * Updates the guest user from the DB
+	 * 
 	 * @param user
 	 */
 	public void updateGuestUser(GuestUser user) {
@@ -424,94 +395,37 @@ public class DBManager {
 	}
 
 	/**
-	 * Deletes the guest user from the DB 
+	 * Deletes the guest user from the DB
+	 * 
 	 * @param user
 	 */
 	public void deleteGuestUser(String plate) {
 
-		// Delete data using Extent
-//		persistentManager = persistentManagerFactory.getPersistenceManager();
-//		transaction = persistentManager.currentTransaction();
-//
-//		try {
-//			transaction.begin();
-//
-//			@SuppressWarnings("unchecked")
-//			Query<GuestUser> userQuery = persistentManager
-//					.newQuery("SELECT FROM " + GuestUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
-//
-//			userQuery.execute();
-//
-//			System.out.println("- Deleted user from db: " + user.getPlate());
-//			persistentManager.deletePersistent(user);
-//
-//			transaction.commit();
-//		} catch (Exception ex) {
-//			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-//		} finally {
-//			if (transaction.isActive()) {
-//				transaction.rollback();
-//			}
-//
-//			persistentManager.close();
-//		}
-		
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
-        try {
-        	transaction.begin();
-            Extent<GuestUser> e = persistentManager.getExtent(GuestUser.class, true);
-            Iterator<GuestUser> iter = e.iterator();
-            while (iter.hasNext()) {
-            	GuestUser user = (GuestUser) iter.next();
-                if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {
-                    persistentManager.deletePersistent(user);
-                }
-            }
-
-            transaction.commit();
-        } catch (Exception ex) {
-            
-        } finally {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            persistentManager.close();
-        }
-	}
-	
-
-
-	/**
-	 * Getting a user from the DB given its cars plates
-	 * @param plate
-	 */
-	public User getUser(String plate) {
-		persistentManager = persistentManagerFactory.getPersistenceManager();
-		transaction = persistentManager.currentTransaction();
-
-		User u = null;
 		try {
 			transaction.begin();
-
-			@SuppressWarnings("unchecked")
-			Query<User> userQuery = persistentManager
-					.newQuery("SELECT FROM " + User.class.getName() + " WHERE plate =='" + plate + "'");
-
-			userQuery.execute();
+			Extent<GuestUser> e = persistentManager.getExtent(GuestUser.class, true);
+			Iterator<GuestUser> iter = e.iterator();
+			while (iter.hasNext()) {
+				GuestUser user = (GuestUser) iter.next();
+				if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {
+					persistentManager.deletePersistent(user);
+				}
+			}
 
 			transaction.commit();
 		} catch (Exception ex) {
-			System.err.println("* Exception obtaining user data from DB: " + ex.getMessage());
+
 		} finally {
-			if (transaction.isActive()) {
+			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
 			}
-
 			persistentManager.close();
 		}
-		return u;
 	}
+
+
 
 	/**
 	 * Getting the list of parkings
@@ -546,7 +460,7 @@ public class DBManager {
 		return parkings;
 
 	}
-	
+
 	/**
 	 * Getting the list of slots
 	 */
@@ -581,39 +495,6 @@ public class DBManager {
 
 	}
 
-	/**
-	 * Getting the list of users
-	 */
-	public List<User> getUsers() {
-		persistentManager = persistentManagerFactory.getPersistenceManager();
-		transaction = persistentManager.currentTransaction();
-
-		List<User> users = new ArrayList<>();
-
-		try {
-			System.out.println("Searching users...");
-			transaction.begin();
-
-			Extent<User> userExtent = persistentManager.getExtent(User.class, true);
-
-			for (User user : userExtent) {
-				persistentManager.makeTransient(user);
-				users.add(user);
-			}
-
-			transaction.commit();
-		} catch (Exception ex) {
-			System.out.println("$ Error obtaining users: " + ex.getMessage());
-		} finally {
-			if (transaction != null && transaction.isActive()) {
-				transaction.rollback();
-			}
-
-			persistentManager.close();
-		}
-		return users;
-
-	}
 
 	/**
 	 * Getting the list of premium users

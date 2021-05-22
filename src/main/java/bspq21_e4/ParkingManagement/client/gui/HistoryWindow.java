@@ -19,10 +19,8 @@ import javax.swing.JPanel;
 
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
-import bspq21_e4.ParkingManagement.server.data.User;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
-import bspq21_e4.ParkingManagement.server.rsh.UserRSH;
 
 /**
  * @class HistoryWindow Window which allows to see the record of the parking
