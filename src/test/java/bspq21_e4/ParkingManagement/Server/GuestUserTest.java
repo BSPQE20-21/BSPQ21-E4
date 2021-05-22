@@ -37,6 +37,7 @@ public class GuestUserTest {
 	final Logger logger = LoggerFactory.getLogger(GuestUserTest.class);
 	static int iteration = 0;
 	
+	
 	public static junit.framework.Test suite() {
 		 return new JUnit4TestAdapter(GuestUserTest.class);
 	}
