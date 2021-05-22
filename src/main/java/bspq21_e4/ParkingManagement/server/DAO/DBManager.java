@@ -86,29 +86,31 @@ public class DBManager {
 	 * @param parking
 	 */
 	public void updateParking(Parking parking) {
+		persistentManager = persistentManagerFactory.getPersistenceManager();
+		transaction = persistentManager.currentTransaction();
+
 		try {
 			transaction.begin();
 
-			@SuppressWarnings("unchecked")
-			Query<Parking> parkingQuery = persistentManager
-					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id=='" + parking.getId() + "'");
-
-			parkingQuery.execute();
-
-			System.out.println("- updated parking from db: " + parking.getNombre());
-			parking.setNombre(parking.getNombre());
-
+			Extent<Parking> e = persistentManager.getExtent(Parking.class, true);
+			Iterator<Parking> iter = e.iterator();
+			while (iter.hasNext()) {
+				Parking parkingModify = (Parking) iter.next();
+				if (parkingModify.getId() == parking.getId()) {
+					parkingModify.setAvailableSlots(parking.getAvailableSlots());
+					parkingModify.setOccupiedSlots(parking.getOccupiedSlots());
+				}
+			}
 			transaction.commit();
 		} catch (Exception ex) {
-			System.err.println("* Exception updating data from DB: " + ex.getMessage());
+			ex.printStackTrace();
 		} finally {
-			if (transaction.isActive()) {
+			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
 			}
 
 			persistentManager.close();
 		}
-
 	}
 
 	/**
