@@ -1,6 +1,7 @@
 package bspq21_e4.ParkingManagement.server.data;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -30,11 +31,11 @@ public class GuestUser {
 	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
 	int slotPk;
 
-	Date entranceDate;
+	String entranceDate;
 
 	public static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 
-	public GuestUser(String plate, Date entranceDate, int slotPk, String paymentMethod) {
+	public GuestUser(String plate, String entranceDate, int slotPk, String paymentMethod) {
 
 		this.plate = plate;
 		this.entranceDate = entranceDate;
@@ -73,11 +74,11 @@ public class GuestUser {
 		this.slotPk = slotPk;
 	}
 
-	public Date getEntranceDate() {
+	public String getEntranceDate() {
 		return entranceDate;
 	}
 
-	public void setEntranceDate(Date entranceDate) {
+	public void setEntranceDate(String entranceDate) {
 		this.entranceDate = entranceDate;
 	}
 
