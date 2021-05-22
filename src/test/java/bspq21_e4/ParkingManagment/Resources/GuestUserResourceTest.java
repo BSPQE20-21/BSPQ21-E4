@@ -54,13 +54,13 @@ public class GuestUserResourceTest {
 	}
 
 	@Test
-	public void GuestUserResourceClassTest() {
+	public void guestUserResourceClassTest() {
 		
 		assertEquals(GUR.getClass(), GuestUserResource.class);
 	}
 	
 	@Test
-	public void GuestUserResourceInsertTest() {
+	public void guestUserResourceInsertTest() {
 		
 		assertEquals(GU1, GUR.insertGuestUser(GU1));
 		assertEquals(GU2, GUR.insertGuestUser(GU2));
@@ -68,14 +68,14 @@ public class GuestUserResourceTest {
 	}
 	
 	@Test
-	public void GuestUserResourceGetTest() {
+	public void guestUserResourceGetTest() {
 		
 		assertArrayEquals(listGU.toArray(), GUR.getGuestUser().toArray());
 		
 	}
 	
 	@Test
-	public void GuestUserResourceModifyTest() {
+	public void guestUserResourceModifyTest() {
 		
 		assertEquals(GU3, GUR.modifyGuestUser(GU3));
 		assertEquals(GU2, GUR.insertGuestUser(GU2));
@@ -83,7 +83,7 @@ public class GuestUserResourceTest {
 	}
 	
 	@Test
-	public void GuestUserResourceDeleteTest() {
+	public void guestUserResourceDeleteTest() {
 		
 		assertEquals("Deleted", GUR.deleteGuestUser("8156 BGZ"));
 		assertEquals("Deleted", GUR.deleteGuestUser("7494 NVZ"));

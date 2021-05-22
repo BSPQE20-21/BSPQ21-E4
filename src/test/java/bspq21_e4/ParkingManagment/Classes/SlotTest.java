@@ -24,10 +24,7 @@ import junit.framework.JUnit4TestAdapter;
 public class SlotTest {
 	
 	private Parking P1;
-	private PremiumUser PU1;
 	private Slot S1;
-	private static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
-	private static double standardFee = 0.04;
 	
 	final Logger logger = LoggerFactory.getLogger(SlotTest.class);
 	static int iteration = 0;
@@ -43,7 +40,6 @@ public class SlotTest {
 		logger.info("Entering setUp: {}", iteration++);
 		P1 = new Parking(1, "Getxo", 100, 50, 40, 2);
 		S1 = new Slot(1, 165, 2, SlotAvailability.GREEN, P1.getId());
-		PU1 = new PremiumUser("jonmaeztu@opendeusto.es", "8534 GHL", 300, S1.getPk(), "PayPal");
 		logger.info("Leaving setUp");
 	}
 	
