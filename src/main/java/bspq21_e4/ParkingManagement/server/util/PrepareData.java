@@ -10,6 +10,12 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 
+
+/**
+ * @class PrepareData Window which allows inserting parkings and slots in the
+ *        Database
+ * @author BSPQ21-E4
+ */
 public class PrepareData {
 	
 	//Para lanzar desde la consola:

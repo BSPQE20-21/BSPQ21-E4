@@ -14,13 +14,21 @@ import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.HttpUrlConnectorProvider;
 
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
-import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 
+/**
+ * @class ParkingRSH Class which allows obtaining information of the parkings
+ *        from the server side
+ * @author BSPQ21-E4
+ * @see import bspq21_e4.ParkingManagement.server.data.GuestUser;
+ */
 public class GuestUserRSH {
 	static GuestUserRSH instance = null;
     Client client;
     WebTarget target;
 
+	/**
+	 * Creating singleton pattern
+	 */
     public static GuestUserRSH getInstance() {
         if (instance == null) {
             instance = new GuestUserRSH();
@@ -28,13 +36,18 @@ public class GuestUserRSH {
         return instance;
     }
 
+	/**
+	 * Class constructor
+	 */
     public GuestUserRSH() {
         client = ClientBuilder.newClient();
         client.property(HttpUrlConnectorProvider.SET_METHOD_WORKAROUND, true);
         target = client.target("http://localhost:8080/myapp").path("guestUser"); 
     }
 
-
+	/**
+	 * Asks the server side for the list of guest users stored in the Database
+	 */
     public List<GuestUser> checkGuestUsers() {
         Invocation.Builder ib = target.request(); // Construir la petición
         Response response = ib.get(); // Realizar una petición GET
@@ -44,6 +57,9 @@ public class GuestUserRSH {
     }
 
 
+	/**
+	 * Asks the server side to store a guest user in the Database
+	 */
     public GuestUser saveGuestUsers(GuestUser user) {
 //    	Invocation.Builder ib = target.path("/insert").request();
 
@@ -55,7 +71,9 @@ public class GuestUserRSH {
 
     }
 
-
+	/**
+	 * Asks the server side to modify a guest user in the Database
+	 */
     public GuestUser modifyGuestUser(GuestUser user) {
 //    	Invocation.Builder ib = target.path("/modify").request();
 
@@ -66,7 +84,9 @@ public class GuestUserRSH {
         return userPlate;
     }
 
-
+	/**
+	 * Asks the server side to delete a guest user from the Database
+	 */
     public void deleteGuestUser(GuestUser user) {
         Invocation.Builder ib = target.path("/delete/" + user.getPlate()).request();
         ib.delete();
