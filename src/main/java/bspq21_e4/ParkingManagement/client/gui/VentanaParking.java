@@ -101,15 +101,12 @@ public class VentanaParking extends JFrame {
 		panelCent.setBackground(Color.WHITE);
 		panelCent.setLayout(new BorderLayout(0, 0));
 		contentPanel.add(panelCent, BorderLayout.CENTER);
-		
-		
 
 		final JList<Slot> slotL = new JList<>();
 		DefaultListModel<Slot> slotDL = new DefaultListModel<>();
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(slotL);
 		slotL.setLayoutOrientation(JList.VERTICAL);
-		
 
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
@@ -184,7 +181,6 @@ public class VentanaParking extends JFrame {
 
 		panelDer.add(selectSlot);
 		panelCent.add(scrollPane);
-
 
 		JButton btnPay = new JButton(getResourceBundle().getString("retireAndPay"));
 
@@ -295,29 +291,26 @@ public class VentanaParking extends JFrame {
 		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
-		
+
 		JPanel panelInfo = new JPanel();
 		panelInfo.setBackground(Color.white);
-		panelInfo.setLayout(new GridLayout(1,1));
-		panelSuperior.add(panelInfo,BorderLayout.SOUTH);
-		
+		panelInfo.setLayout(new GridLayout(1, 1));
+		panelSuperior.add(panelInfo, BorderLayout.SOUTH);
+
 		List<Parking> listInfo = ParkingRSH.getInstance().checkParkings();
-		for(Parking parking: listInfo) {
-			if(parking.getNombre().equals(p)) {
+		for (Parking parking : listInfo) {
+			if (parking.getNombre().equals(p)) {
 				String nombre = parking.getNombre();
 				int total = parking.getnSlots();
 				int ocupados = parking.getOccupiedSlots();
 				int libres = parking.getAvailableSlots();
-				JLabel lbInfo = new JLabel("Nombre: " + nombre +" Total: " + total + " Ocupados: " + ocupados + " Libres: " + libres );
+				JLabel lbInfo = new JLabel(
+						"Nombre: " + nombre + " Total: " + total + " Ocupados: " + ocupados + " Libres: " + libres);
 				panelInfo.add(lbInfo);
 			}
 		}
-		
 
 	}
-	
-
-	
 
 	public VentanaParking(GuestUser u, String p) {
 		setResizable(false);
@@ -351,7 +344,7 @@ public class VentanaParking extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(slotL);
 		slotL.setLayoutOrientation(JList.VERTICAL);
-		
+
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
@@ -408,7 +401,7 @@ public class VentanaParking extends JFrame {
 						parkingModified = parking;
 
 					}
-					
+
 				}
 				parkingModified.setId(selectedSlot.getIdParking());
 				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
@@ -537,20 +530,21 @@ public class VentanaParking extends JFrame {
 		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
-		
+
 		JPanel panelInfo = new JPanel();
 		panelInfo.setBackground(Color.white);
-		panelInfo.setLayout(new GridLayout(1,1));
-		panelSuperior.add(panelInfo,BorderLayout.SOUTH);
-		
+		panelInfo.setLayout(new GridLayout(1, 1));
+		panelSuperior.add(panelInfo, BorderLayout.SOUTH);
+
 		List<Parking> listInfo = ParkingRSH.getInstance().checkParkings();
-		for(Parking parking: listInfo) {
-			if(parking.getNombre().equals(p)) {
+		for (Parking parking : listInfo) {
+			if (parking.getNombre().equals(p)) {
 				String nombre = parking.getNombre();
 				int total = parking.getnSlots();
 				int ocupados = parking.getOccupiedSlots();
 				int libres = parking.getAvailableSlots();
-				JLabel lbInfo = new JLabel("Nombre: " + nombre +" Total: " + total + " Ocupados: " + ocupados + " Libres: " + libres );
+				JLabel lbInfo = new JLabel(
+						"Nombre: " + nombre + " Total: " + total + " Ocupados: " + ocupados + " Libres: " + libres);
 				panelInfo.add(lbInfo);
 			}
 		}
