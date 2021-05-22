@@ -30,18 +30,22 @@ import javax.swing.border.Border;
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
+
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
-
 /**
- * @class PaymentWindow
- * Window which allows to make payments for the time spent in the parking
+ * @class PaymentWindow Window which allows to make payments for the time spent
+ *        in the parking
  * @author BSPQ21-E4
  */
 public class PaymentWindow extends JFrame {
@@ -56,19 +60,18 @@ public class PaymentWindow extends JFrame {
 
 	private JComboBox<String> cbPayMethod;
 	private String noSelectableOptionPay = "Payment Method";
-	
-	private static ResourceBundle resourceBundle;
-	
-	public ResourceBundle getResourceBundle(){
-		return resourceBundle; 
-	}
 
+	private static ResourceBundle resourceBundle;
+
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
+	}
 
 	public PaymentWindow(PremiumUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u, p);
 	}
-	
+
 	/**
 	 * Creating the application.
 	 */
@@ -154,10 +157,9 @@ public class PaymentWindow extends JFrame {
 		});
 		panelCb.setLayout(null);
 		panelCb.add(cbPayMethod);
-		
+
 		JLabel lbImporte = new JLabel();
-		//preguntar a fabri mañana a ver como calcular el importe
-		
+		// preguntar a fabri mañana a ver como calcular el importe
 
 		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));
 
@@ -314,30 +316,30 @@ public class PaymentWindow extends JFrame {
 		});
 
 		menuUsuarios.add(menuItem4);
-		
+
 		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));
-		
+
 		menuItem5.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				HistoryWindow v = new HistoryWindow(u);
 				v.setVisible(true);
-				
+
 			}
 		});
-		
+
 		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 
 	}
-	
+
 	public PaymentWindow(GuestUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initializeGU(u, p);
 	}
-	
+
 	/**
 	 * Creating the application.
 	 */
@@ -423,10 +425,8 @@ public class PaymentWindow extends JFrame {
 		});
 		panelCb.setLayout(null);
 		panelCb.add(cbPayMethod);
-		
+
 		JLabel lbImporte = new JLabel();
-		//preguntar a fabri mañana a ver como calcular el importe
-		
 
 		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));
 
@@ -439,13 +439,13 @@ public class PaymentWindow extends JFrame {
 		JLabel lbEmail = new JLabel(getResourceBundle().getString("email"));
 
 		panelPaypal.add(lbEmail);
-		JTextField tfEmail = new JTextField();
+		final JTextField tfEmail = new JTextField();
 		panelPaypal.add(tfEmail);
 
 		JLabel lbPassword = new JLabel(getResourceBundle().getString("password"));
 
 		panelPaypal.add(lbPassword);
-		JPasswordField pfPassword = new JPasswordField();
+		final JPasswordField pfPassword = new JPasswordField();
 		panelPaypal.add(pfPassword);
 
 		JLabel lbName = new JLabel("Name");
@@ -506,6 +506,53 @@ public class PaymentWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// este boton lo que tiene que hacer es liberar el slot tras haber abonadoel
 				// importe correspondiente
+				List<Slot> listaSlot = SlotRSH.getInstance().checkSlots();
+				List<Parking> listaParking = ParkingRSH.getInstance().checkParkings();
+
+				if (cbPayMethod.getSelectedItem().toString().equals("Paypal")) {
+					if (tfEmail.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "Error. Enter a valid email");
+					} else if (pfPassword.getPassword().toString().equals("")) {
+						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
+					}else {
+						for (Parking parking : listaParking) {
+							if (parking.getNombre().equals(p)) {
+								Parking parkingModified = new Parking();
+								parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
+								parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
+
+								ParkingRSH.getInstance().modifyParking(parking);
+
+								Slot slotModified = new Slot();
+								slotModified.setSl(SlotAvailability.GREEN);
+								slotModified.setIdParking(parking.getId());
+
+								SlotRSH.getInstance().modifySlot(slotModified);
+
+							}
+						}
+					}
+
+
+				} else if (cbPayMethod.getSelectedItem().toString().equals("Visa")) {
+					for (Parking parking : listaParking) {
+						if (parking.getNombre().equals(p)) {
+							Parking parkingModified = new Parking();
+							parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
+							parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
+
+							ParkingRSH.getInstance().modifyParking(parking);
+
+							Slot slotModified = new Slot();
+							slotModified.setSl(SlotAvailability.GREEN);
+							slotModified.setIdParking(parking.getId());
+
+							SlotRSH.getInstance().modifySlot(slotModified);
+
+						}
+					}
+
+				}
 
 			}
 		});
@@ -588,24 +635,22 @@ public class PaymentWindow extends JFrame {
 		});
 
 		menuUsuarios.add(menuItem4);
-		
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));		
+
+		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));
 		menuItem5.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				HistoryWindow v = new HistoryWindow(u);
 				v.setVisible(true);
-				
+
 			}
 		});
-		
+
 		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 
 	}
-
-
 
 }
