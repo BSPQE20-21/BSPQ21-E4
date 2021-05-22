@@ -1,4 +1,4 @@
-package bspq21_e4.ParkingManagement;
+package bspq21_e4.ParkingManagement.Server;
 
 import static org.junit.Assert.*;
 

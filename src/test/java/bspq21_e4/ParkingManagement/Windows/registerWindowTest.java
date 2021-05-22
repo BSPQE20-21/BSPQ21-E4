@@ -1,10 +1,10 @@
-package bspq21_e4.ParkingManagement;
+package bspq21_e4.ParkingManagement.Windows;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class windowTest {
+public class registerWindowTest {
 
 	@Test
 	public void test() {
