@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import bspq21_e4.ParkingManagement.server.DAO.DBManager;
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
-import bspq21_e4.ParkingManagement.server.data.User;
 import junit.framework.JUnit4TestAdapter;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
