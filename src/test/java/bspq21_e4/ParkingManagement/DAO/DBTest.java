@@ -1,4 +1,4 @@
-package bspq21_e4.ParkingManagement.Server;
+package bspq21_e4.ParkingManagement.DAO;
 
 import static org.junit.Assert.*;
 
@@ -134,7 +134,7 @@ public class DBTest {
 
 	@Test
     @PerfTest(invocations = 1000, threads = 20)
-    @Required(max = 120, average = 30)
+    @Required(max = 200, average = 130)
 	public void slotTest() throws InterruptedException {
 		logger.info("Starting slotTest");
 		db.insertSlot(S1);
@@ -158,7 +158,7 @@ public class DBTest {
 
 	@Test
     @PerfTest(invocations = 1000, threads = 20)
-    @Required(max = 120, average = 30)
+    @Required(max = 200, average = 130)
 	public void parkingTest() throws InterruptedException {
 		logger.info("Starting parkingTest");
 		db.insertParking(P1);
