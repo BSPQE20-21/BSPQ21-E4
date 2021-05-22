@@ -204,7 +204,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<profiles>
 		<profile>
 			<id>client</id>
@@ -276,8 +275,6 @@
 			</build>
 		</profile>
 	</profiles>
-
-
 	<reporting>
 	 <plugins>
 		 <plugin>

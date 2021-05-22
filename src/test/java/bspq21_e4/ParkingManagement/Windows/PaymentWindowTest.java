@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ventanaParkingTest {
+public class PaymentWindowTest {
 
 	@Test
 	public void test() {

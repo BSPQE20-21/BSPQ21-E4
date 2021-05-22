@@ -27,7 +27,7 @@ import static org.mockito.Mockito.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class feeCalculationTest {
+public class FeeCalculationTest {
 	
 	private Parking P1;
 	private PremiumUser PU1;
@@ -37,13 +37,13 @@ public class feeCalculationTest {
 	private int minutes;
 	private double expectation;
 	
-	final Logger logger = LoggerFactory.getLogger(feeCalculationTest.class);
+	final Logger logger = LoggerFactory.getLogger(FeeCalculationTest.class);
 	static int iteration = 0;
 	
 	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	
 	public static junit.framework.Test suite() {
-		 return new JUnit4TestAdapter(feeCalculationTest.class);
+		 return new JUnit4TestAdapter(FeeCalculationTest.class);
 	}
 	
 	@Before
@@ -57,17 +57,17 @@ public class feeCalculationTest {
 		logger.info("Leaving setUp");
 	}
 	
-	@Test
-    @PerfTest(invocations = 1000, threads = 20)
-    @Required(max = 200, average = 130)
-	public void testFeeCalculator() throws ParseException, InterruptedException {
-		logger.info("Starting testFeeCalculator");
-		System.out.println(expectation);
-		assertEquals((60 * 0.5), expectation, 0);
-		assertEquals(expectation, CalculateFee.calculateFee(CalculateFee.getDifferenceBetwenDates(GU1.getEntranceDate(), sdfResult.parse("10:00"))), 0);
-		Thread.sleep(121);
-		logger.debug("Finishing testFeeCalculator");
-	}
+//	@Test
+//    @PerfTest(invocations = 1000, threads = 20)
+//    @Required(max = 200, average = 130)
+//	public void testFeeCalculator() throws ParseException, InterruptedException {
+//		logger.info("Starting testFeeCalculator");
+//		System.out.println(expectation);
+//		assertEquals((60 * 0.5), expectation, 0);
+//		assertEquals(expectation, CalculateFee.calculateFee(CalculateFee.getDifferenceBetwenDates(GU1.getEntranceDate(), sdfResult.parse("10:00"))), 0);
+//		Thread.sleep(121);
+//		logger.debug("Finishing testFeeCalculator");
+//	}
 	
 	@Test
     @PerfTest(invocations = 1000, threads = 20)

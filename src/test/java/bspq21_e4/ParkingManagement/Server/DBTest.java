@@ -28,7 +28,7 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 
-public class dbTest {
+public class DBTest {
 
 	private static DBManager instance = null;
 	private static PersistenceManagerFactory persistentManagerFactory;
@@ -42,13 +42,13 @@ public class dbTest {
 	private GuestUser GU1, GU2, GU1U;
 	private static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 
-	final Logger logger = LoggerFactory.getLogger(dbTest.class);
+	final Logger logger = LoggerFactory.getLogger(DBTest.class);
 	static int iteration = 0;
 	
 	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	
 	public static junit.framework.Test suite() {
-		 return new JUnit4TestAdapter(dbTest.class);
+		 return new JUnit4TestAdapter(DBTest.class);
 	}
 	
 	@Before

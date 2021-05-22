@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,7 +24,7 @@ import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 import bspq21_e4.ParkingManagement.server.data.User;
 import junit.framework.JUnit4TestAdapter;
 
-public class guestUserTest {
+public class GuestUserTest {
 	
 	private Parking P1;
 	//private PremiumUser PU1;
@@ -32,13 +34,11 @@ public class guestUserTest {
 	private static double standardFee = 0.04;
 	private User U1;
 	
-	final Logger logger = LoggerFactory.getLogger(guestUserTest.class);
+	final Logger logger = LoggerFactory.getLogger(GuestUserTest.class);
 	static int iteration = 0;
 	
-	@Rule public ContiPerfRule rule = new ContiPerfRule();
-	
 	public static junit.framework.Test suite() {
-		 return new JUnit4TestAdapter(feeCalculationTest.class);
+		 return new JUnit4TestAdapter(GuestUserTest.class);
 	}
 	
 	@Before
@@ -52,7 +52,7 @@ public class guestUserTest {
 	@Test
 	public void guestUsertest() throws ParseException { // Test of all the GuestUser functions
 		
-		assertEquals("8534 GHL", GU1.getPlate());
+		assertEquals("6735 HGL", GU1.getPlate());
 		GU1.setPlate("3785 NAS");
 		assertEquals("3785 NAS", GU1.getPlate());
 		

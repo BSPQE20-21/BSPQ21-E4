@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class registerWindowTest {
+public class RegisterWindowTest {
 
 	@Test
 	public void test() {
