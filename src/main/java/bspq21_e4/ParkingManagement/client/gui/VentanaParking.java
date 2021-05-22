@@ -8,7 +8,11 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -46,6 +50,9 @@ import jakarta.ws.rs.core.GenericType;
  */
 public class VentanaParking extends JFrame {
 	private static final long serialVersionUID = -464873001356522418L;
+	
+	public static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
+	
 	private Slot selectedSlot;
 	private JPanel contentPanel;
 	private JButton selectSlot;
@@ -153,13 +160,16 @@ public class VentanaParking extends JFrame {
 						parkingModified = parking;
 
 					}
-					// PremiumUserRSH.getInstance().modifyPremiumUser(u);
+					
 				}
 				parkingModified.setId(selectedSlot.getIdParking());
 				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
 				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
 
 				ParkingRSH.getInstance().modifyParking(parkingModified);
+				
+				u.setSlotPk(selectedSlot.getPk());
+				PremiumUserRSH.getInstance().modifyPremiumUser(u);
 
 			}
 		});
@@ -371,6 +381,14 @@ public class VentanaParking extends JFrame {
 				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
 
 				ParkingRSH.getInstance().modifyParking(parkingModified);
+				
+				u.setSlotPk(selectedSlot.getPk());
+				
+				   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");  
+				   LocalDateTime now = LocalDateTime.now();  
+				   System.out.println(dtf.format(now));  
+				u.setEntranceDate((Date)now);
+				GuestUserRSH.getInstance().modifyGuestUser(u);
 			}
 		});
 

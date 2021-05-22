@@ -279,23 +279,21 @@ public class DBManager {
 		try {
 			transaction.begin();
 
-			@SuppressWarnings("unchecked")
-			Query<PremiumUser> userQuery = persistentManager
-					.newQuery("SELECT FROM " + PremiumUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
+			Extent<PremiumUser> e = persistentManager.getExtent(PremiumUser.class, true);
+			Iterator<PremiumUser> iter = e.iterator();
+			while (iter.hasNext()) {
+				PremiumUser userModified = (PremiumUser) iter.next();
+				if (userModified.getPlate() == null ? user.getPlate() == null
+						: userModified.getPlate().equals(user.getPlate())) {
+					userModified.setSlotPk(user.getSlotPk());
 
-			userQuery.execute();
-
-			System.out.println("- updated user from db: " + user.getPlate());
-			user.setEmail(user.getEmail());
-			user.setMonthfee(user.getMonthfee());
-			user.setPaymentMethod(user.getPaymentMethod());
-			user.setSlotPk(user.getSlotPk());
-
+				}
+			}
 			transaction.commit();
 		} catch (Exception ex) {
-			System.err.println("* Exception updating data from DB: " + ex.getMessage());
+			System.out.println("$ Error updating: " + ex.getMessage());
 		} finally {
-			if (transaction.isActive()) {
+			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
 			}
 
@@ -371,22 +369,23 @@ public class DBManager {
 		try {
 			transaction.begin();
 
-			@SuppressWarnings("unchecked")
-			Query<GuestUser> userQuery = persistentManager
-					.newQuery("SELECT FROM " + GuestUser.class.getName() + " WHERE plate=='" + user.getPlate() + "'");
+			Extent<GuestUser> e = persistentManager.getExtent(GuestUser.class, true);
+			Iterator<GuestUser> iter = e.iterator();
+			while (iter.hasNext()) {
+				GuestUser userModified = (GuestUser) iter.next();
+				if (userModified.getPlate() == null ? user.getPlate() == null
+						: userModified.getPlate().equals(user.getPlate())) {
+					userModified.setSlotPk(user.getSlotPk());
+					userModified.setEntranceDate(user.getEntranceDate());
+					userModified.setSdfResult(user.getSdfResult());
 
-			userQuery.execute();
-
-			System.out.println("- updated user from db: " + user.getPlate());
-			user.setEntranceDate(user.getEntranceDate());
-			user.setPaymentMethod(user.getPaymentMethod());
-			user.setSlotPk(user.getSlotPk());
-
+				}
+			}
 			transaction.commit();
 		} catch (Exception ex) {
-			System.err.println("* Exception updating data from DB: " + ex.getMessage());
+			System.out.println("$ Error updating: " + ex.getMessage());
 		} finally {
-			if (transaction.isActive()) {
+			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
 			}
 
