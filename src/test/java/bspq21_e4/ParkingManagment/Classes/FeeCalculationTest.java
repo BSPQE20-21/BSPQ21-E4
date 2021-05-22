@@ -1,4 +1,4 @@
-package bspq21_e4.ParkingManagement.Server;
+package bspq21_e4.ParkingManagment.Classes;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -122,10 +122,6 @@ public class DBTest {
 
 		assertEquals(GU1U, (GuestUser) db.getUser(GU1.getPlate()));
 
-		User[] listaU = {PU1,PU2,GU1,GU2};
-
-		assertArrayEquals(listaU, db.getUsers().toArray());
-
 		db.deletePremiumUser(PU1);
 		db.deletePremiumUser(PU2);
 		db.deleteGuestUser(GU1);
