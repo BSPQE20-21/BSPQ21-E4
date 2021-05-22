@@ -305,7 +305,7 @@ public class VentanaParking extends JFrame {
 				int ocupados = parking.getOccupiedSlots();
 				int libres = parking.getAvailableSlots();
 				JLabel lbInfo = new JLabel(
-						"Nombre: " + nombre + " Total: " + total + " Ocupados: " + ocupados + " Libres: " + libres);
+						getResourceBundle().getString("name") + ": " + nombre + " " + getResourceBundle().getString("total") + " " + total + " " + getResourceBundle().getString("occupied") + " " + ocupados + " " + getResourceBundle().getString("free") + " " + libres);
 				panelInfo.add(lbInfo);
 			}
 		}
@@ -544,7 +544,7 @@ public class VentanaParking extends JFrame {
 				int ocupados = parking.getOccupiedSlots();
 				int libres = parking.getAvailableSlots();
 				JLabel lbInfo = new JLabel(
-						"Nombre: " + nombre + " Total: " + total + " Ocupados: " + ocupados + " Libres: " + libres);
+						getResourceBundle().getString("name") + ": " + nombre + " " + getResourceBundle().getString("total") + " " + total + " " + getResourceBundle().getString("occupied") + " " + ocupados + " " + getResourceBundle().getString("free") + " " + libres);
 				panelInfo.add(lbInfo);
 			}
 		}

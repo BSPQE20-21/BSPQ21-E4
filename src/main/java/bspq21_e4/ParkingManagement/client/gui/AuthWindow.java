@@ -47,7 +47,7 @@ public class AuthWindow extends JFrame {
 	private JPanel panelContenidos;
 	private JLabel lb;
 	private JComboBox<String> cbParking;
-	private String noSelectableOptionName = "Parking name";
+	private String noSelectableOptionName = getResourceBundle().getString("parkingName");
 	private String parkingSeleccionado;
 	private static ResourceBundle resourceBundle;
 
@@ -163,7 +163,7 @@ public class AuthWindow extends JFrame {
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
 
-					}else if(cbParking.getSelectedItem().toString().equals("Parking name")){
+					}else if(cbParking.getSelectedItem().toString().equals(getResourceBundle().getString("parkingName"))){
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
 					
 					}else {
@@ -180,7 +180,7 @@ public class AuthWindow extends JFrame {
 							} else {
 								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
 									if (user.equals(u)) {
-										JOptionPane.showMessageDialog(null, "This user is already connected");
+										JOptionPane.showMessageDialog(null, getResourceBundle().getString("uAConnected"));
 										tfEmail.setText("");
 										tfPlate.setText("");
 									} else {
@@ -235,7 +235,7 @@ public class AuthWindow extends JFrame {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
-				}else if(cbParking.getSelectedItem().toString().equals("Parking name")){
+				}else if(cbParking.getSelectedItem().toString().equals(getResourceBundle().getString("parkingName"))){
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
 					
 				} else {

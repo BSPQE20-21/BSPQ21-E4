@@ -55,7 +55,7 @@ public class PaymentWindow extends JFrame {
 	private JMenuItem menuItem;
 
 	private JComboBox<String> cbPayMethod;
-	private String noSelectableOptionPay = "Payment Method";
+	private String noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
 	
 	private static ResourceBundle resourceBundle;
 	
@@ -179,17 +179,17 @@ public class PaymentWindow extends JFrame {
 		JPasswordField pfPassword = new JPasswordField();
 		panelPaypal.add(pfPassword);
 
-		JLabel lbName = new JLabel("Name");
+		JLabel lbName = new JLabel(getResourceBundle().getString("name"));
 		lbName.setBounds(0, 1, 81, 34);
 		JTextField tfName = new JTextField();
 		tfName.setBounds(81, 1, 81, 34);
 
-		JLabel lbCardNumber = new JLabel("Card Number");
+		JLabel lbCardNumber = new JLabel(getResourceBundle().getString("cardNumber"));
 		lbCardNumber.setBounds(0, 35, 81, 34);
 		JTextField tfCardNumber = new JTextField();
 		tfCardNumber.setBounds(81, 35, 81, 34);
 
-		JLabel lbExpiration = new JLabel("Expiration");
+		JLabel lbExpiration = new JLabel(getResourceBundle().getString("expiration"));
 		lbExpiration.setBounds(0, 69, 81, 34);
 		JTextField tfExpiration = new JTextField();
 		tfExpiration.setBounds(81, 69, 81, 34);
@@ -448,17 +448,17 @@ public class PaymentWindow extends JFrame {
 		JPasswordField pfPassword = new JPasswordField();
 		panelPaypal.add(pfPassword);
 
-		JLabel lbName = new JLabel("Name");
+		JLabel lbName = new JLabel(getResourceBundle().getString("name"));
 		lbName.setBounds(0, 1, 81, 34);
 		JTextField tfName = new JTextField();
 		tfName.setBounds(81, 1, 81, 34);
 
-		JLabel lbCardNumber = new JLabel("Card Number");
+		JLabel lbCardNumber = new JLabel(getResourceBundle().getString("cardNumber"));
 		lbCardNumber.setBounds(0, 35, 81, 34);
 		JTextField tfCardNumber = new JTextField();
 		tfCardNumber.setBounds(81, 35, 81, 34);
 
-		JLabel lbExpiration = new JLabel("Expiration");
+		JLabel lbExpiration = new JLabel(getResourceBundle().getString("expiration"));
 		lbExpiration.setBounds(0, 69, 81, 34);
 		JTextField tfExpiration = new JTextField();
 		tfExpiration.setBounds(81, 69, 81, 34);
