@@ -99,10 +99,8 @@ public class VentanaParking extends JFrame {
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		for (int i = 0; i < slotList.size(); i++) {
-			if (slotList.get(i).getSl().toString() == "GREEN") {
 				slotDL.add(counter, slotList.get(i));
-				counter++;
-			}
+				counter++;		
 		}
 
 		slotL.addListSelectionListener(new ListSelectionListener() {

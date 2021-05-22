@@ -77,13 +77,13 @@ public class Slot{
 	public void setSl(SlotAvailability newSl) {
 	    this.sl = newSl;
 	  }
-	
-
 
 	@Override
 	public String toString() {
-		return "Slot [id=" + id + ", floor=" + floor + ", sl=" + sl + ", IDparking=" + idParking + "]";
+		return "Slot [pk=" + pk + ", id=" + id + ", floor=" + floor + ", sl=" + sl + ", idParking=" + idParking + "]";
 	}
+	
+
 
 
 	

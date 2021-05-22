@@ -183,22 +183,20 @@ public class DBManager {
 		try {
 			transaction.begin();
 
-			@SuppressWarnings("unchecked")
-			Query<Slot> slotQuery = persistentManager
-					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getPk());
+			Extent<Slot> e = persistentManager.getExtent(Slot.class, true);
+			Iterator<Slot> iter = e.iterator();
+			while (iter.hasNext()) {
+				Slot slotModify = (Slot) iter.next();
+				if (slotModify.getPk() == slot.getPk()) {
+					slotModify.setSl(slot.getSl());
 
-			slotQuery.execute();
-			System.out.println("- updated slot from db: " + slot.getPk());
-
-			slot.setFloor(slot.getFloor());
-			slot.setIdParking(slot.getIdParking());
-			slot.setSl(slot.getSl());
-
+				}
+			}
 			transaction.commit();
 		} catch (Exception ex) {
-			System.err.println("* Exception updating data from DB: " + ex.getMessage());
+			ex.printStackTrace();
 		} finally {
-			if (transaction.isActive()) {
+			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
 			}
 
@@ -425,8 +423,6 @@ public class DBManager {
 		}
 	}
 
-
-
 	/**
 	 * Getting the list of parkings
 	 */
@@ -494,7 +490,6 @@ public class DBManager {
 		return slots;
 
 	}
-
 
 	/**
 	 * Getting the list of premium users
