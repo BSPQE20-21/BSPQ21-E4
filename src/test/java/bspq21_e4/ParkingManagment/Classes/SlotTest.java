@@ -42,26 +42,96 @@ public class SlotTest {
 	public void setUp() throws ParseException {
 		logger.info("Entering setUp: {}", iteration++);
 		P1 = new Parking(1, "Getxo", 100, 50, 40, 2);
-		S1 = new Slot(165, 2, SlotAvailability.GREEN, P1);
-		PU1 = new PremiumUser("jonmaeztu@opendeusto.es", "8534 GHL", 300, new Slot(165, 2, SlotAvailability.GREEN, P1), "PayPal");
+		S1 = new Slot(1, 165, 2, SlotAvailability.GREEN, P1.getId());
+		PU1 = new PremiumUser("jonmaeztu@opendeusto.es", "8534 GHL", 300, S1.getPk(), "PayPal");
 		logger.info("Leaving setUp");
 	}
 	
 	@Test
 	@PerfTest(invocations = 1000, threads = 20)
     @Required(max = 120, average = 30)
-	public void premiumUsertest() throws ParseException { // Test of all the GuestUser functions 
+	public void SlotClassTest() { 
 		
-		assertEquals("8534 GHL", PU1.getPlate());
-		assertEquals("jonmaeztu@opendeusto.es", PU1.getEmail());
-		
-		assertEquals(300, PU1.getMonthfee());
-		
-		assertEquals(S1, PU1.getSelectedSlot());
-		
-		assertEquals("Paypal", PU1.getPaymentMethod());
-		
+		assertEquals(S1.getClass(), Slot.class);
 		
 	}
+	
+	@Test
+	public void getSlotPKTest() { 
+		
+		assertEquals(1, S1.getPk());
+		
+	}
+	
+	@Test
+	public void setSlotPKTest() { 
+		
+		S1.setPk(2);
+		assertEquals(2, S1.getPk());
+		
+	}
+	
+	@Test
+	public void getSlotIdTest() { 
+		
+		assertEquals(165, S1.getId());
+		
+	}
+	
+	@Test
+	public void setSlotIdTest() { 
+		
+		S1.setPk(170);
+		assertEquals(170, S1.getId());
+		
+	}
+	
+	@Test
+	public void getSlotFloorTest() { 
+		
+		assertEquals(2, S1.getFloor());
+		
+	}
+	
+	@Test
+	public void setSlotFloorTest() { 
+		
+		S1.setFloor(1);
+		assertEquals(1, S1.getFloor());
+		
+	}
+	
+	@Test
+	public void getSlotAvailabilityTest() { 
+		
+		assertEquals(SlotAvailability.GREEN, S1.getSl());
+		
+	}
+	
+	@Test
+	public void setSlotAvailabilityTest() { 
+		
+		S1.setSl(SlotAvailability.RED);
+		assertEquals(SlotAvailability.RED, S1.getSl());
+		
+	}
+	
+	@Test
+	public void getSlotParkingTest() { 
+		
+		assertEquals(P1.getId(), S1.getIdParking());
+		
+	}
+	
+	@Test
+	public void setSlotParkingTest() { 
+		
+		P1.setId(2);
+		S1.setIdParking(P1.getId());
+		assertEquals(P1.getId(), S1.getIdParking());
+		
+	}
+
+	
 
 }

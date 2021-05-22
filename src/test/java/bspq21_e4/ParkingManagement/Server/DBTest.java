@@ -59,20 +59,20 @@ public class DBTest {
 		P1U = new Parking(1, "Parking Getxo", 50, 30, 20, 1);
 		P2 = new Parking(2, "Parking Bilbao", 150, 100, 50, 3);
 
-		S1 = new Slot(1, 1, SlotAvailability.GREEN, P1);
-		S2 = new Slot(2, 1, SlotAvailability.YELLOW, P1);
-		S1U = new Slot(1, 2, SlotAvailability.RED, P2);
-		S3 = new Slot(3, 1, SlotAvailability.GREEN, P1);
-		S4 = new Slot(4, 1, SlotAvailability.GREEN, P1);
-		S5 = new Slot(5, 2, SlotAvailability.GREEN, P2);
+		S1 = new Slot(1, 1, 1, SlotAvailability.GREEN, 1);
+		S2 = new Slot(2, 2, 1, SlotAvailability.YELLOW, 1);
+		S1U = new Slot(3, 1, 2, SlotAvailability.RED, 2);
+		S3 = new Slot(4, 3, 1, SlotAvailability.GREEN, 1);
+		S4 = new Slot(5, 4, 1, SlotAvailability.GREEN, 1);
+		S5 = new Slot(6, 5, 2, SlotAvailability.GREEN, 2);
 
-		PU1 = new PremiumUser("jon.maeztu@opendeusto.es", "7823 GHJ", 200, S2, "Paypal");
-		PU2 = new PremiumUser("mikel.arrieta@opendeusto.es", "5322 ASG", 150, S1, "Paypal");
-		PU1U = new PremiumUser("jon.maeztu@opendeusto.es", "7823 GHJ", 300, S2, "VISA");
+		PU1 = new PremiumUser("jon.maeztu@opendeusto.es", "7823 GHJ", 200, 2, "Paypal");
+		PU2 = new PremiumUser("mikel.arrieta@opendeusto.es", "5322 ASG", 150, 1, "Paypal");
+		PU1U = new PremiumUser("jon.maeztu@opendeusto.es", "7823 GHJ", 300, 2, "VISA");
 
-		GU1 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), S3, "Paypal");
-		GU2 = new GuestUser("8156 BGZ", sdfResult.parse("10:00"), S4, "Paypal");
-		GU1U = new GuestUser("7494 NVZ", sdfResult.parse("12:00"), S5, "Paypal");
+		GU1 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), 4, "Paypal");
+		GU2 = new GuestUser("8156 BGZ", sdfResult.parse("10:00"), 5, "Paypal");
+		GU1U = new GuestUser("7494 NVZ", sdfResult.parse("12:00"), 6, "Paypal");
 		logger.info("Leaving setUp");
 	}
 
@@ -99,36 +99,35 @@ public class DBTest {
 		db.insertPremiumUser(PU2);
 
 		PremiumUser[] listaP = { PU1, PU2 };
+		PremiumUser[] listaPU = { PU1U, PU2 };
 
-		assertEquals(PU1, db.getUser(PU1.getPlate()));
 		assertArrayEquals(listaP, db.getPremiumUsers().toArray());
 
 		db.updatePremiumUser(PU1U);
 
-		assertEquals(PU1U, db.getUser(PU1.getPlate()));
+		assertArrayEquals(listaPU, db.getPremiumUsers().toArray());
 
-		db.deletePremiumUser(PU1);
-		db.deletePremiumUser(PU2);
+		db.deletePremiumUser(PU1U.getPlate());;
+		db.deletePremiumUser(PU2.getPlate());
 
 		db.insertGuestUser(GU1);
 		db.insertGuestUser(GU2);
 
 		GuestUser[] listaG = { GU1, GU2 };
+		GuestUser[] listaGU = { GU1U, GU2 };
 
-		assertEquals(GU1, db.getUser(GU1.getPlate()));
 		assertArrayEquals(listaG, db.getGuestUsers().toArray());
 
 		db.updateGuestUser(GU1U);
+		
+		assertArrayEquals(listaGU, db.getGuestUsers().toArray());
 
-		assertEquals(GU1U, (GuestUser) db.getUser(GU1.getPlate()));
-
-		db.deletePremiumUser(PU1);
-		db.deletePremiumUser(PU2);
-		db.deleteGuestUser(GU1);
-		db.deleteGuestUser(GU2);
+		db.deleteGuestUser(GU1U.getPlate());
+		db.deleteGuestUser(GU2.getPlate());
 
 		assertEquals(null, db.getPremiumUsers());
-		assertEquals(null, db.getPremiumUsers());
+		assertEquals(null, db.getGuestUsers());
+		
 		Thread.sleep(121);
 		logger.debug("Finishing userTest");
 	}
