@@ -47,7 +47,7 @@ public class AuthWindow extends JFrame {
 	private JPanel panelContenidos;
 	private JLabel lb;
 	private JComboBox<String> cbParking;
-	private String noSelectableOptionName = getResourceBundle().getString("parkingName");
+	private String noSelectableOptionName;
 	private String parkingSeleccionado;
 	private static ResourceBundle resourceBundle;
 
@@ -88,12 +88,12 @@ public class AuthWindow extends JFrame {
 		panelDerInf.setBackground(Color.WHITE);
 		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
+		
+		noSelectableOptionName = getResourceBundle().getString("parkingName");
 		cbParking = new JComboBox<String>();
 
 		cbParking.setModel(new DefaultComboBoxModel<String>() {
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 			private boolean seleccionPermitida = true;
 
@@ -163,7 +163,7 @@ public class AuthWindow extends JFrame {
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
 
-					}else if(cbParking.getSelectedItem().toString().equals(getResourceBundle().getString("parkingName"))){
+					}else if(cbParking.getSelectedItem().toString().equals(noSelectableOptionName)){
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
 					
 					}else {
@@ -235,7 +235,7 @@ public class AuthWindow extends JFrame {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
-				}else if(cbParking.getSelectedItem().toString().equals(getResourceBundle().getString("parkingName"))){
+				}else if(cbParking.getSelectedItem().toString().equals(noSelectableOptionName)){
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
 					
 				} else {

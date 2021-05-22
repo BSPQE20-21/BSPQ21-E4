@@ -37,7 +37,7 @@ public class CalculateFee {
 	 * Method which calculates the the fee to pay out of the spent time
 	 * @param minutes
 	 */
-	public static double calculateFee(int minutes) {
+	public static double calculateFee(float minutes) {
 	
 	    double amount = minutes * standardFee;
 	    return amount;

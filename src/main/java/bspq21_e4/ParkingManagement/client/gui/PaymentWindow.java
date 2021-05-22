@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -27,6 +29,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import bspq21_e4.ParkingManagement.server.data.CalculateFee;
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
@@ -53,8 +56,8 @@ public class PaymentWindow extends JFrame {
 	private JPanel panelContenidos;
 	private JPanel panelVisa;
 	private JPanel panelPaypal;
-	
 
+	private JLabel importe;
 
 	private JMenuBar menu;
 	private JMenu menuUsuarios;
@@ -62,18 +65,13 @@ public class PaymentWindow extends JFrame {
 
 	private JComboBox<String> cbPayMethod;
 
-	private String noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
-	
+	private String noSelectableOptionPay;
+
 	private static ResourceBundle resourceBundle;
-	
-	public ResourceBundle getResourceBundle(){
-		return resourceBundle; 
+
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
 	}
-
-
-
-
-
 
 	public PaymentWindow(PremiumUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
@@ -113,7 +111,7 @@ public class PaymentWindow extends JFrame {
 		panelVisa.setBackground(Color.WHITE);
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
-
+		noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
 		cbPayMethod = new JComboBox<String>();
 		cbPayMethod.setBounds(10, 50, 122, 40);
 
@@ -382,6 +380,36 @@ public class PaymentWindow extends JFrame {
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
 
+		String entrada = u.getEntranceDate();
+		String[] separador= entrada.split(":");
+			
+		String hora = separador[0];
+		String minuto = separador[1];
+		String segundo = separador[2];
+
+		float entradaMinutos = (Integer.parseInt(hora) * 60) + Integer.parseInt(minuto) + (Integer.parseInt(segundo)/60);
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+		LocalDateTime salida = LocalDateTime.now();
+		String formatoSalida = dtf.format(salida);
+		String[] separadorSalida =formatoSalida.split(":");
+		String horaSalida = separadorSalida[0];
+		String minutoSalida = separadorSalida[1];
+		String segundoSalida = separadorSalida[2];
+		
+		float salidaMinutos = (Integer.parseInt(horaSalida) * 60) + Integer.parseInt(minutoSalida) + (Integer.parseInt(segundoSalida)/60);
+		
+		
+		float total = salidaMinutos-entradaMinutos;
+		
+		CalculateFee.calculateFee(total);
+		
+		
+
+		importe = new JLabel("Importe: " + total + "€");
+		panelCb.add(importe);
+		noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
 		cbPayMethod = new JComboBox<String>();
 		cbPayMethod.setBounds(10, 50, 122, 40);
 
@@ -523,7 +551,7 @@ public class PaymentWindow extends JFrame {
 						JOptionPane.showMessageDialog(null, "Error. Enter a valid email");
 					} else if (pfPassword.getPassword().toString().equals("")) {
 						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
-					}else {
+					} else {
 						for (Parking parking : listaParking) {
 							if (parking.getNombre().equals(p)) {
 								Parking parkingModified = new Parking();
@@ -535,13 +563,13 @@ public class PaymentWindow extends JFrame {
 								Slot slotModified = new Slot();
 								slotModified.setSl(SlotAvailability.GREEN);
 								slotModified.setIdParking(parking.getId());
+								slotModified.setPk(u.getSlotPk());
 
 								SlotRSH.getInstance().modifySlot(slotModified);
 
 							}
 						}
 					}
-
 
 				} else if (cbPayMethod.getSelectedItem().toString().equals("Visa")) {
 					for (Parking parking : listaParking) {

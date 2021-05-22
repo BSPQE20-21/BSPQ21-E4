@@ -413,7 +413,7 @@ public class VentanaParking extends JFrame {
 
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 				LocalDateTime now = LocalDateTime.now();
-				System.out.println(dtf.format(now));
+			
 				u.setEntranceDate(dtf.format(now));
 				GuestUserRSH.getInstance().modifyGuestUser(u);
 			}
