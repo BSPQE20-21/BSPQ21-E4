@@ -408,7 +408,7 @@ public class VentanaParking extends JFrame {
 						parkingModified = parking;
 
 					}
-					// PremiumUserRSH.getInstance().modifyPremiumUser(u);
+					
 				}
 				parkingModified.setId(selectedSlot.getIdParking());
 				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
