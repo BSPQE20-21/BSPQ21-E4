@@ -53,6 +53,8 @@ public class PaymentWindow extends JFrame {
 	private JPanel panelContenidos;
 	private JPanel panelVisa;
 	private JPanel panelPaypal;
+	
+
 
 	private JMenuBar menu;
 	private JMenu menuUsuarios;
@@ -506,6 +508,7 @@ public class PaymentWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// este boton lo que tiene que hacer es liberar el slot tras haber abonadoel
 				// importe correspondiente
+
 				List<Slot> listaSlot = SlotRSH.getInstance().checkSlots();
 				List<Parking> listaParking = ParkingRSH.getInstance().checkParkings();
 
