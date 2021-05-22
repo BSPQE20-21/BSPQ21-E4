@@ -31,11 +31,19 @@ public class GuestUserResourceTest {
 	
 	
 	@Before
-	public void setUp() throws ParseException {
+	public void setUp() {
 		
-		GU1 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), 4, "Paypal");
-		GU2 = new GuestUser("8156 BGZ", sdfResult.parse("10:00"), 5, "Paypal");
-		GU3 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), 4, "Visa");
+		try {
+			
+			GU1 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), 4, "Paypal");
+			GU2 = new GuestUser("8156 BGZ", sdfResult.parse("10:00"), 5, "Paypal");
+			GU3 = new GuestUser("7494 NVZ", sdfResult.parse("9:00"), 4, "Visa");
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		listGU = new ArrayList<GuestUser>();
 		
 		listGU.add(GU1);
