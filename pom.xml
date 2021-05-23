@@ -223,7 +223,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<mainClass>bspq21_e4.ParkingManagement.client.main.ClientSide</mainClass>
+							<mainClass>bspq21_e4.ParkingManagement.client.gui.AuthWindow</mainClass>
 						</configuration>
 					</plugin>
 				</plugins>
