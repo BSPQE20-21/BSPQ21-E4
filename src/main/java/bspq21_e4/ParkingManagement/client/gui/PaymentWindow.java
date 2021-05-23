@@ -383,30 +383,9 @@ public class PaymentWindow extends JFrame {
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
 
-		String entrada = u.getEntranceDate();
-		String[] separador= entrada.split(":");
-			
-		String hora = separador[0];
-		String minuto = separador[1];
-		String segundo = separador[2];
 
-		float entradaMinutos = (Integer.parseInt(hora) * 60 + Integer.parseInt(minuto) + (Integer.parseInt(segundo)/60));
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-		LocalDateTime salida = LocalDateTime.now();
-		String formatoSalida = dtf.format(salida);
-		String[] separadorSalida =formatoSalida.split(":");
-		String horaSalida = separadorSalida[0];
-		String minutoSalida = separadorSalida[1];
-		String segundoSalida = separadorSalida[2];
-		
-		float salidaMinutos = (Integer.parseInt(horaSalida) * 60 + Integer.parseInt(minutoSalida) + (Integer.parseInt(segundoSalida)/60));
-		
-		float total = salidaMinutos-entradaMinutos;
-		CalculateFee.calculateFee(total);
-		
-		
+		double total = CalculateFee.calculateFee(u.getEntranceDate());
 
 		importe = new JLabel("Importe: " + total + "€");
 		importe.setSize(210, 25);
@@ -465,7 +444,6 @@ public class PaymentWindow extends JFrame {
 		panelCb.setLayout(null);
 		panelCb.add(cbPayMethod);
 
-		JLabel lbImporte = new JLabel();
 
 		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));
 
@@ -569,6 +547,16 @@ public class PaymentWindow extends JFrame {
 								slotModified.setPk(u.getSlotPk());
 
 								SlotRSH.getInstance().modifySlot(slotModified);
+								
+							
+								
+								u.setEntranceDate(null);
+								u.setSlotPk(0);
+								GuestUserRSH.getInstance().modifyGuestUser(u);
+								
+//								dispose();
+//								AuthWindow a = new AuthWindow();
+//								a.setVisible(true);
 
 							}
 						}
@@ -588,10 +576,21 @@ public class PaymentWindow extends JFrame {
 							slotModified.setIdParking(parking.getId());
 
 							SlotRSH.getInstance().modifySlot(slotModified);
+							
+							GuestUser userModified = new GuestUser();
+							userModified.setEntranceDate(null);
+							userModified.setSlotPk(0);
+							GuestUserRSH.getInstance().modifyGuestUser(u);
+							dispose();
+							AuthWindow a = new AuthWindow();
+							a.setVisible(true);
+
 
 						}
 					}
 
+				}else {
+					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
 				}
 
 			}

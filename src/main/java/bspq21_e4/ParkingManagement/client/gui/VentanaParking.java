@@ -170,7 +170,8 @@ public class VentanaParking extends JFrame {
 				parkingModified.setId(selectedSlot.getIdParking());
 				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
 				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
-
+				
+				slotL.repaint();
 				ParkingRSH.getInstance().modifyParking(parkingModified);
 
 				u.setSlotPk(selectedSlot.getPk());
@@ -191,6 +192,7 @@ public class VentanaParking extends JFrame {
 
 				PaymentWindow pw = new PaymentWindow(u, p);
 				pw.setVisible(true);
+				dispose();
 
 			}
 		});
@@ -389,7 +391,7 @@ public class VentanaParking extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(selectedSlot.toString());
+				
 				selectedSlot.setSl(SlotAvailability.RED);
 				u.setSlotPk(selectedSlot.getPk());
 				SlotRSH.getInstance().modifySlot(selectedSlot);
@@ -406,6 +408,9 @@ public class VentanaParking extends JFrame {
 				parkingModified.setId(selectedSlot.getIdParking());
 				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
 				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
+				
+				slotL.repaint();
+				
 
 				ParkingRSH.getInstance().modifyParking(parkingModified);
 
@@ -430,6 +435,7 @@ public class VentanaParking extends JFrame {
 
 				PaymentWindow pw = new PaymentWindow(u, p);
 				pw.setVisible(true);
+				dispose();
 
 			}
 		});
