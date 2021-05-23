@@ -377,12 +377,15 @@ public class VentanaParking extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				if (!e.getValueIsAdjusting()) {
+					
 					selectedSlot = (slotL.getSelectedValue());
+					
 				}
 			}
 
 		});
-
+		
+		
 		slotL.setModel(slotDL);
 
 		JButton selectSlot = new JButton(getResourceBundle().getString("select"));
@@ -392,34 +395,40 @@ public class VentanaParking extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				selectedSlot.setSl(SlotAvailability.RED);
-				u.setSlotPk(selectedSlot.getPk());
-				SlotRSH.getInstance().modifySlot(selectedSlot);
-				List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
-				Parking parkingModified = new Parking();
-				for (Parking parking : listaComprobacion) {
+				if(selectedSlot.getSl().equals(SlotAvailability.RED) || selectedSlot.getSl().equals(SlotAvailability.YELLOW)) {
+					JOptionPane.showMessageDialog(null, resourceBundle.getString("validSlot"));
+				}else {
+					selectedSlot.setSl(SlotAvailability.RED);
+					u.setSlotPk(selectedSlot.getPk());
+					SlotRSH.getInstance().modifySlot(selectedSlot);
+					List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
+					Parking parkingModified = new Parking();
+					for (Parking parking : listaComprobacion) {
 
-					if (parking.getNombre().equals(p)) {
-						parkingModified = parking;
+						if (parking.getNombre().equals(p)) {
+							parkingModified = parking;
+
+						}
 
 					}
+					parkingModified.setId(selectedSlot.getIdParking());
+					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
+					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
+					
+					slotL.repaint();
+					
 
+					ParkingRSH.getInstance().modifyParking(parkingModified);
+
+					u.setSlotPk(selectedSlot.getPk());
+
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+					LocalDateTime now = LocalDateTime.now();
+					u.setEntranceDate(dtf.format(now));
+					GuestUserRSH.getInstance().modifyGuestUser(u);
 				}
-				parkingModified.setId(selectedSlot.getIdParking());
-				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
-				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
-				
-				slotL.repaint();
 				
 
-				ParkingRSH.getInstance().modifyParking(parkingModified);
-
-				u.setSlotPk(selectedSlot.getPk());
-
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
-				LocalDateTime now = LocalDateTime.now();
-				u.setEntranceDate(dtf.format(now));
-				GuestUserRSH.getInstance().modifyGuestUser(u);
 			}
 		});
 
