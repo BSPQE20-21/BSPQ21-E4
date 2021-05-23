@@ -111,7 +111,7 @@ public class PaymentWindow extends JFrame {
 		panelVisa.setBackground(Color.WHITE);
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
-		
+
 		final double total = u.getMonthfee();
 
 		importe = new JLabel("Importe: " + total + "€");
@@ -253,7 +253,6 @@ public class PaymentWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				List<Parking> listaParking = ParkingRSH.getInstance().checkParkings();
-				
 
 				if (cbPayMethod.getSelectedItem().toString().equals("Paypal")) {
 					if (tfEmail.getText().equals("")) {
@@ -274,9 +273,9 @@ public class PaymentWindow extends JFrame {
 								slotModified.setPk(u.getSlotPk());
 
 								SlotRSH.getInstance().modifySlot(slotModified);
-								
+
 								u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
-								u.setMonthfee((int)total);
+								u.setMonthfee((int) total);
 								PremiumUserRSH.getInstance().modifyPremiumUser(u);
 								dispose();
 								AuthWindow a = new AuthWindow();
@@ -300,19 +299,18 @@ public class PaymentWindow extends JFrame {
 							slotModified.setIdParking(parking.getId());
 
 							SlotRSH.getInstance().modifySlot(slotModified);
-							
+
 							u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
-							u.setMonthfee((int)total);
+							u.setMonthfee((int) total);
 							PremiumUserRSH.getInstance().modifyPremiumUser(u);
 							dispose();
 							AuthWindow a = new AuthWindow();
 							a.setVisible(true);
 
-
 						}
 					}
 
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
 				}
 
@@ -369,18 +367,6 @@ public class PaymentWindow extends JFrame {
 		});
 		menuUsuarios.add(menuItem2);
 
-		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
-		menuItem3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		menuUsuarios.add(menuItem3);
-
 		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 
 		menuItem4.addActionListener(new ActionListener() {
@@ -392,20 +378,6 @@ public class PaymentWindow extends JFrame {
 		});
 
 		menuUsuarios.add(menuItem4);
-
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));
-
-		menuItem5.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				HistoryWindow v = new HistoryWindow(u);
-				v.setVisible(true);
-
-			}
-		});
-
-		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 
@@ -642,7 +614,6 @@ public class PaymentWindow extends JFrame {
 
 							SlotRSH.getInstance().modifySlot(slotModified);
 
-							
 							u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
 							u.setEntranceDate(null);
 							u.setSlotPk(0);
@@ -716,18 +687,6 @@ public class PaymentWindow extends JFrame {
 		});
 		menuUsuarios.add(menuItem2);
 
-		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
-		menuItem3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		menuUsuarios.add(menuItem3);
-
 		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 
 		menuItem4.addActionListener(new ActionListener() {
@@ -739,19 +698,6 @@ public class PaymentWindow extends JFrame {
 		});
 
 		menuUsuarios.add(menuItem4);
-
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString(("bookingHistory")));
-		menuItem5.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				HistoryWindow v = new HistoryWindow(u);
-				v.setVisible(true);
-
-			}
-		});
-
-		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 

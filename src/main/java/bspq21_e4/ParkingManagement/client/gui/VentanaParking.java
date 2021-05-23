@@ -253,17 +253,6 @@ public class VentanaParking extends JFrame {
 		});
 		menuUsuarios.add(menuItem2);
 
-		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
-		menuItem3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		menuUsuarios.add(menuItem3);
 
 		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 
@@ -277,19 +266,6 @@ public class VentanaParking extends JFrame {
 
 		menuUsuarios.add(menuItem4);
 
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("bookingHistory"));
-
-		menuItem5.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				HistoryWindow v = new HistoryWindow(u);
-				v.setVisible(true);
-
-			}
-		});
-
-		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 
@@ -507,17 +483,6 @@ public class VentanaParking extends JFrame {
 		});
 		menuUsuarios.add(menuItem2);
 
-		JMenuItem menuItem3 = new JMenuItem(getResourceBundle().getString("modify"));
-		menuItem3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		menuUsuarios.add(menuItem3);
 
 		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString("exit"));
 
@@ -531,19 +496,7 @@ public class VentanaParking extends JFrame {
 
 		menuUsuarios.add(menuItem4);
 
-		JMenuItem menuItem5 = new JMenuItem(getResourceBundle().getString("bookingHistory"));
 
-		menuItem5.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				HistoryWindow v = new HistoryWindow(u);
-				v.setVisible(true);
-
-			}
-		});
-
-		menuUsuarios.add(menuItem5);
 
 		panelSuperior.add(menu);
 
