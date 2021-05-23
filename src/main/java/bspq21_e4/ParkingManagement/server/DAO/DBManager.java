@@ -580,7 +580,7 @@ public class DBManager {
 	/**
 	 * Getting a parking given its id
 	 */
-	public Parking searchParking(String id) {
+	public Parking searchParking(int id) {
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
 		Parking parking = null;
