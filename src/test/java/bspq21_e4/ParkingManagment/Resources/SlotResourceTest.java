@@ -17,6 +17,7 @@ import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 import bspq21_e4.ParkingManagement.server.resource.SlotResource;
 import junit.framework.JUnit4TestAdapter;
 
+
 public class SlotResourceTest {
 
 	private Slot S1, S2, S3;
@@ -24,7 +25,7 @@ public class SlotResourceTest {
 	private List<Slot> listS, listS1;
 
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(ParkingResourceTest.class);
+		return new JUnit4TestAdapter(SlotResourceTest.class);
 	}
 
 	@Before
@@ -48,13 +49,13 @@ public class SlotResourceTest {
 	}
 
 	@Test
-	public void premiumUserResourceClassTest() {
+	public void slotResourceClassTest() {
 
 		assertEquals(SR.getClass(), SlotResource.class);
 	}
 
 	@Test
-	public void premiumUserResourceInsertTest() {
+	public void slotResourceInsertTest() {
 
 		assertEquals(S1, SR.insertSlot(S1));
 		assertEquals(S2, SR.insertSlot(S2));
@@ -62,14 +63,14 @@ public class SlotResourceTest {
 	}
 
 	@Test
-	public void premiumUserResourceGetTest() {
+	public void slotResourceGetTest() {
 
 		assertArrayEquals(listS.toArray(), SR.getSlots().toArray());
 
 	}
 
 	@Test
-	public void premiumUserResourceModifyTest() {
+	public void slotResourceModifyTest() {
 
 		SR.modifySlot(S3);
 		assertArrayEquals(listS1.toArray(), SR.getSlots().toArray());
@@ -77,7 +78,7 @@ public class SlotResourceTest {
 	}
 
 	@Test
-	public void guestUserResourceDeleteTest() {
+	public void slotResourceDeleteTest() {
 
 		assertEquals("Deleted", SR.deleteSlot(S1));
 		assertEquals("Deleted", SR.deleteSlot(S2));
