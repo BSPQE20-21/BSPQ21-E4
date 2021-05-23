@@ -20,6 +20,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
@@ -48,6 +51,7 @@ public class AuthWindow extends JFrame {
 	private String noSelectableOptionName;
 	private String parkingSeleccionado;
 	private static ResourceBundle resourceBundle;
+	final Logger logger = LoggerFactory.getLogger(AuthWindow.class);
 
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
@@ -99,10 +103,11 @@ public class AuthWindow extends JFrame {
 			public void setSelectedItem(Object objeto) {
 				if (!noSelectableOptionName.equals(objeto)) {
 					super.setSelectedItem(objeto);
-
+					
 				} else if (seleccionPermitida) {
 					seleccionPermitida = false;
 					super.setSelectedItem(objeto);
+					logger.info(getResourceBundle().getString("ps") , objeto);
 				}
 
 			}
@@ -172,7 +177,7 @@ public class AuthWindow extends JFrame {
 						}
 					}
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					logger.info(getResourceBundle().getString("btl") , e1);
 				}
 
 			}
