@@ -44,7 +44,6 @@ public class DBTest {
 	final Logger logger = LoggerFactory.getLogger(DBTest.class);
 	static int iteration = 0;
 	
-	@Rule public ContiPerfRule rule = new ContiPerfRule();
 	
 	public static junit.framework.Test suite() {
 		 return new JUnit4TestAdapter(DBTest.class);
@@ -77,8 +76,6 @@ public class DBTest {
 	}
 
 	@Test
-    @PerfTest(invocations = 1000, threads = 20)
-    @Required(max = 120, average = 30)
 	public void getInstanceTest() throws InterruptedException {
 		logger.info("Starting getInstanceTest");
 		assertEquals(instance, db.getInstance());
@@ -133,8 +130,6 @@ public class DBTest {
 	}
 
 	@Test
-    @PerfTest(invocations = 1000, threads = 20)
-    @Required(max = 200, average = 130)
 	public void slotTest() throws InterruptedException {
 		logger.info("Starting slotTest");
 		db.insertSlot(S1);
@@ -157,8 +152,6 @@ public class DBTest {
 	}
 
 	@Test
-    @PerfTest(invocations = 1000, threads = 20)
-    @Required(max = 200, average = 130)
 	public void parkingTest() throws InterruptedException {
 		logger.info("Starting parkingTest");
 		db.insertParking(P1);
