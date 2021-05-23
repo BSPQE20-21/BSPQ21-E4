@@ -24,9 +24,9 @@ public class VentanaParkingTest {
 
 	static Logger logger = Logger.getLogger(VentanaParkingTest.class.getName());
 	
-	VentanaParking vParkingPremium, vParkingGuest;
-	PremiumUser premiumUser;
-	GuestUser guestUser;
+	private VentanaParking vParkingPremium, vParkingGuest;
+	private PremiumUser premiumUser;
+	private GuestUser guestUser;
 	
 	/**
 	 * This set up of the test case creates the data to be used
