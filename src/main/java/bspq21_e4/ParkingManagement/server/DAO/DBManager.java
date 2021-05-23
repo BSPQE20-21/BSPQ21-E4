@@ -586,6 +586,7 @@ public class DBManager {
 		} finally {
 			if (transaction.isActive()) {
 				transaction.rollback();
+				
 			}
 
 			persistentManager.close();
