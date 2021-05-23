@@ -141,8 +141,6 @@ public class RegisterWindow extends JFrame {
 				List<PremiumUser> listaComprobacion = PremiumUserRSH.getInstance().checkPremiumUsers();
 				boolean encontrado = false;
 				for (PremiumUser u : listaComprobacion) {
-					System.out.println(u.getPlate());
-					System.out.println(user.getPlate());
 					if (u.getPlate().equals(user.getPlate())) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
 						AuthWindow v = new AuthWindow();

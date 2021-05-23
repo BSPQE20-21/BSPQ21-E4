@@ -34,7 +34,7 @@ import jakarta.ws.rs.client.WebTarget;
  * @class AuthWindow Initial window that allows both premium and guest users to
  *        enter the application if they are already registered. If they are not
  *        registered they can access the register window @see
- *        bspq21_e4.ParkingManagement.client.RegisterWindow;
+ *        bspq21_e4.ParkingManagement.client.gui.RegisterWindow;
  * @author BSPQ21-E4
  */
 public class AuthWindow extends JFrame {
@@ -148,7 +148,6 @@ public class AuthWindow extends JFrame {
 					List<PremiumUser> userList = PremiumUserRSH.getInstance().checkPremiumUsers();
 					for (PremiumUser u : userList) {
 						if (u.getEmail().equals(tfEmail.getText())) {
-							System.out.println(u);
 							user = u;
 							found = true;
 

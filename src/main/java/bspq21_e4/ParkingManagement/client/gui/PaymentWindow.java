@@ -73,13 +73,20 @@ public class PaymentWindow extends JFrame {
 		return resourceBundle;
 	}
 
+	/**
+	 * Constructor of the application for a premium user
+	 * @param PremiumUser u, String p
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 */
 	public PaymentWindow(PremiumUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initialize(u, p);
 	}
 
 	/**
-	 * Creating the application.
+	 * Creating the application for a premium user
+	 * @param PremiumUser u, String p
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
 	 */
 	public void initialize(final PremiumUser u, final String p) {
 
@@ -379,7 +386,9 @@ public class PaymentWindow extends JFrame {
 	}
 
 	/**
-	 * @wbp.parser.constructor
+	 * Constructor of the application for a GuestUser
+	 * @param GuestUser u, String p
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
 	 */
 	public PaymentWindow(GuestUser u, String p) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
@@ -387,7 +396,9 @@ public class PaymentWindow extends JFrame {
 	}
 
 	/**
-	 * Creating the application.
+	 * Creating the application for a GuestUser
+	 * @param GuestUser u, String p
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
 	 */
 	public void initializeGU(final GuestUser u, final String p) {
 

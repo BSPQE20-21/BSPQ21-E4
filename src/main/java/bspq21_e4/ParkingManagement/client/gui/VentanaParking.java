@@ -70,10 +70,10 @@ public class VentanaParking extends JFrame {
 	}
 
 	/**
-	 * Constructor of the window just receives the user logged
-	 * 
+	 * Constructor of the window just receives the premium user logged
 	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
-	 * @param User
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 * @param PremiumUser, String
 	 */
 	public VentanaParking(PremiumUser u, String p) {
 		setResizable(false);
@@ -81,6 +81,12 @@ public class VentanaParking extends JFrame {
 		initialize(u, p);
 	}
 
+	/**
+	 * Initializing the window for a premium user
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 * @param PremiumUser, String
+	 */
 	public void initialize(final PremiumUser u, final String p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,8 +118,7 @@ public class VentanaParking extends JFrame {
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
 		Parking parkingElegido = new Parking();
-		System.out.println(p);
-
+		
 		for (Parking parking : parkingList) {
 
 			if (parking.getNombre().equals(p)) {
@@ -299,12 +304,24 @@ public class VentanaParking extends JFrame {
 
 	}
 
+	/**
+	 * Constructor of the window just receives the guest user logged
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
+	 * @param GuestUser, String
+	 */
 	public VentanaParking(GuestUser u, String p) {
 		setResizable(false);
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		initializeGU(u, p);
 	}
 
+	/**
+	 * Initializing the window for a guest user
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
+	 * @param GuestUser, String
+	 */
 	public void initializeGU(final GuestUser u, final String p) {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -336,7 +353,6 @@ public class VentanaParking extends JFrame {
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
 		Parking parkingElegido = new Parking();
-		System.out.println(p);
 
 		for (Parking parking : parkingList) {
 
