@@ -260,55 +260,50 @@ public class PaymentWindow extends JFrame {
 					} else if (pfPassword.getPassword().toString().equals("")) {
 						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
 					} else {
+						Parking parkingModified = new Parking();
 						for (Parking parking : listaParking) {
 							if (parking.getNombre().equals(p)) {
-								Parking parkingModified = new Parking();
-								parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
-								parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
-
-								ParkingRSH.getInstance().modifyParking(parking);
-
-								Slot slotModified = new Slot();
-								slotModified.setIdParking(parking.getId());
-								slotModified.setPk(u.getSlotPk());
-
-								SlotRSH.getInstance().modifySlot(slotModified);
-
-								u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
-								u.setMonthfee((int) total);
-								PremiumUserRSH.getInstance().modifyPremiumUser(u);
-								dispose();
-								AuthWindow a = new AuthWindow();
-								a.setVisible(true);
+								parkingModified = parking;
 
 							}
 						}
+
+						ParkingRSH.getInstance().modifyParking(parkingModified);
+
+						PremiumUser user = new PremiumUser();
+						user.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+						user.setMonthfee((int) total);
+
+//						u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+//						u.setMonthfee((int) total);
+						PremiumUserRSH.getInstance().modifyPremiumUser(user);
+						dispose();
+						AuthWindow a = new AuthWindow();
+						a.setVisible(true);
+
 					}
 
 				} else if (cbPayMethod.getSelectedItem().toString().equals("Visa")) {
+					Parking parkingModified = new Parking();
 					for (Parking parking : listaParking) {
 						if (parking.getNombre().equals(p)) {
-							Parking parkingModified = new Parking();
-							parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
-							parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
-
-							ParkingRSH.getInstance().modifyParking(parking);
-
-							Slot slotModified = new Slot();
-							slotModified.setSl(SlotAvailability.GREEN);
-							slotModified.setIdParking(parking.getId());
-
-							SlotRSH.getInstance().modifySlot(slotModified);
-
-							u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
-							u.setMonthfee((int) total);
-							PremiumUserRSH.getInstance().modifyPremiumUser(u);
-							dispose();
-							AuthWindow a = new AuthWindow();
-							a.setVisible(true);
+							parkingModified = parking;
 
 						}
 					}
+
+					ParkingRSH.getInstance().modifyParking(parkingModified);
+					
+					PremiumUser user = new PremiumUser();
+					user.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+					user.setMonthfee((int) total);
+
+//					u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+//					u.setMonthfee((int) total);
+					PremiumUserRSH.getInstance().modifyPremiumUser(user);
+					dispose();
+					AuthWindow a = new AuthWindow();
+					a.setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
@@ -571,59 +566,66 @@ public class PaymentWindow extends JFrame {
 					} else if (pfPassword.getPassword().toString().equals("")) {
 						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
 					} else {
+						Parking parkingModified = new Parking();
 						for (Parking parking : listaParking) {
 							if (parking.getNombre().equals(p)) {
-								Parking parkingModified = new Parking();
-								parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
-								parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
-
-								ParkingRSH.getInstance().modifyParking(parking);
-
-								Slot slotModified = new Slot();
-								slotModified.setSl(SlotAvailability.GREEN);
-								slotModified.setIdParking(parking.getId());
-								slotModified.setPk(u.getSlotPk());
-
-								SlotRSH.getInstance().modifySlot(slotModified);
-
-								u.setEntranceDate(null);
-								u.setSlotPk(0);
-								u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
-								GuestUserRSH.getInstance().modifyGuestUser(u);
-
-								dispose();
-								AuthWindow a = new AuthWindow();
-								a.setVisible(true);
+								parkingModified = parking;
 
 							}
 						}
+
+						parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() + 1);
+						parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() - 1);
+
+						ParkingRSH.getInstance().modifyParking(parkingModified);
+
+						Slot slotModified = new Slot();
+						slotModified.setSl(SlotAvailability.GREEN);
+						slotModified.setIdParking(parkingModified.getId());
+						slotModified.setPk(u.getSlotPk());
+
+						SlotRSH.getInstance().modifySlot(slotModified);
+
+						u.setEntranceDate(null);
+						u.setSlotPk(0);
+						u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+						GuestUserRSH.getInstance().modifyGuestUser(u);
+
+						dispose();
+						AuthWindow a = new AuthWindow();
+						a.setVisible(true);
+
 					}
 
 				} else if (cbPayMethod.getSelectedItem().toString().equals("Visa")) {
+					Parking parkingModified = new Parking();
 					for (Parking parking : listaParking) {
 						if (parking.getNombre().equals(p)) {
-							Parking parkingModified = new Parking();
-							parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
-							parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
-
-							ParkingRSH.getInstance().modifyParking(parking);
-
-							Slot slotModified = new Slot();
-							slotModified.setSl(SlotAvailability.GREEN);
-							slotModified.setIdParking(parking.getId());
-
-							SlotRSH.getInstance().modifySlot(slotModified);
-
-							u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
-							u.setEntranceDate(null);
-							u.setSlotPk(0);
-							GuestUserRSH.getInstance().modifyGuestUser(u);
-							dispose();
-							AuthWindow a = new AuthWindow();
-							a.setVisible(true);
+							parkingModified = parking;
 
 						}
 					}
+
+					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() + 1);
+					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() - 1);
+
+					ParkingRSH.getInstance().modifyParking(parkingModified);
+
+					Slot slotModified = new Slot();
+					slotModified.setSl(SlotAvailability.GREEN);
+					slotModified.setIdParking(parkingModified.getId());
+					slotModified.setPk(u.getSlotPk());
+
+					SlotRSH.getInstance().modifySlot(slotModified);
+
+					u.setEntranceDate(null);
+					u.setSlotPk(0);
+					u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+					GuestUserRSH.getInstance().modifyGuestUser(u);
+
+					dispose();
+					AuthWindow a = new AuthWindow();
+					a.setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));

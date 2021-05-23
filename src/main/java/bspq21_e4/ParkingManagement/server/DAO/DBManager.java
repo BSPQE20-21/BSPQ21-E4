@@ -286,6 +286,9 @@ public class DBManager {
 				if (userModified.getPlate() == null ? user.getPlate() == null
 						: userModified.getPlate().equals(user.getPlate())) {
 					userModified.setSlotPk(user.getSlotPk());
+					userModified.setPaymentMethod(user.getPaymentMethod());
+					user.setPaymentMethod(user.getPaymentMethod());
+					userModified.setMonthfee(user.getMonthfee());
 
 				}
 			}
@@ -377,6 +380,7 @@ public class DBManager {
 						: userModified.getPlate().equals(user.getPlate())) {
 					userModified.setSlotPk(user.getSlotPk());
 					userModified.setEntranceDate(user.getEntranceDate());
+					userModified.setPaymentMethod(user.getPaymentMethod());
 				
 
 				}

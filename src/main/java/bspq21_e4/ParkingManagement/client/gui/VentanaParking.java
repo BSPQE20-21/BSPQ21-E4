@@ -63,6 +63,7 @@ public class VentanaParking extends JFrame {
 	private JMenuItem menuItem;
 	private static ResourceBundle resourceBundle;
 	private JLabel lbInfo;
+	private JPanel panelInfo;
 
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
@@ -151,31 +152,40 @@ public class VentanaParking extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(selectedSlot.getSl().equals(SlotAvailability.RED) || selectedSlot.getSl().equals(SlotAvailability.YELLOW)) {
+					JOptionPane.showMessageDialog(null, resourceBundle.getString("validSlot"));
+				}else {
 	
-				selectedSlot.setSl(SlotAvailability.YELLOW);
-				SlotRSH.getInstance().modifySlot(selectedSlot);
-				List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
-				Parking parkingModified = new Parking();
-				for (Parking parking : listaComprobacion) {
-
-					if (parking.getNombre().equals(p)) {
-						parkingModified = parking;
-
+					selectedSlot.setSl(SlotAvailability.YELLOW);
+					SlotRSH.getInstance().modifySlot(selectedSlot);
+					List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
+					Parking parkingModified = new Parking();
+					for (Parking parking : listaComprobacion) {
+	
+						if (parking.getNombre().equals(p)) {
+							parkingModified = parking;
+	
+						}
+	
 					}
+					parkingModified.setId(selectedSlot.getIdParking());
+					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
+					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
+					
+					
+					ParkingRSH.getInstance().modifyParking(parkingModified);
+	
+					u.setSlotPk(selectedSlot.getPk());
+					PremiumUserRSH.getInstance().modifyPremiumUser(u);
+					
+					repaint();
+					dispose();
+					new VentanaParking(u,p).setVisible(true);
+					
+					
+					
 
 				}
-				parkingModified.setId(selectedSlot.getIdParking());
-				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
-				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
-				
-				
-				ParkingRSH.getInstance().modifyParking(parkingModified);
-
-				u.setSlotPk(selectedSlot.getPk());
-				PremiumUserRSH.getInstance().modifyPremiumUser(u);
-				
-				slotL.repaint();
-				lbInfo.repaint();
 			}
 		});
 
@@ -269,7 +279,7 @@ public class VentanaParking extends JFrame {
 
 		panelSuperior.add(menu);
 
-		JPanel panelInfo = new JPanel();
+		 panelInfo = new JPanel();
 		panelInfo.setBackground(Color.white);
 		panelInfo.setLayout(new GridLayout(1, 1));
 		panelSuperior.add(panelInfo, BorderLayout.SOUTH);
@@ -374,7 +384,6 @@ public class VentanaParking extends JFrame {
 					JOptionPane.showMessageDialog(null, resourceBundle.getString("validSlot"));
 				}else {
 					selectedSlot.setSl(SlotAvailability.RED);
-					u.setSlotPk(selectedSlot.getPk());
 					SlotRSH.getInstance().modifySlot(selectedSlot);
 					List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
 					Parking parkingModified = new Parking();
@@ -402,8 +411,10 @@ public class VentanaParking extends JFrame {
 					u.setEntranceDate(dtf.format(now));
 					GuestUserRSH.getInstance().modifyGuestUser(u);
 					
-					slotL.repaint();
-					lbInfo.repaint();
+					repaint();
+					dispose();
+					new VentanaParking(u,p).setVisible(true);
+					
 				}
 				
 
@@ -500,7 +511,7 @@ public class VentanaParking extends JFrame {
 
 		panelSuperior.add(menu);
 
-		JPanel panelInfo = new JPanel();
+		 panelInfo = new JPanel();
 		panelInfo.setBackground(Color.white);
 		panelInfo.setLayout(new GridLayout(1, 1));
 		panelSuperior.add(panelInfo, BorderLayout.SOUTH);

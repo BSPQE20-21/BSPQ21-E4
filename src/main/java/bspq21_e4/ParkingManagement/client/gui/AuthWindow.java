@@ -21,10 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
-import bspq21_e4.ParkingManagement.server.data.GuestUserConnected;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
-import bspq21_e4.ParkingManagement.server.data.PremiumUserConnected;
 import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
 import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
 import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
@@ -88,7 +86,7 @@ public class AuthWindow extends JFrame {
 		panelDerInf.setBackground(Color.WHITE);
 		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));
 		panelDer.add(panelDerInf, BorderLayout.SOUTH);
-		
+
 		noSelectableOptionName = getResourceBundle().getString("parkingName");
 		cbParking = new JComboBox<String>();
 
@@ -110,26 +108,23 @@ public class AuthWindow extends JFrame {
 			}
 		});
 
-		cbParking.addItem( noSelectableOptionName);
-		
+		cbParking.addItem(noSelectableOptionName);
+
 		cbParking.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//checkparkings
+				// checkparkings
 				List<Parking> nomParking = ParkingRSH.getInstance().checkParkings();
-				for(Parking p: nomParking) {
+				for (Parking p : nomParking) {
 					cbParking.addItem(p.getNombre());
 				}
-				
-				parkingSeleccionado = cbParking.getSelectedItem().toString();
-				
-			}
-			
-			
-		});
-		
 
+				parkingSeleccionado = cbParking.getSelectedItem().toString();
+
+			}
+
+		});
 
 		JButton btnLogin = new JButton(getResourceBundle().getString("login"));
 
@@ -163,34 +158,18 @@ public class AuthWindow extends JFrame {
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
 
-					}else if(cbParking.getSelectedItem().toString().equals(noSelectableOptionName)){
+					} else if (cbParking.getSelectedItem().toString().equals(noSelectableOptionName)) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
-					
-					}else {
-						
+
+					} else {
+
 						if (!user.getPlate().equals(tfPlate.getText())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("unknownPlate"));
 						} else {
-							if (PremiumUserConnected.getConnectedUsers().isEmpty()) {
-								PremiumUserConnected.getConnectedUsers().add(user);
-								dispose();
-								new VentanaParking(user, parkingSeleccionado).setVisible(true);
-							
 
-							} else {
-								for (PremiumUser u : PremiumUserConnected.getConnectedUsers()) {
-									if (user.equals(u)) {
-										JOptionPane.showMessageDialog(null, getResourceBundle().getString("uAConnected"));
-										tfEmail.setText("");
-										tfPlate.setText("");
-									} else {
-										PremiumUserConnected.getConnectedUsers().add(user);
-										dispose();
-										new VentanaParking(user, parkingSeleccionado).setVisible(true);
+							dispose();
+							new VentanaParking(user, parkingSeleccionado).setVisible(true);
 
-									}
-								}
-							}
 						}
 					}
 				} catch (Exception e1) {
@@ -235,9 +214,9 @@ public class AuthWindow extends JFrame {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
-				}else if(cbParking.getSelectedItem().toString().equals(noSelectableOptionName)){
+				} else if (cbParking.getSelectedItem().toString().equals(noSelectableOptionName)) {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
-					
+
 				} else {
 
 					String plate = tfPlate.getText();
@@ -313,8 +292,7 @@ public class AuthWindow extends JFrame {
 		panelCentralInf.add(lbPlate);
 		panelCentralInf.add(tfPlate);
 		panelCentralInf.add(cbParking);
-		
-	
+
 	}
 
 	public static void main(String[] args) {

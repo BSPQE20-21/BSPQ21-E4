@@ -89,8 +89,10 @@ public class PremiumUser{
 
 	@Override
 	public String toString() {
-		return "PremiumUser [email=" + email + ", plate=" + plate + ", monthfee=" + monthfee + ", selectedSlot="
-				+ slotPk + "]";
+		return "PremiumUser [email=" + email + ", monthfee=" + monthfee + ", plate=" + plate + ", paymentMethod="
+				+ paymentMethod + ", slotPk=" + slotPk + "]";
 	}
+
+
 
 }
