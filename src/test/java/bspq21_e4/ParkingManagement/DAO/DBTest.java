@@ -177,7 +177,6 @@ public class DBTest {
 		Thread.sleep(121);
 		logger.debug("Finishing parkingTest");
 	}
-
 	
 	
 }
