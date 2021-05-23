@@ -47,7 +47,7 @@ public class PremiumUserResource {
 	 * @author BSPQ21-E4
 	 */
 	public PremiumUser modifyPremiumUser(PremiumUser user) {
-		DBManager.getInstance().updatePremiumUser(user);;
+		DBManager.getInstance().updatePremiumUser(user);
 		return user;
 	}
 	
