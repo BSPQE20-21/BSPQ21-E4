@@ -24,7 +24,7 @@ public class AuthWindowTest {
 	AuthWindow authWindow;
 	
 	/**
-	 * This set up of the test case creates de data to be used
+	 * This set up of the test case creates the data to be used
 	 * 
 	 * @see bspq21_e4.ParkingManagement.client.gui.AuthWindow
 	 * @throws Exception
@@ -71,6 +71,8 @@ public class AuthWindowTest {
 	public void testAuthWindowVisible() throws Exception {
 		try {
 			logger.info("Starting testAuthWindowVisible");
+			assertFalse(authWindow.isVisible());
+			authWindow.setVisible(true);
 			assertTrue(authWindow.isVisible());
 			logger.info("Finishing testAuthWindowVisible");
 
