@@ -17,6 +17,7 @@ import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 import bspq21_e4.ParkingManagement.server.resource.SlotResource;
 import junit.framework.JUnit4TestAdapter;
 
+
 public class SlotResourceTest {
 
 	private Slot S1, S2, S3;
