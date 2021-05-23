@@ -44,6 +44,7 @@ public class PaymentWindowTest {
 			paymentWindowGuest = new PaymentWindow(guestUser, "11:13:24");
 			logger.info("Leaving setUp");
 
+			
 		} catch (HeadlessException e) {
 			// TODO: handle exception
 
