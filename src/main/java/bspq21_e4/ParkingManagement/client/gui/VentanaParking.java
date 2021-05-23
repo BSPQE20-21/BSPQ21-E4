@@ -56,14 +56,13 @@ public class VentanaParking extends JFrame {
 
 	private Slot selectedSlot;
 	private JPanel contentPanel;
-	private JButton selectSlot;
 	private JList<Slot> slotL;
 	private DefaultListModel slotDL;
 	private JMenuBar menu;
 	private JMenu menuUsuarios;
 	private JMenuItem menuItem;
-	private List<Slot> slotAL = SlotRSH.getInstance().checkSlots();
 	private static ResourceBundle resourceBundle;
+	private JLabel lbInfo;
 
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
@@ -152,10 +151,8 @@ public class VentanaParking extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// System.out.println(resourceBundle.getString("select_try"));
-				System.out.println(selectedSlot.toString());
+	
 				selectedSlot.setSl(SlotAvailability.YELLOW);
-				u.setSlotPk(selectedSlot.getPk());
 				SlotRSH.getInstance().modifySlot(selectedSlot);
 				List<Parking> listaComprobacion = ParkingRSH.getInstance().checkParkings();
 				Parking parkingModified = new Parking();
@@ -171,12 +168,14 @@ public class VentanaParking extends JFrame {
 				parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
 				parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
 				
-				slotL.repaint();
+				
 				ParkingRSH.getInstance().modifyParking(parkingModified);
 
 				u.setSlotPk(selectedSlot.getPk());
 				PremiumUserRSH.getInstance().modifyPremiumUser(u);
-
+				
+				slotL.repaint();
+				lbInfo.repaint();
 			}
 		});
 
@@ -306,7 +305,7 @@ public class VentanaParking extends JFrame {
 				int total = parking.getnSlots();
 				int ocupados = parking.getOccupiedSlots();
 				int libres = parking.getAvailableSlots();
-				JLabel lbInfo = new JLabel(
+				 lbInfo = new JLabel(
 						getResourceBundle().getString("name") + ": " + nombre + " " + getResourceBundle().getString("total") + " " + total + " " + getResourceBundle().getString("occupied") + " " + ocupados + " " + getResourceBundle().getString("free") + " " + libres);
 				panelInfo.add(lbInfo);
 			}
@@ -415,7 +414,7 @@ public class VentanaParking extends JFrame {
 					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);
 					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);
 					
-					slotL.repaint();
+					
 					
 
 					ParkingRSH.getInstance().modifyParking(parkingModified);
@@ -426,6 +425,9 @@ public class VentanaParking extends JFrame {
 					LocalDateTime now = LocalDateTime.now();
 					u.setEntranceDate(dtf.format(now));
 					GuestUserRSH.getInstance().modifyGuestUser(u);
+					
+					slotL.repaint();
+					lbInfo.repaint();
 				}
 				
 
@@ -557,7 +559,7 @@ public class VentanaParking extends JFrame {
 				int total = parking.getnSlots();
 				int ocupados = parking.getOccupiedSlots();
 				int libres = parking.getAvailableSlots();
-				JLabel lbInfo = new JLabel(
+				 lbInfo = new JLabel(
 						getResourceBundle().getString("name") + ": " + nombre + " " + getResourceBundle().getString("total") + " " + total + " " + getResourceBundle().getString("occupied") + " " + ocupados + " " + getResourceBundle().getString("free") + " " + libres);
 				panelInfo.add(lbInfo);
 			}

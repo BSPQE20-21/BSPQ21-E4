@@ -111,6 +111,13 @@ public class PaymentWindow extends JFrame {
 		panelVisa.setBackground(Color.WHITE);
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
+		
+		final double total = u.getMonthfee();
+
+		importe = new JLabel("Importe: " + total + "€");
+		importe.setSize(210, 25);
+		importe.setLocation(25, 25);
+		panelCb.add(importe);
 		noSelectableOptionPay = getResourceBundle().getString("paymentMethod");
 		cbPayMethod = new JComboBox<String>();
 		cbPayMethod.setBounds(10, 50, 122, 40);
@@ -178,13 +185,13 @@ public class PaymentWindow extends JFrame {
 		JLabel lbEmail = new JLabel(getResourceBundle().getString("email"));
 
 		panelPaypal.add(lbEmail);
-		JTextField tfEmail = new JTextField();
+		final JTextField tfEmail = new JTextField();
 		panelPaypal.add(tfEmail);
 
 		JLabel lbPassword = new JLabel(getResourceBundle().getString("password"));
 
 		panelPaypal.add(lbPassword);
-		JPasswordField pfPassword = new JPasswordField();
+		final JPasswordField pfPassword = new JPasswordField();
 		panelPaypal.add(pfPassword);
 
 		JLabel lbName = new JLabel(getResourceBundle().getString("name"));
@@ -232,6 +239,8 @@ public class PaymentWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+				VentanaParking v = new VentanaParking(u, p);
+				v.setVisible(true);
 
 			}
 		});
@@ -243,8 +252,69 @@ public class PaymentWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// este boton lo que tiene que hacer es liberar el slot tras haber abonadoel
-				// importe correspondiente
+				List<Parking> listaParking = ParkingRSH.getInstance().checkParkings();
+				
+
+				if (cbPayMethod.getSelectedItem().toString().equals("Paypal")) {
+					if (tfEmail.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "Error. Enter a valid email");
+					} else if (pfPassword.getPassword().toString().equals("")) {
+						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
+					} else {
+						for (Parking parking : listaParking) {
+							if (parking.getNombre().equals(p)) {
+								Parking parkingModified = new Parking();
+								parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
+								parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
+
+								ParkingRSH.getInstance().modifyParking(parking);
+
+								Slot slotModified = new Slot();
+								slotModified.setIdParking(parking.getId());
+								slotModified.setPk(u.getSlotPk());
+
+								SlotRSH.getInstance().modifySlot(slotModified);
+								
+								u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+								u.setMonthfee((int)total);
+								PremiumUserRSH.getInstance().modifyPremiumUser(u);
+								dispose();
+								AuthWindow a = new AuthWindow();
+								a.setVisible(true);
+
+							}
+						}
+					}
+
+				} else if (cbPayMethod.getSelectedItem().toString().equals("Visa")) {
+					for (Parking parking : listaParking) {
+						if (parking.getNombre().equals(p)) {
+							Parking parkingModified = new Parking();
+							parkingModified.setAvailableSlots(parking.getAvailableSlots() + 1);
+							parkingModified.setOccupiedSlots(parking.getOccupiedSlots() - 1);
+
+							ParkingRSH.getInstance().modifyParking(parking);
+
+							Slot slotModified = new Slot();
+							slotModified.setSl(SlotAvailability.GREEN);
+							slotModified.setIdParking(parking.getId());
+
+							SlotRSH.getInstance().modifySlot(slotModified);
+							
+							u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+							u.setMonthfee((int)total);
+							PremiumUserRSH.getInstance().modifyPremiumUser(u);
+							dispose();
+							AuthWindow a = new AuthWindow();
+							a.setVisible(true);
+
+
+						}
+					}
+
+				}else {
+					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
+				}
 
 			}
 		});
@@ -383,8 +453,6 @@ public class PaymentWindow extends JFrame {
 		panelCentral.add(panelVisa, BorderLayout.EAST);
 		panelVisa.setVisible(false);
 
-
-
 		double total = CalculateFee.calculateFee(u.getEntranceDate());
 
 		importe = new JLabel("Importe: " + total + "€");
@@ -443,7 +511,6 @@ public class PaymentWindow extends JFrame {
 		});
 		panelCb.setLayout(null);
 		panelCb.add(cbPayMethod);
-
 
 		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));
 
@@ -510,6 +577,8 @@ public class PaymentWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+				VentanaParking v = new VentanaParking(u, p);
+				v.setVisible(true);
 
 			}
 		});
@@ -521,10 +590,7 @@ public class PaymentWindow extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// este boton lo que tiene que hacer es liberar el slot tras haber abonadoel
-				// importe correspondiente
 
-				List<Slot> listaSlot = SlotRSH.getInstance().checkSlots();
 				List<Parking> listaParking = ParkingRSH.getInstance().checkParkings();
 
 				if (cbPayMethod.getSelectedItem().toString().equals("Paypal")) {
@@ -547,16 +613,15 @@ public class PaymentWindow extends JFrame {
 								slotModified.setPk(u.getSlotPk());
 
 								SlotRSH.getInstance().modifySlot(slotModified);
-								
-							
-								
+
 								u.setEntranceDate(null);
 								u.setSlotPk(0);
+								u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
 								GuestUserRSH.getInstance().modifyGuestUser(u);
-								
-//								dispose();
-//								AuthWindow a = new AuthWindow();
-//								a.setVisible(true);
+
+								dispose();
+								AuthWindow a = new AuthWindow();
+								a.setVisible(true);
 
 							}
 						}
@@ -576,20 +641,20 @@ public class PaymentWindow extends JFrame {
 							slotModified.setIdParking(parking.getId());
 
 							SlotRSH.getInstance().modifySlot(slotModified);
+
 							
-							GuestUser userModified = new GuestUser();
-							userModified.setEntranceDate(null);
-							userModified.setSlotPk(0);
+							u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+							u.setEntranceDate(null);
+							u.setSlotPk(0);
 							GuestUserRSH.getInstance().modifyGuestUser(u);
 							dispose();
 							AuthWindow a = new AuthWindow();
 							a.setVisible(true);
 
-
 						}
 					}
 
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
 				}
 
