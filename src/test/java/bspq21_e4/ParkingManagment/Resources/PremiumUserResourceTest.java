@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import bspq21_e4.ParkingManagement.DAO.DBTest;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
-import bspq21_e4.ParkingManagement.server.resource.GuestUserResource;
 import bspq21_e4.ParkingManagement.server.resource.PremiumUserResource;
 import junit.framework.JUnit4TestAdapter;
 
