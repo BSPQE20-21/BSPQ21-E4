@@ -59,7 +59,7 @@ public class VentanaParkingTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testPaymentWindow() throws Exception {
+	public void testVentanaParking() throws Exception {
 		try {
 			logger.info("Starting testPaymentWindow");
 			assertEquals(vParkingPremium.getClass(), VentanaParking.class);
@@ -78,7 +78,7 @@ public class VentanaParkingTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testPaymentWindowVisible() throws Exception {
+	public void testVentanaParkingVisible() throws Exception {
 		try {
 			logger.info("Starting testPaymentWindowVisible");
 			assertFalse(vParkingPremium.isVisible());
@@ -100,7 +100,7 @@ public class VentanaParkingTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testPaymentWindowCloseOperation() throws Exception {
+	public void testVentanaParkingCloseOperation() throws Exception {
 		try {
 			logger.info("Starting testPaymentWindowCloseOperation");
 			assertEquals(vParkingPremium.getDefaultCloseOperation(), JFrame.EXIT_ON_CLOSE);
