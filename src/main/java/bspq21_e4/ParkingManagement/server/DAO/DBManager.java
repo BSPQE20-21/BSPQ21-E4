@@ -3,6 +3,7 @@ package bspq21_e4.ParkingManagement.server.DAO;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.jdo.Extent;
 import javax.jdo.JDOHelper;
@@ -24,11 +25,15 @@ import bspq21_e4.ParkingManagement.server.data.Slot;
  */
 public class DBManager {
 	private static DBManager instance = null;
+	private static ResourceBundle resourceBundle;
 	private static PersistenceManagerFactory persistentManagerFactory;
 	private static PersistenceManager persistentManager;
 	private static Logger logger = Logger.getLogger(DBManager.class.getName());
 	private static Transaction transaction;
-
+	
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
+	}
 	/**
 	 * Constructor of the window just receives the user logged
 	 * 
@@ -69,7 +74,7 @@ public class DBManager {
 			persistentManager.makePersistent(parking);
 			transaction.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn(getResourceBundle().getString("parking"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -103,7 +108,7 @@ public class DBManager {
 			}
 			transaction.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn(getResourceBundle().getString("updatep"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -136,6 +141,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("deletep"), ex);
 		} finally {
 			if (transaction.isActive()) {
 				transaction.rollback();
@@ -162,7 +168,7 @@ public class DBManager {
 			persistentManager.makePersistent(slot);
 			transaction.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn(getResourceBundle().getString("insertS"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -196,7 +202,7 @@ public class DBManager {
 			}
 			transaction.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn(getResourceBundle().getString("updateS"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -232,6 +238,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("deleteS"), ex);
 		} finally {
 			if (transaction.isActive()) {
 				transaction.rollback();
@@ -257,7 +264,7 @@ public class DBManager {
 			persistentManager.makePersistent(user);
 			transaction.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn(getResourceBundle().getString("insertP"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -295,6 +302,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.out.println("$ Error updating: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("updateP"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -326,7 +334,7 @@ public class DBManager {
 
 			transaction.commit();
 		} catch (Exception ex) {
-
+			logger.warn(getResourceBundle().getString("deleteP"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -350,7 +358,7 @@ public class DBManager {
 			persistentManager.makePersistent(user);
 			transaction.commit();
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			logger.warn(getResourceBundle().getString("insertG"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -388,6 +396,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.out.println("$ Error updating: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("updateG"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -419,7 +428,7 @@ public class DBManager {
 
 			transaction.commit();
 		} catch (Exception ex) {
-
+			logger.warn(getResourceBundle().getString("deleteG"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -451,6 +460,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.out.println("$ Error obtaining parkings: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("parkinget"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -485,6 +495,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.out.println("$ Error obtaining slots: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("slotget"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -519,6 +530,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.out.println("$ Error obtaining users: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("premiumget"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -553,6 +565,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.out.println("$ Error obtaining users: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("guestget"), ex);
 		} finally {
 			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
@@ -583,6 +596,7 @@ public class DBManager {
 			transaction.commit();
 		} catch (Exception ex) {
 			System.err.println("* Exception obtaining parking data from DB: " + ex.getMessage());
+			logger.warn(getResourceBundle().getString("parkingsearch"), ex);
 		} finally {
 			if (transaction.isActive()) {
 				transaction.rollback();

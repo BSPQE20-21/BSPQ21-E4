@@ -39,7 +39,7 @@ public class DBTest {
 	private static PersistenceManager persistentManager;
 	private static Transaction transaction;
 
-	private DBManager db;
+
 	private Parking P1, P1U, P2;
 	private Slot S1, S2, S1U, S3, S4, S5;
 	private PremiumUser PU1, PU2, PU1U;
@@ -64,9 +64,9 @@ public class DBTest {
 	 * @throws ParseException
 	 */
 	@Before
-	public void setUp() throws ParseException {
+	public void setUp() {
 		logger.info("Entering setUp: {}", iteration++);
-		db = new DBManager();
+
 
 		P1 = new Parking(1, "Parking Getxo", 40, 30, 10, 2);
 		P1U = new Parking(1, "Parking Getxo", 50, 30, 20, 1);
@@ -87,6 +87,11 @@ public class DBTest {
 		GU2 = new GuestUser("8156 BGZ", "10:00", 5, "Paypal");
 		GU1U = new GuestUser("7494 NVZ", "12:00", 6, "Paypal");
 		logger.info("Leaving setUp");
+		
+		if(instance == null) {
+			instance = new DBManager();
+		}
+		
 	}
 	
 	/**
@@ -98,7 +103,8 @@ public class DBTest {
 	@Test
 	public void getInstanceTest() throws InterruptedException {
 		logger.info("Starting getInstanceTest");
-		assertEquals(instance, db.getInstance());
+	
+		assertEquals(instance, DBManager.getInstance());
 		Thread.sleep(121);
 		logger.debug("Finishing getInstanceTest");
 	}
@@ -112,38 +118,38 @@ public class DBTest {
     @Required(max = 120, average = 30)
 	public void userTest() throws InterruptedException {
 		logger.info("Starting userTest");
-		db.insertPremiumUser(PU1);
-		db.insertPremiumUser(PU2);
+		DBManager.getInstance().insertPremiumUser(PU1);
+		DBManager.getInstance().insertPremiumUser(PU2);
 
 		PremiumUser[] listaP = { PU1, PU2 };
 		PremiumUser[] listaPU = { PU1U, PU2 };
 
-		assertArrayEquals(listaP, db.getPremiumUsers().toArray());
+		assertArrayEquals(listaP, DBManager.getInstance().getPremiumUsers().toArray());
 
-		db.updatePremiumUser(PU1U);
+		DBManager.getInstance().updatePremiumUser(PU1U);
 
-		assertArrayEquals(listaPU, db.getPremiumUsers().toArray());
+		assertArrayEquals(listaPU, DBManager.getInstance().getPremiumUsers().toArray());
 
-		db.deletePremiumUser(PU1U.getPlate());;
-		db.deletePremiumUser(PU2.getPlate());
+		DBManager.getInstance().deletePremiumUser(PU1U.getPlate());;
+		DBManager.getInstance().deletePremiumUser(PU2.getPlate());
 
-		db.insertGuestUser(GU1);
-		db.insertGuestUser(GU2);
+		DBManager.getInstance().insertGuestUser(GU1);
+		DBManager.getInstance().insertGuestUser(GU2);
 
 		GuestUser[] listaG = { GU1, GU2 };
 		GuestUser[] listaGU = { GU1U, GU2 };
 
-		assertArrayEquals(listaG, db.getGuestUsers().toArray());
+		assertArrayEquals(listaG, DBManager.getInstance().getGuestUsers().toArray());
 
-		db.updateGuestUser(GU1U);
+		DBManager.getInstance().updateGuestUser(GU1U);
 		
-		assertArrayEquals(listaGU, db.getGuestUsers().toArray());
+		assertArrayEquals(listaGU, DBManager.getInstance().getGuestUsers().toArray());
 
-		db.deleteGuestUser(GU1U.getPlate());
-		db.deleteGuestUser(GU2.getPlate());
+		DBManager.getInstance().deleteGuestUser(GU1U.getPlate());
+		DBManager.getInstance().deleteGuestUser(GU2.getPlate());
 
-		assertEquals(null, db.getPremiumUsers());
-		assertEquals(null, db.getGuestUsers());
+		assertEquals(null, DBManager.getInstance().getPremiumUsers());
+		assertEquals(null, DBManager.getInstance().getGuestUsers());
 		
 		Thread.sleep(121);
 		logger.debug("Finishing userTest");
@@ -152,21 +158,21 @@ public class DBTest {
 	@Test
 	public void slotTest() throws InterruptedException {
 		logger.info("Starting slotTest");
-		db.insertSlot(S1);
-		db.insertSlot(S2);
+		DBManager.getInstance().insertSlot(S1);
+		DBManager.getInstance().insertSlot(S2);
 		Slot[] listS = { S1, S2 };
 		Slot[] listSU = { S1U, S2 };
 
-		assertArrayEquals(listS, db.getSlots().toArray());
+		assertArrayEquals(listS, DBManager.getInstance().getSlots().toArray());
 
-		db.updateSlot(S1U);
+		DBManager.getInstance().updateSlot(S1U);
 
-		assertArrayEquals(listSU, db.getSlots().toArray());
+		assertArrayEquals(listSU, DBManager.getInstance().getSlots().toArray());
 
-		db.deleteSlot(S1);
-		db.deleteSlot(S2);
+		DBManager.getInstance().deleteSlot(S1);
+		DBManager.getInstance().deleteSlot(S2);
 
-		assertEquals(null, db.getSlots());
+		assertEquals(null, DBManager.getInstance().getSlots());
 		Thread.sleep(121);
 		logger.debug("Finishing slotTest");
 	}
@@ -174,26 +180,26 @@ public class DBTest {
 	@Test
 	public void parkingTest() throws InterruptedException {
 		logger.info("Starting parkingTest");
-		db.insertParking(P1);
-		db.insertParking(P2);
+		DBManager.getInstance().insertParking(P1);
+		DBManager.getInstance().insertParking(P2);
 		Parking[] listP = { P1, P2 };
 
-		assertEquals(P1, db.searchParking("1"));
-		assertArrayEquals(listP, db.getParkings().toArray());
+		assertEquals(P1, DBManager.getInstance().searchParking(1));
+		assertArrayEquals(listP, DBManager.getInstance().getParkings().toArray());
 
-		db.updateParking(P1U);
+		DBManager.getInstance().updateParking(P1U);
 
-		assertEquals(P1U, db.searchParking("1"));
+		assertEquals(P1U, DBManager.getInstance().searchParking(1));
 
-		db.deleteParking(P1);
-		db.searchParking("1");
+		DBManager.getInstance().deleteParking(P1);
+		DBManager.getInstance().searchParking(1);
 
-		assertEquals(null, db.searchParking("1"));
+		assertEquals(null, DBManager.getInstance().searchParking(1));
 
-		db.deleteParking(P2);
-		db.searchParking("2");
+		DBManager.getInstance().deleteParking(P2);
+		DBManager.getInstance().searchParking(2);
 
-		assertEquals(null, db.searchParking("2"));
+		assertEquals(null, DBManager.getInstance().searchParking(2));
 		Thread.sleep(121);
 		logger.debug("Finishing parkingTest");
 	}
