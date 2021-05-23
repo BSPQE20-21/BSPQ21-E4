@@ -20,7 +20,7 @@ public class GuestUserResourceTest {
 
 	private GuestUser GU1, GU2, GU3;
 	private GuestUserResource GUR;
-	private List<GuestUser> listGU;
+	private List<GuestUser> listGU, listGU1;
 
 	private static SimpleDateFormat sdfResult = new SimpleDateFormat("HH:mm", Locale.US);
 
@@ -36,9 +36,13 @@ public class GuestUserResourceTest {
 		GU3 = new GuestUser("7494 NVZ", "12:00", 4, "Visa");
 
 		listGU = new ArrayList<GuestUser>();
+		listGU1 = new ArrayList<GuestUser>();
 
 		listGU.add(GU1);
 		listGU.add(GU2);
+		
+		listGU1.add(GU3);
+		listGU1.add(GU2);
 
 		GUR = new GuestUserResource();
 
@@ -68,8 +72,8 @@ public class GuestUserResourceTest {
 	@Test
 	public void guestUserResourceModifyTest() {
 
-		assertEquals(GU3, GUR.modifyGuestUser(GU3));
-		assertEquals(GU2, GUR.insertGuestUser(GU2));
+		GUR.modifyGuestUser(GU3);
+		assertArrayEquals(listGU1.toArray(), GUR.getGuestUser().toArray());
 
 	}
 
