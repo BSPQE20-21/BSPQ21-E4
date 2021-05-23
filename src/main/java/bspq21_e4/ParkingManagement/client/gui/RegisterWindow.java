@@ -27,6 +27,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @class RegisterWindow Window which allows registering premium users
  * @author BSPQ21-E4
@@ -42,6 +45,7 @@ public class RegisterWindow extends JFrame {
 	private Thread hilo;
 
 	private static ResourceBundle resourceBundle;
+	final Logger logger = LoggerFactory.getLogger(RegisterWindow.class);
 
 	/**
 	 * Creating the application.
@@ -143,6 +147,7 @@ public class RegisterWindow extends JFrame {
 				for (PremiumUser u : listaComprobacion) {
 					if (u.getPlate().equals(user.getPlate())) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
+						logger.info(getResourceBundle().getString("guestUserFirstTime"));
 						AuthWindow v = new AuthWindow();
 						v.setVisible(true);
 						dispose();
@@ -152,6 +157,7 @@ public class RegisterWindow extends JFrame {
 				}
 				if (encontrado != true) {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("error"));
+					logger.info(getResourceBundle().getString("error"));
 				}
 
 			}

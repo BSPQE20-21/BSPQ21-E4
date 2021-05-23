@@ -33,6 +33,9 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
@@ -65,6 +68,8 @@ public class VentanaParking extends JFrame {
 	private JLabel lbInfo;
 	private JPanel panelInfo;
 
+	final Logger logger = LoggerFactory.getLogger(VentanaParking.class);
+	
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
 	}
@@ -158,7 +163,8 @@ public class VentanaParking extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(selectedSlot.getSl().equals(SlotAvailability.RED) || selectedSlot.getSl().equals(SlotAvailability.YELLOW)) {
-					JOptionPane.showMessageDialog(null, resourceBundle.getString("validSlot"));
+					JOptionPane.showMessageDialog(null, getResourceBundle().getString("validSlot"));
+					logger.info(getResourceBundle().getString("validSlot"));
 				}else {
 	
 					selectedSlot.setSl(SlotAvailability.YELLOW);
@@ -254,6 +260,7 @@ public class VentanaParking extends JFrame {
 					for (PremiumUser user : listaComprobacion) {
 						if (user.getPlate().equals(u.getPlate())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
+							logger.info(getResourceBundle().getString("errorDelUser"));
 						} else {
 							dispose();
 							AuthWindow v = new AuthWindow();
@@ -397,7 +404,8 @@ public class VentanaParking extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(selectedSlot.getSl().equals(SlotAvailability.RED) || selectedSlot.getSl().equals(SlotAvailability.YELLOW)) {
-					JOptionPane.showMessageDialog(null, resourceBundle.getString("validSlot"));
+					JOptionPane.showMessageDialog(null, getResourceBundle().getString("validSlot"));
+					logger.info(getResourceBundle().getString("validSlot"));
 				}else {
 					selectedSlot.setSl(SlotAvailability.RED);
 					SlotRSH.getInstance().modifySlot(selectedSlot);
@@ -496,6 +504,7 @@ public class VentanaParking extends JFrame {
 					for (GuestUser user : listaComprobacion) {
 						if (user.getPlate().equals(u.getPlate())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
+							logger.info(getResourceBundle().getString("errorDelUser"));
 						} else {
 							dispose();
 							AuthWindow v = new AuthWindow();
@@ -527,7 +536,7 @@ public class VentanaParking extends JFrame {
 
 		panelSuperior.add(menu);
 
-		 panelInfo = new JPanel();
+		panelInfo = new JPanel();
 		panelInfo.setBackground(Color.white);
 		panelInfo.setLayout(new GridLayout(1, 1));
 		panelSuperior.add(panelInfo, BorderLayout.SOUTH);

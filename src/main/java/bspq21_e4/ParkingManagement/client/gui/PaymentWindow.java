@@ -29,6 +29,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bspq21_e4.ParkingManagement.server.data.CalculateFee;
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.Parking;
@@ -68,6 +71,7 @@ public class PaymentWindow extends JFrame {
 	private String noSelectableOptionPay;
 
 	private static ResourceBundle resourceBundle;
+	final Logger logger = LoggerFactory.getLogger(PaymentWindow.class);
 
 	public ResourceBundle getResourceBundle() {
 		return resourceBundle;
@@ -144,6 +148,7 @@ public class PaymentWindow extends JFrame {
 				} else if (seleccionPermitida) {
 					seleccionPermitida = false;
 					super.setSelectedItem(objeto);
+					logger.info(getResourceBundle().getString("pm") , objeto);
 				}
 
 			}
@@ -263,9 +268,13 @@ public class PaymentWindow extends JFrame {
 
 				if (cbPayMethod.getSelectedItem().toString().equals("Paypal")) {
 					if (tfEmail.getText().equals("")) {
-						JOptionPane.showMessageDialog(null, "Error. Enter a valid email");
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("eve"));
+						logger.info(getResourceBundle().getString("eve"));
+						
 					} else if (pfPassword.getPassword().toString().equals("")) {
-						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("evp"));
+						logger.info(getResourceBundle().getString("evp"));
+						
 					} else {
 						Parking parkingModified = new Parking();
 						for (Parking parking : listaParking) {
@@ -313,7 +322,8 @@ public class PaymentWindow extends JFrame {
 					a.setVisible(true);
 
 				} else {
-					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
+					JOptionPane.showMessageDialog(null, getResourceBundle().getString("paymentMethodSelect"));
+					logger.info(getResourceBundle().getString("paymentMethodSelect"));
 				}
 
 			}
@@ -357,6 +367,7 @@ public class PaymentWindow extends JFrame {
 				for (PremiumUser user : listaComprobacion) {
 					if (user.getPlate().equals(u.getPlate())) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
+						logger.info(getResourceBundle().getString("errorDelUser"));
 					} else {
 						dispose();
 						AuthWindow v = new AuthWindow();
@@ -573,9 +584,11 @@ public class PaymentWindow extends JFrame {
 
 				if (cbPayMethod.getSelectedItem().toString().equals("Paypal")) {
 					if (tfEmail.getText().equals("")) {
-						JOptionPane.showMessageDialog(null, "Error. Enter a valid email");
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("eve"));
+						logger.info(getResourceBundle().getString("eve"));
 					} else if (pfPassword.getPassword().toString().equals("")) {
-						JOptionPane.showMessageDialog(null, "Error. Enter a valid password");
+						JOptionPane.showMessageDialog(null, getResourceBundle().getString("evp"));
+						logger.info(getResourceBundle().getString("evp"));
 					} else {
 						Parking parkingModified = new Parking();
 						for (Parking parking : listaParking) {
@@ -639,7 +652,8 @@ public class PaymentWindow extends JFrame {
 					a.setVisible(true);
 
 				} else {
-					JOptionPane.showMessageDialog(null, resourceBundle.getString("paymentMethodSelect"));
+					JOptionPane.showMessageDialog(null, getResourceBundle().getString("paymentMethodSelect"));
+					logger.info(getResourceBundle().getString("paymentMethodSelect"));
 				}
 
 			}
@@ -687,6 +701,7 @@ public class PaymentWindow extends JFrame {
 					for (GuestUser user : listaComprobacion) {
 						if (user.getPlate().equals(u.getPlate())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorDelUser"));
+							logger.info(getResourceBundle().getString("errorDelUser"));
 						} else {
 							dispose();
 							AuthWindow v = new AuthWindow();

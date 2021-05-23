@@ -161,14 +161,18 @@ public class AuthWindow extends JFrame {
 
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("userNotFound"));
-
+						logger.info(getResourceBundle().getString("userNotFound"));
+						
 					} else if (cbParking.getSelectedItem().toString().equals(noSelectableOptionName)) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
+						logger.info(getResourceBundle().getString("parkingNameError"));
 
 					} else {
 
 						if (!user.getPlate().equals(tfPlate.getText())) {
 							JOptionPane.showMessageDialog(null, getResourceBundle().getString("unknownPlate"));
+							logger.info(getResourceBundle().getString("unknownPlate"));
+							
 						} else {
 
 							dispose();
@@ -177,7 +181,7 @@ public class AuthWindow extends JFrame {
 						}
 					}
 				} catch (Exception e1) {
-					logger.info(getResourceBundle().getString("btl") , e1);
+					logger.warn(getResourceBundle().getString("btl") , e1);
 				}
 
 			}
@@ -216,11 +220,13 @@ public class AuthWindow extends JFrame {
 
 				if (tfPlate.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("errorNullPlate"));
+					logger.info(getResourceBundle().getString("errorNullPlate"));
 					tfPlate.setText("");
 
 				} else if (cbParking.getSelectedItem().toString().equals(noSelectableOptionName)) {
 					JOptionPane.showMessageDialog(null, getResourceBundle().getString("parkingNameError"));
-
+					logger.info(getResourceBundle().getString("parkingNameError"));
+					
 				} else {
 
 					String plate = tfPlate.getText();
@@ -234,6 +240,7 @@ public class AuthWindow extends JFrame {
 							if (u.getPlate().equals(tfPlate.getText())) {
 								found = true;
 								JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserExists"));
+								logger.info(getResourceBundle().getString("guestUserExists"));
 								user = u;
 
 								VentanaParking v = new VentanaParking(user, parkingSeleccionado);
@@ -246,6 +253,7 @@ public class AuthWindow extends JFrame {
 					}
 					if (!found) {
 						JOptionPane.showMessageDialog(null, getResourceBundle().getString("guestUserFirstTime"));
+						logger.info(getResourceBundle().getString("guestUserFirstTime"));
 						GuestUser newUser = new GuestUser();
 						newUser.setPlate(plate);
 
