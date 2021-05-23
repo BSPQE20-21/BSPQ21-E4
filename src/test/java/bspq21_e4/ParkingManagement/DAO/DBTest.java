@@ -27,6 +27,11 @@ import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 import bspq21_e4.ParkingManagement.server.data.Slot;
 import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
 
+/**
+ * @class DBTest to test the database management
+ * @see bspq21_e4.ParkingManagement.server.DAO.DBManager
+ * @author BSPQ21-E4
+ */
 public class DBTest {
 
 	private static DBManager instance = null;
@@ -49,6 +54,15 @@ public class DBTest {
 		 return new JUnit4TestAdapter(DBTest.class);
 	}
 	
+	/**
+	 * This set up of the test case creates the data to be used
+	 * 
+	 * @see bspq21_e4.ParkingManagement.server.data.Parking
+	 * @see bspq21_e4.ParkingManagement.server.data.Slot
+	 * @see bspq21_e4.ParkingManagement.server.data.PremiumUser
+	 * @see bspq21_e4.ParkingManagement.server.data.GuestUser
+	 * @throws ParseException
+	 */
 	@Before
 	public void setUp() throws ParseException {
 		logger.info("Entering setUp: {}", iteration++);
@@ -74,7 +88,13 @@ public class DBTest {
 		GU1U = new GuestUser("7494 NVZ", "12:00", 6, "Paypal");
 		logger.info("Leaving setUp");
 	}
-
+	
+	/**
+	 * This method validates if the instance is correct
+	 * AuthWindow
+	 * @see bspq21_e4.ParkingManagement.server.DAO.DBManager
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void getInstanceTest() throws InterruptedException {
 		logger.info("Starting getInstanceTest");
