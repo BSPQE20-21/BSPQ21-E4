@@ -25,9 +25,6 @@ jobs:
         mysql-version: '8.0'
     - name: create database in mysql-server
       run: mysql -uroot -h127.0.0.1 < src/main/resources/database.sql
-          mvn --batch-mode --update-snapshots compile
-          mvn --batch-mode --update-snapshots verify
-          mvn --batch-mode --update-snapshots datanucleus:schema-create
     - name: Launch the server in background mode 
       run:  mvn exec:java -Dexec.args="--server" &
     - name: compile the code
