@@ -1,0 +1,129 @@
+\hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee}{}\doxysection{bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee Class Reference}
+\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee}\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a370ec9cb7d28534a40221f4a52c840a2}{get\+Difference\+Betwen\+Dates}} (Date date\+Inicio, Date date\+Final)
+\item 
+static double \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ae06bde43dfea8b76e8863ebf62562dd9}{calculate\+Fee}} (String entrada)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static Simple\+Date\+Format \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a9cd2de9056b1a0ac2f234f692aab09d6}{sdf}} = new Simple\+Date\+Format(\char`\"{}h\+:mm\char`\"{}, Locale.\+US)
+\item 
+static Simple\+Date\+Format \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ab9092e31c9aeed7cf38626f3c782e5dc}{sdf\+Result}} = new Simple\+Date\+Format(\char`\"{}HH\+:mm\char`\"{}, Locale.\+US)
+\item 
+static Simple\+Date\+Format \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ab741aeca5940a24157cdafe706049c48}{sdf\+Result\+Minutos}} = new Simple\+Date\+Format(\char`\"{}m\char`\"{}, Locale.\+US)
+\item 
+static double \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a5fca0ac8c16885cd706cffd3c65decac}{standard\+Fee}} = 0.\+04
+\item 
+static double \mbox{\hyperlink{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ad95c5b7315ba94bff259dbca2d8b54ec}{daily\+Fee}} = 20.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+calculate the fee that each user has to pay \begin{DoxyAuthor}{Author}
+BSPQ21-\/\+E4 
+\end{DoxyAuthor}
+
+
+Definition at line 15 of file Calculate\+Fee.\+java.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ae06bde43dfea8b76e8863ebf62562dd9}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ae06bde43dfea8b76e8863ebf62562dd9}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!calculateFee@{calculateFee}}
+\index{calculateFee@{calculateFee}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{calculateFee()}{calculateFee()}}
+{\footnotesize\ttfamily static double bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+calculate\+Fee (\begin{DoxyParamCaption}\item[{String}]{entrada }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Method which calculates the the fee to pay out of the spent time
+
+
+\begin{DoxyParams}{Parameters}
+{\em minutes} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file Calculate\+Fee.\+java.
+
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a370ec9cb7d28534a40221f4a52c840a2}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a370ec9cb7d28534a40221f4a52c840a2}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!getDifferenceBetwenDates@{getDifferenceBetwenDates}}
+\index{getDifferenceBetwenDates@{getDifferenceBetwenDates}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{getDifferenceBetwenDates()}{getDifferenceBetwenDates()}}
+{\footnotesize\ttfamily static int bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+get\+Difference\+Betwen\+Dates (\begin{DoxyParamCaption}\item[{Date}]{date\+Inicio,  }\item[{Date}]{date\+Final }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Method which calculates the time between two given dates
+
+
+\begin{DoxyParams}{Parameters}
+{\em date\+Inicio} & \\
+\hline
+{\em date\+Final} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 29 of file Calculate\+Fee.\+java.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ad95c5b7315ba94bff259dbca2d8b54ec}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ad95c5b7315ba94bff259dbca2d8b54ec}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!dailyFee@{dailyFee}}
+\index{dailyFee@{dailyFee}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{dailyFee}{dailyFee}}
+{\footnotesize\ttfamily double bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+daily\+Fee = 20.\+0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 21 of file Calculate\+Fee.\+java.
+
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a9cd2de9056b1a0ac2f234f692aab09d6}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a9cd2de9056b1a0ac2f234f692aab09d6}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!sdf@{sdf}}
+\index{sdf@{sdf}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{sdf}{sdf}}
+{\footnotesize\ttfamily Simple\+Date\+Format bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+sdf = new Simple\+Date\+Format(\char`\"{}h\+:mm\char`\"{}, Locale.\+US)\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 17 of file Calculate\+Fee.\+java.
+
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ab9092e31c9aeed7cf38626f3c782e5dc}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ab9092e31c9aeed7cf38626f3c782e5dc}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!sdfResult@{sdfResult}}
+\index{sdfResult@{sdfResult}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{sdfResult}{sdfResult}}
+{\footnotesize\ttfamily Simple\+Date\+Format bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+sdf\+Result = new Simple\+Date\+Format(\char`\"{}HH\+:mm\char`\"{}, Locale.\+US)\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 18 of file Calculate\+Fee.\+java.
+
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ab741aeca5940a24157cdafe706049c48}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_ab741aeca5940a24157cdafe706049c48}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!sdfResultMinutos@{sdfResultMinutos}}
+\index{sdfResultMinutos@{sdfResultMinutos}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{sdfResultMinutos}{sdfResultMinutos}}
+{\footnotesize\ttfamily Simple\+Date\+Format bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+sdf\+Result\+Minutos = new Simple\+Date\+Format(\char`\"{}m\char`\"{}, Locale.\+US)\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 19 of file Calculate\+Fee.\+java.
+
+\mbox{\Hypertarget{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a5fca0ac8c16885cd706cffd3c65decac}\label{classbspq21__e4_1_1_parking_management_1_1server_1_1data_1_1_calculate_fee_a5fca0ac8c16885cd706cffd3c65decac}} 
+\index{bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}!standardFee@{standardFee}}
+\index{standardFee@{standardFee}!bspq21\_e4.ParkingManagement.server.data.CalculateFee@{bspq21\_e4.ParkingManagement.server.data.CalculateFee}}
+\doxysubsubsection{\texorpdfstring{standardFee}{standardFee}}
+{\footnotesize\ttfamily double bspq21\+\_\+e4.\+Parking\+Management.\+server.\+data.\+Calculate\+Fee.\+standard\+Fee = 0.\+04\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 20 of file Calculate\+Fee.\+java.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/bspq21\+\_\+e4/\+Parking\+Management/server/data/\mbox{\hyperlink{_calculate_fee_8java}{Calculate\+Fee.\+java}}\end{DoxyCompactItemize}
