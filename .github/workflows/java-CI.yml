@@ -12,8 +12,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
       - name: Build with Maven including only unit testing (with SonarCloud)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -24,7 +22,6 @@ jobs:
           sudo /etc/init.d/mysql start
           mysql -uroot -proot < src/main/resources/database.sql
           mvn --batch-mode --update-snapshots compile
-          mvn --batch-mode --update-snapshots verify
           mvn --batch-mode --update-snapshots datanucleus:schema-create
       - name: Build with Maven including integration tests
         run: mvn --batch-mode --update-snapshots verify -Pintegracion
