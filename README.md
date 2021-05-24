@@ -14,6 +14,10 @@
 
 	run database.sql
 
+3. Create shema
+
+	cmd: mvn datanucleus:schema-create
+
 3. Run the Web Server:
 
  	cmd: mvn exec:java -Dexec.args="--server"
