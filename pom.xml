@@ -17,6 +17,7 @@
 		<sonar.projectKey>jonmaeztu_ParkingManagement</sonar.projectKey>
 		<sonar.organization>jonmaeztu</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<doxygen.config.file>${basedir}/src/main/resources/Doxyfile</doxygen.config.file> 
 	</properties>
 
 	<dependencyManagement>
@@ -138,6 +139,14 @@
 					<mainClass>bspq21_e4.ParkingManagement.server.main.Server</mainClass>
 				</configuration>
 			</plugin>
+			<plugin>
+		        <groupId>com.soebes.maven.plugins</groupId>
+		        <artifactId>doxygen-maven-plugin</artifactId>
+		        <version>1.1.0</version>
+		        <configuration>
+		        	<configurationFile>${doxygen.config.file}</configurationFile>
+		        </configuration>
+		     </plugin>
 			<plugin>
 				<groupId>org.datanucleus</groupId>
 				<artifactId>datanucleus-maven-plugin</artifactId>
