@@ -26,7 +26,7 @@ jobs:
     - name: create database in mysql-server
       run: mysql -uroot -h127.0.0.1 < src/main/resources/database.sql
     - name: Launch the server in background mode 
-      run:  mvn exec:java -Dexec.args="--server" &
+      run:  mvn jetty:run &
     - name: compile the code
       run: mvn clean compile
     - name: Create Datanucleus schema
