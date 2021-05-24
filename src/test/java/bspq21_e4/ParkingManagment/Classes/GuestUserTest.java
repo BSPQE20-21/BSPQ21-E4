@@ -26,6 +26,7 @@ import junit.framework.JUnit4TestAdapter;
 public class GuestUserTest {
 
 	private Parking P1;
+	private String s;
 	// private PremiumUser PU1;
 	private GuestUser GU1;
 	private Slot S1;
@@ -43,8 +44,9 @@ public class GuestUserTest {
 	public void setUp() throws ParseException {
 		logger.info("Entering setUp: {}", iteration++);
 		P1 = new Parking(1, "Getxo", 100, 50, 40, 2);
-		GU1 = new GuestUser("6735 HGL", "9:00", 44, "Visa");
+		GU1 = new GuestUser("6735 HGL", "9:00", 1, "Visa");
 		S1 = new Slot(1, 165, 2, SlotAvailability.GREEN, 1);
+		s = "GuestUser [plate=" + "6735 HGL" + ", paymentMethod=" + "Visa" + ", slotPk=" + 1 + ", entranceDate=" + "9:00" + "]";
 		logger.info("Leaving setUp");
 	}
 
@@ -56,28 +58,29 @@ public class GuestUserTest {
 	}
 
 	@Test
-	public void getguestUserPlateTest() { // Test of all the GuestUser functions
+	public void getGuestUserPlateTest() { // Test of all the GuestUser functions
 
 		assertEquals("6735 HGL", GU1.getPlate());
 
 	}
 
 	@Test
-	public void setguestUserPlateTest() {
+	public void setGuestUserPlateTest() {
 
 		GU1.setPlate("3785 NAS");
 		assertEquals("3785 NAS", GU1.getPlate());
+		GU1.setPlate("6735 HGL");
 	}
 
 	@Test
-	public void getguestUserEntranceDateTest() throws ParseException { // Test of all the GuestUser functions
+	public void getGuestUserEntranceDateTest() throws ParseException { // Test of all the GuestUser functions
 
 		assertEquals("9:00", GU1.getEntranceDate());
 
 	}
 
 	@Test
-	public void setguestUserEntranceDateTest() {
+	public void setGuestUserEntranceDateTest() {
 
 		GU1.setEntranceDate("10:00");
 		assertEquals("10:00", GU1.getEntranceDate());
@@ -85,14 +88,14 @@ public class GuestUserTest {
 	}
 
 	@Test
-	public void getguestUserSlotTest() { // Test of all the GuestUser functions
+	public void getGuestUserSlotTest() { // Test of all the GuestUser functions
 
 		assertEquals(S1.getPk(), GU1.getSlotPk());
 
 	}
 
 	@Test
-	public void setguestUserSlotTest() {
+	public void setGuestUserSlotTest() {
 
 		Slot S2 = new Slot(2, 170, 2, SlotAvailability.GREEN, 1);
 		GU1.setSlotPk(2);
@@ -100,17 +103,26 @@ public class GuestUserTest {
 	}
 
 	@Test
-	public void getguestUserPaymentTest() { // Test of all the GuestUser functions
+	public void getGuestUserPaymentTest() { // Test of all the GuestUser functions
 
 		assertEquals("Visa", GU1.getPaymentMethod());
 
 	}
 
 	@Test
-	public void setguestUserPaymentTest() {
+	public void setGuestUserPaymentTest() {
 
 		GU1.setPaymentMethod("Paypal");
 		assertEquals("Paypal", GU1.getPaymentMethod());
+		GU1.setPaymentMethod("Visa");
+	}
+	
+	@Test
+	public void setSlotToStringTest() { 
+		
+		
+		assertEquals(GU1.toString(), s);
+		
 	}
 
 }

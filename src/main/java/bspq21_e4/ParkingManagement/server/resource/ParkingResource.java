@@ -72,9 +72,9 @@ public class ParkingResource {
 	@DELETE
 	@Path("delete/{parkingId}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Parking deleteParking(Parking parking) {
+	public String deleteParking(String parking) {
 		DBManager.getInstance().deleteParking(parking);
-		return parking;
+		return "Deleted";
 	}
 
 }

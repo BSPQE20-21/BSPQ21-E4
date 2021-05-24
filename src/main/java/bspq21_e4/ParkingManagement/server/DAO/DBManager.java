@@ -119,38 +119,40 @@ public class DBManager {
 	}
 
 	/**
-	 * Deletes the parking from the DB
-	 * 
-	 * @param parking
-	 */
-	public void deleteParking(Parking parking) {
-		// Delete data using Extent
-		persistentManager = persistentManagerFactory.getPersistenceManager();
-		transaction = persistentManager.currentTransaction();
+     * Deletes the parking from the DB
+     * 
+     * @param idParking
+     */
+    public void deleteParking(String idParking) {
+        // Delete data using Extent
+        persistentManager = persistentManagerFactory.getPersistenceManager();
+        transaction = persistentManager.currentTransaction();
+        try {
+            transaction.begin();
+            Extent<Parking> e = persistentManager.getExtent(Parking.class, true);
+            Iterator<Parking> iter = e.iterator();
+            while (iter.hasNext()) {
+                Parking parking = (Parking) iter.next();
 
-		try {
-			transaction.begin();
+                if (Integer.toString(parking.getId()) == null ? idParking == null : Integer.toString(parking.getId())== idParking) {
+                    persistentManager.deletePersistent(parking);
 
-			@SuppressWarnings("unchecked")
-			Query<Parking> parkingQuery = persistentManager
-					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id=='" + parking.getId() + "'");
+                }
+            }
 
-			parkingQuery.execute();
-			System.out.println("- Deleted parking from db: " + parking.getNombre());
-			persistentManager.deletePersistent(parking);
-			transaction.commit();
-		} catch (Exception ex) {
-			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-			logger.warn(getResourceBundle().getString("deletep"), ex);
-		} finally {
-			if (transaction.isActive()) {
-				transaction.rollback();
-			}
+            transaction.commit();
+        } catch (Exception ex) {
+            logger.warn(getResourceBundle().getString("deleteP"), ex);
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            persistentManager.close();
+        }
 
-			persistentManager.close();
-		}
 
-	}
+
+    }
 
 	/**
 	 * Stores the slot in the DB
@@ -213,41 +215,40 @@ public class DBManager {
 	}
 
 	/**
-	 * Deletes the slot from the DB
-	 * 
-	 * @param slot
-	 */
-	public void deleteSlot(Slot slot) {
+     * Deletes the slot from the DB
+     * 
+     * @param slotPk
+     */
+    public void deleteSlot(String slotPk) {
 
-		// Delete data using Extent
-		persistentManager = persistentManagerFactory.getPersistenceManager();
-		transaction = persistentManager.currentTransaction();
+        // Delete data using Extent
+        persistentManager = persistentManagerFactory.getPersistenceManager();
+        transaction = persistentManager.currentTransaction();
+        try {
+            transaction.begin();
+            Extent<Slot> e = persistentManager.getExtent(Slot.class, true);
+            Iterator<Slot> iter = e.iterator();
+            while (iter.hasNext()) {
+                Slot slot = (Slot) iter.next();
 
-		try {
-			transaction.begin();
+                if (Integer.toString(slot.getPk()) == null ? slotPk == null : Integer.toString(slot.getPk())== slotPk) {
+                    persistentManager.deletePersistent(slot);
 
-			@SuppressWarnings("unchecked")
-			Query<Slot> slotQuery = persistentManager
-					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getId());
+                }
+            }
 
-			slotQuery.execute();
+            transaction.commit();
+        } catch (Exception ex) {
+            logger.warn(getResourceBundle().getString("deleteP"), ex);
+        } finally {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            persistentManager.close();
+        }
 
-			System.out.println("- Deleted slot from db: " + slot.getId());
-			persistentManager.deletePersistent(slot);
 
-			transaction.commit();
-		} catch (Exception ex) {
-			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-			logger.warn(getResourceBundle().getString("deleteS"), ex);
-		} finally {
-			if (transaction.isActive()) {
-				transaction.rollback();
-			}
-
-			persistentManager.close();
-		}
-
-	}
+    }
 
 	/**
 	 * Stores the premium user in the DB

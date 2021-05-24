@@ -25,6 +25,7 @@ public class SlotTest {
 	
 	private Parking P1;
 	private Slot S1;
+	private String s;
 	
 	final Logger logger = LoggerFactory.getLogger(SlotTest.class);
 	static int iteration = 0;
@@ -40,6 +41,8 @@ public class SlotTest {
 		logger.info("Entering setUp: {}", iteration++);
 		P1 = new Parking(1, "Getxo", 100, 50, 40, 2);
 		S1 = new Slot(1, 165, 2, SlotAvailability.GREEN, P1.getId());
+		s = "Slot [pk=" + 1 + ", id=" + 165 + ", floor=" + 2 + ", sl=" + "GREEN" + ", idParking=" + 1 + "]";
+		
 		logger.info("Leaving setUp");
 	}
 	
@@ -78,7 +81,7 @@ public class SlotTest {
 	public void setSlotIdTest() { 
 		
 		S1.setPk(170);
-		assertEquals(170, S1.getId());
+		assertEquals(170, S1.getPk());
 		
 	}
 	
@@ -125,6 +128,14 @@ public class SlotTest {
 		P1.setId(2);
 		S1.setIdParking(P1.getId());
 		assertEquals(P1.getId(), S1.getIdParking());
+		
+	}
+	
+	@Test
+	public void setSlotToStringTest() { 
+		
+		
+		assertEquals(S1.toString(), s);
 		
 	}
 

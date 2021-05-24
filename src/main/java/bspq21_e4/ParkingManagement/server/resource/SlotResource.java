@@ -74,9 +74,9 @@ public class SlotResource {
 	@DELETE
 	@Path("delete/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public Slot deleteSlot(Slot slot) {
+	public String deleteSlot(String slot) {
 		DBManager.getInstance().deleteSlot(slot);
-		return slot;
+		return "Deleted";
 	}
 
 }

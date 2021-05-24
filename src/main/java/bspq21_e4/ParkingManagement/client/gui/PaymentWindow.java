@@ -79,7 +79,8 @@ public class PaymentWindow extends JFrame {
 
 	/**
 	 * Constructor of the application for a premium user
-	 * @param PremiumUser u, String p
+	 * @param u
+	 * @param p
 	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
 	 */
 	public PaymentWindow(PremiumUser u, String p) {
@@ -89,7 +90,8 @@ public class PaymentWindow extends JFrame {
 
 	/**
 	 * Creating the application for a premium user
-	 * @param PremiumUser u, String p
+	 * @param u 
+	 * @param p
 	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
 	 */
 	public void initialize(final PremiumUser u, final String p) {

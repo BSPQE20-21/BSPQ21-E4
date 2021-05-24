@@ -14,9 +14,9 @@ import bspq21_e4.ParkingManagement.client.gui.AuthWindow;
 import bspq21_e4.ParkingManagement.client.gui.RegisterWindow;
 
 /**
- * @class AuthWindowTest
- * Class to test the authorization window
- * @see bspq21_e4.ParkingManagement.client.gui.AuthWindow
+ * @class RegisterWindowTest
+ * Class to test the register window window
+ * @see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
  */
 public class RegisterWindowTest {
 
@@ -27,7 +27,7 @@ public class RegisterWindowTest {
 	/**
 	 * This set up of the test case creates the data to be used
 	 * 
-	 * @see bspq21_e4.ParkingManagement.client.gui.AuthWindow
+	 * @see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
 	 * @throws Exception
 	 */
 	@Before
@@ -46,16 +46,16 @@ public class RegisterWindowTest {
 	
 	/**
 	 * This method validates if the created window is from the same class as
-	 * AuthWindow
-	 * @see bspq21_e4.ParkingManagement.client.gui.AuthWindow
+	 * RegisterWindow
+	 * @see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
 	 * @throws Exception
 	 */
 	@Test
-	public void testAuthWindow() throws Exception {
+	public void testRegisterWindow() throws Exception {
 		try {
-			logger.info("Starting testAuthWindow");
-			assertEquals(registerWindow.getClass(), AuthWindow.class);
-			logger.info("Finishing testAuthWindow");
+			logger.info("Starting testRegisterWindow");
+			assertEquals(registerWindow.getClass(), RegisterWindow.class);
+			logger.info("Finishing testRegisterWindow");
 
 		} catch (HeadlessException e) {
 			// TODO: handle exception
@@ -69,13 +69,13 @@ public class RegisterWindowTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testAuthWindowVisible() throws Exception {
+	public void testRegisterWindowVisible() throws Exception {
 		try {
-			logger.info("Starting testAuthWindowVisible");
+			logger.info("Starting testRegisterWindowVisible");
 			assertFalse(registerWindow.isVisible());
 			registerWindow.setVisible(true);
 			assertTrue(registerWindow.isVisible());
-			logger.info("Finishing testAuthWindowVisible");
+			logger.info("Finishing testRegisterWindowVisible");
 
 		} catch (HeadlessException e) {
 			// TODO: handle exception
@@ -88,11 +88,11 @@ public class RegisterWindowTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testAuthWindowCloseOperation() throws Exception {
+	public void testRegisterWindowCloseOperation() throws Exception {
 		try {
-			logger.info("Starting testAuthWindowCloseOperation");
+			logger.info("Starting testRegisterWindowCloseOperation");
 			assertEquals(registerWindow.getDefaultCloseOperation(), JFrame.EXIT_ON_CLOSE);
-			logger.info("Finishing testAuthWindowCloseOperation");
+			logger.info("Finishing testRegisterWindowCloseOperation");
 		} catch (HeadlessException e) {
 			// TODO: handle exception
 		}

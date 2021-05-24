@@ -57,7 +57,7 @@ public class PremiumUserTest {
 	@Test
 	public void getPremiumUserPlateTest() { // Test of all the GuestUser functions
 		
-		assertEquals("6735 HGL", PU1.getPlate());
+		assertEquals("8534 GHL", PU1.getPlate());
 		
 	}
 	
@@ -101,7 +101,7 @@ public class PremiumUserTest {
 	@Test
 	public void getguestUserPaymentTest() { // Test of all the GuestUser functions
 		
-		assertEquals("Visa", PU1.getPaymentMethod());
+		assertEquals("PayPal", PU1.getPaymentMethod());
 				
 	}
 	

@@ -82,11 +82,15 @@ public class GuestUser {
 		this.entranceDate = entranceDate;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "GuestUser [plate=" + plate + ", entranceDate=" + entranceDate + ", selectedSlot=" + slotPk + "]";
+		return "GuestUser [plate=" + plate + ", paymentMethod=" + paymentMethod + ", slotPk=" + slotPk + ", entranceDate=" + entranceDate + "]";
 	}
+
+	
+
+
+
+	
 
 }

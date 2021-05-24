@@ -10,14 +10,13 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
-import bspq21_e4.ParkingManagement.client.gui.AuthWindow;
 import bspq21_e4.ParkingManagement.client.gui.VentanaParking;
 import bspq21_e4.ParkingManagement.server.data.GuestUser;
 import bspq21_e4.ParkingManagement.server.data.PremiumUser;
 
 /**
- * @class PaymentWindowTest
- * Class to test the Payment window
+ * @class VentanaParkingTest
+ * Class to test the parking window
  * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
  */
 public class VentanaParkingTest {
@@ -54,17 +53,17 @@ public class VentanaParkingTest {
 	
 	/**
 	 * This method validates if the created window is from the same class as
-	 * PaymentWindow
+	 * VentanaParking
 	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
 	 * @throws Exception
 	 */
 	@Test
 	public void testVentanaParking() throws Exception {
 		try {
-			logger.info("Starting testPaymentWindow");
+			logger.info("Starting testVentanaParking");
 			assertEquals(vParkingPremium.getClass(), VentanaParking.class);
 			assertEquals(vParkingGuest.getClass(), VentanaParking.class);
-			logger.info("Finishing testPaymentWindow");
+			logger.info("Finishing testVentanaParking");
 
 		} catch (HeadlessException e) {
 			// TODO: handle exception
@@ -80,14 +79,14 @@ public class VentanaParkingTest {
 	@Test
 	public void testVentanaParkingVisible() throws Exception {
 		try {
-			logger.info("Starting testPaymentWindowVisible");
+			logger.info("Starting testVentanaParkingVisible");
 			assertFalse(vParkingPremium.isVisible());
 			vParkingPremium.setVisible(true);
 			assertTrue(vParkingPremium.isVisible());
 			assertFalse(vParkingGuest.isVisible());
 			vParkingGuest.setVisible(true);
 			assertTrue(vParkingGuest.isVisible());
-			logger.info("Finishing testPaymentWindowVisible");
+			logger.info("Finishing testVentanaParkingVisible");
 
 		} catch (HeadlessException e) {
 			// TODO: handle exception
@@ -102,10 +101,10 @@ public class VentanaParkingTest {
 	@Test
 	public void testVentanaParkingCloseOperation() throws Exception {
 		try {
-			logger.info("Starting testPaymentWindowCloseOperation");
+			logger.info("Starting testVentanaParkingCloseOperation");
 			assertEquals(vParkingPremium.getDefaultCloseOperation(), JFrame.EXIT_ON_CLOSE);
 			assertEquals(vParkingGuest.getDefaultCloseOperation(), JFrame.EXIT_ON_CLOSE);
-			logger.info("Finishing testPaymentWindowCloseOperation");
+			logger.info("Finishing testVentanaParkingCloseOperation");
 		} catch (HeadlessException e) {
 			// TODO: handle exception
 		}
