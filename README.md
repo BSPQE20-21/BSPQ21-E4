@@ -7,7 +7,7 @@
 
 1. Remove previous binary files and compile the project:
 
-  mvn clean compile
+ 	mvn clean compile
 
 
 2. Open MySQLWorkbench and connect to the database
@@ -16,17 +16,18 @@
 
 3. Run the Web Server:
 
-  cmd: mvn exec:java -Dexec.args="--server"
-  PowerShell: mvn exec:java "-Dexec.args='--server'"
+ 	cmd: mvn exec:java -Dexec.args="--server"
+ 	PowerShell: mvn exec:java "-Dexec.args='--server'"
 
 4. PrepareData:
 
-In another cmd window, run the client
+	In another cmd window, run the client
 
-  mvn -Pdata exec:java
+ 	mvn -Pdata exec:java
 
 
 5. Run Client App:
 
+	cmd: mvn exec:java
 
  
