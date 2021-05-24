@@ -80,12 +80,13 @@ public class VentanaParkingTest {
 	public void testVentanaParkingVisible() throws Exception {
 		try {
 			logger.info("Starting testVentanaParkingVisible");
-			assertFalse(vParkingPremium.isVisible());
-			vParkingPremium.setVisible(true);
+//			assertFalse(vParkingPremium.isVisible());
 			assertTrue(vParkingPremium.isVisible());
-			assertFalse(vParkingGuest.isVisible());
-			vParkingGuest.setVisible(true);
+//			vParkingPremium.setVisible(true);
+//			assertTrue(vParkingPremium.isVisible());
 			assertTrue(vParkingGuest.isVisible());
+//			vParkingGuest.setVisible(true);
+//			assertTrue(vParkingGuest.isVisible());
 			logger.info("Finishing testVentanaParkingVisible");
 
 		} catch (HeadlessException e) {

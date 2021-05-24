@@ -81,12 +81,12 @@ public class SlotRSH {
 		return slotId;
 	}
 
-	/**
-	 * Asks the server side to delete a slot from the Database
-	 */
-	public void deleteSlot(Slot slot) {
-		Invocation.Builder ib = target.path("/delete/" + slot.getId()).request();
-		ib.delete();
-	}
+//	/**
+//	 * Asks the server side to delete a slot from the Database
+//	 */
+//	public void deleteSlot(Slot slot) {
+//		Invocation.Builder ib = target.path("/delete/" + slot.getId()).request();
+//		ib.delete();
+//	}
 
 }

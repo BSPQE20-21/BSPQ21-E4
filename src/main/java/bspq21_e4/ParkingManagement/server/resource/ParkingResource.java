@@ -65,17 +65,17 @@ public class ParkingResource {
 	}
 
 	
-	/**
-	 * Makes the query to the server side to delete the parking from the database,
-	 * that´s why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
-	 * and @see bspq21_e4.ParkingManagement.server.data.Parking
-	 */
-	@DELETE
-	@Path("delete/{parkingId}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteParking(String parking) {
-		DBManager.getInstance().deleteParking(parking);
-		return "Deleted";
-	}
+//	/**
+//	 * Makes the query to the server side to delete the parking from the database,
+//	 * that´s why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
+//	 * and @see bspq21_e4.ParkingManagement.server.data.Parking
+//	 */
+//	@DELETE
+//	@Path("delete/{parkingId}")
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String deleteParking(String parking) {
+//		DBManager.getInstance().deleteParking(parking);
+//		return "Deleted";
+//	}
 
 }

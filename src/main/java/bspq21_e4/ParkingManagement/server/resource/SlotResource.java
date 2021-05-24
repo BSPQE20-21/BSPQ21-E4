@@ -66,17 +66,17 @@ public class SlotResource {
 		return slot;
 	}
 
-	/**
-	 * Makes the query to the server side to delete a slot from the database, that´s
-	 * why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
-	 * bspq21_e4.ParkingManagement.server.data.Slot
-	 */
-	@DELETE
-	@Path("delete/{id}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteSlot(String slot) {
-		DBManager.getInstance().deleteSlot(slot);
-		return "Deleted";
-	}
+//	/**
+//	 * Makes the query to the server side to delete a slot from the database, that´s
+//	 * why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
+//	 * bspq21_e4.ParkingManagement.server.data.Slot
+//	 */
+//	@DELETE
+//	@Path("delete/{id}")
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String deleteSlot(String slot) {
+//		DBManager.getInstance().deleteSlot(slot);
+//		return "Deleted";
+//	}
 
 }

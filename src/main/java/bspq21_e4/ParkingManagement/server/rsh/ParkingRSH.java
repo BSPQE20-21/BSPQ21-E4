@@ -80,12 +80,12 @@ public class ParkingRSH {
 		return parkingId;
 	}
 
-	/**
-	 * Asks the server side to delete a parking from the Database
-	 */
-	public void deleteParking(Parking parking) {
-		Invocation.Builder ib = target.path("/delete/" + parking.getId()).request();
-		ib.delete();
-	}
+//	/**
+//	 * Asks the server side to delete a parking from the Database
+//	 */
+//	public void deleteParking(Parking parking) {
+//		Invocation.Builder ib = target.path("/delete/" + parking.getId()).request();
+//		ib.delete();
+//	}
 
 }
