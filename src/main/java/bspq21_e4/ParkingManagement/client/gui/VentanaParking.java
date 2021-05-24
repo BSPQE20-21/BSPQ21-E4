@@ -59,8 +59,6 @@ public class VentanaParking extends JFrame {
 
 	private Slot selectedSlot;
 	private JPanel contentPanel;
-	private JList<Slot> slotL;
-	private DefaultListModel slotDL;
 	private JMenuBar menu;
 	private JMenu menuUsuarios;
 	private JMenuItem menuItem;
@@ -122,20 +120,25 @@ public class VentanaParking extends JFrame {
 		int counter = 0;
 		List<Slot> slotList = SlotRSH.getInstance().checkSlots();
 		List<Parking> parkingList = ParkingRSH.getInstance().checkParkings();
+		
 		Parking parkingElegido = new Parking();
 		
 		for (Parking parking : parkingList) {
 
 			if (parking.getNombre().equals(p)) {
 				parkingElegido = parking;
+				
 
 			}
 		}
 
 		for (int i = 0; i < slotList.size(); i++) {
-
+//			System.out.println(slotList.get(i).getIdParking());
+//			System.out.println(parkingElegido.getId());
+			
 			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {
-
+				System.out.println("");
+				System.out.println(slotList.get(i).toString());
 				slotDL.add(counter, slotList.get(i));
 				counter++;
 
