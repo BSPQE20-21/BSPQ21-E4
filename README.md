@@ -6,28 +6,27 @@
 ## Needed commands to execute the project:
 
 1. Remove previous binary files and compile the project:
-```bash
+
   mvn clean compile
-```
+
 
 2. Open MySQLWorkbench and connect to the database
-```bash
+
 	run database.sql
-```
+
 3. Run the Web Server:
-```bash
+
   cmd: mvn exec:java -Dexec.args="--server"
   PowerShell: mvn exec:java "-Dexec.args='--server'"
-```
+
 4. PrepareData:
 
 In another cmd window, run the client
-```bash
+
   mvn -Pdata exec:java
- ```
+
 
 5. Run Client App:
-```bash
-  mvn exec:java
- ```
+
+
  
