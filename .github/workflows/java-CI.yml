@@ -1,0 +1,45 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots verify
+      - name: Build with Maven including only unit testing (with SonarCloud)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn --batch-mode --update-snapshots test org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+      - name: Prepare database for integration tests
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -uroot -proot < src/main/resources/dataBase.sql
+          mvn --batch-mode --update-snapshots compile
+          mvn --batch-mode --update-snapshots verify
+          mvn --batch-mode --update-snapshots datanucleus:schema-create
+      - name: Build with Maven including integration tests
+        run: mvn --batch-mode --update-snapshots verify -Pintegracion
+
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get the html
+        run: git clone https://github.com/jothepro/doxygen-awesome-css.git
+      - name: Execute doxygen
+        uses: mattnotmitt/doxygen-action@v1
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/html
