@@ -17,6 +17,7 @@ jobs:
       with:
         java-version: 1.8
         
+        
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots verify -Pintegration
     - name: Prepare database for integration tests
