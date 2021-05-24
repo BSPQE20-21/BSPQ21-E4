@@ -64,6 +64,7 @@ public class ParkingResource {
 		return parking;
 	}
 
+	
 	/**
 	 * Makes the query to the server side to delete the parking from the database,
 	 * that´s why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
