@@ -121,34 +121,36 @@ public class DBManager {
 	/**
 	 * Deletes the parking from the DB
 	 * 
-	 * @param parking
+	 * @param idParking
 	 */
-	public void deleteParking(Parking parking) {
+	public void deleteParking(String idParking) {
 		// Delete data using Extent
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
-
 		try {
 			transaction.begin();
-
-			@SuppressWarnings("unchecked")
-			Query<Parking> parkingQuery = persistentManager
-					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id=='" + parking.getId() + "'");
-
-			parkingQuery.execute();
-			System.out.println("- Deleted parking from db: " + parking.getNombre());
-			persistentManager.deletePersistent(parking);
-			transaction.commit();
-		} catch (Exception ex) {
-			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-			logger.warn(getResourceBundle().getString("deletep"), ex);
-		} finally {
-			if (transaction.isActive()) {
-				transaction.rollback();
+			Extent<Parking> e = persistentManager.getExtent(Parking.class, true);
+			Iterator<Parking> iter = e.iterator();
+			while (iter.hasNext()) {
+				Parking parking = (Parking) iter.next();
+				
+				if (Integer.toString(parking.getId()) == null ? idParking == null : Integer.toString(parking.getId())== idParking) {
+					persistentManager.deletePersistent(parking);
+					
+				}
 			}
 
+			transaction.commit();
+		} catch (Exception ex) {
+			logger.warn(getResourceBundle().getString("deleteP"), ex);
+		} finally {
+			if (transaction != null && transaction.isActive()) {
+				transaction.rollback();
+			}
 			persistentManager.close();
 		}
+		
+		
 
 	}
 
@@ -215,37 +217,36 @@ public class DBManager {
 	/**
 	 * Deletes the slot from the DB
 	 * 
-	 * @param slot
+	 * @param slotPk
 	 */
-	public void deleteSlot(Slot slot) {
+	public void deleteSlot(String slotPk) {
 
 		// Delete data using Extent
 		persistentManager = persistentManagerFactory.getPersistenceManager();
 		transaction = persistentManager.currentTransaction();
-
 		try {
 			transaction.begin();
-
-			@SuppressWarnings("unchecked")
-			Query<Slot> slotQuery = persistentManager
-					.newQuery("SELECT FROM " + Slot.class.getName() + " WHERE id==" + slot.getId());
-
-			slotQuery.execute();
-
-			System.out.println("- Deleted slot from db: " + slot.getId());
-			persistentManager.deletePersistent(slot);
+			Extent<Slot> e = persistentManager.getExtent(Slot.class, true);
+			Iterator<Slot> iter = e.iterator();
+			while (iter.hasNext()) {
+				Slot slot = (Slot) iter.next();
+				
+				if (Integer.toString(slot.getPk()) == null ? slotPk == null : Integer.toString(slot.getPk())== slotPk) {
+					persistentManager.deletePersistent(slot);
+					
+				}
+			}
 
 			transaction.commit();
 		} catch (Exception ex) {
-			System.err.println("* Exception deleting data from DB: " + ex.getMessage());
-			logger.warn(getResourceBundle().getString("deleteS"), ex);
+			logger.warn(getResourceBundle().getString("deleteP"), ex);
 		} finally {
-			if (transaction.isActive()) {
+			if (transaction != null && transaction.isActive()) {
 				transaction.rollback();
 			}
-
 			persistentManager.close();
 		}
+		
 
 	}
 
@@ -577,34 +578,5 @@ public class DBManager {
 
 	}
 
-	/**
-	 * Getting a parking given its id
-	 */
-	public Parking searchParking(int id) {
-		persistentManager = persistentManagerFactory.getPersistenceManager();
-		transaction = persistentManager.currentTransaction();
-		Parking parking = null;
-		try {
-			transaction.begin();
 
-			@SuppressWarnings("unchecked")
-			Query<Parking> parkingQuery = persistentManager
-					.newQuery("SELECT FROM " + Parking.class.getName() + " WHERE id =='" + id + "'");
-
-			parkingQuery.execute();
-
-			transaction.commit();
-		} catch (Exception ex) {
-			System.err.println("* Exception obtaining parking data from DB: " + ex.getMessage());
-			logger.warn(getResourceBundle().getString("parkingsearch"), ex);
-		} finally {
-			if (transaction.isActive()) {
-				transaction.rollback();
-				
-			}
-
-			persistentManager.close();
-		}
-		return parking;
-	}
 }
