@@ -29,6 +29,8 @@ jobs:
       run:  mvn exec:java -Dexec.args="--server" &
     - name: compile the code
       run: mvn clean compile
+    - name: Create Datanucleus schema
+      run: mvn datanucleus:schema-create
     - name: Test with Maven
       run: mvn test
     - name: Generate documentation
