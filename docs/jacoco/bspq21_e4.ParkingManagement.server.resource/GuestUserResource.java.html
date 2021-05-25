@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GuestUserResource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.server.resource</a> &gt; <span class="el_source">GuestUserResource.java</span></div><h1>GuestUserResource.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.server.resource;
+
+import java.util.List;
+
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import bspq21_e4.ParkingManagement.server.DAO.DBManager;
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import jakarta.ws.rs.PATCH;
+
+/**
+ * @class GuestUserResource Makes paths in order to communicate with the server
+ *        side through the annotations which are in charge of making the
+ *        requests regarding guest users
+ * @see bspq21_e4.ParkingManagement.server.DAO.DBManager and @see
+ *      bspq21_e4.ParkingManagement.server.data.GuestUser
+ * @author BSPQ21-E4
+ */
+@Path(&quot;guestUser&quot;)
+<span class="nc" id="L27">public class GuestUserResource {</span>
+
+	/**
+	 * Makes the query to the server side to get the list of guest users from the
+	 * database, that´s why we access @see
+	 * bspq21_e4.ParkingManagement.server.DAO.DBManager and @see
+	 * bspq21_e4.ParkingManagement.server.data.GuestUser
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List&lt;GuestUser&gt; getGuestUser() {
+<span class="nc" id="L38">		List&lt;GuestUser&gt; users = DBManager.getInstance().getGuestUsers();</span>
+<span class="nc" id="L39">		return users;</span>
+
+	}
+
+	/**
+	 * Makes the query to the server side to modify a user, that´s why we
+	 * access @see bspq21_e4.ParkingManagement.server.DAO.DBManager and @see
+	 * bspq21_e4.ParkingManagement.server.data.GuestUser
+	 */
+	@PATCH
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public GuestUser modifyGuestUser(GuestUser user) {
+<span class="nc" id="L52">		DBManager.getInstance().updateGuestUser(user);</span>
+		;
+<span class="nc" id="L54">		return user;</span>
+	}
+
+	/**
+	 * Makes the query to the server side to insert the guest user. @see
+	 * bspq21_e4.ParkingManagement.server.data.GuestUser
+	 */
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public GuestUser insertGuestUser(GuestUser user) {
+<span class="nc" id="L65">		DBManager.getInstance().insertGuestUser(user);</span>
+		;
+<span class="nc" id="L67">		return user;</span>
+	}
+
+	/**
+	 * Makes the query to the server side to delete a guest user from the database,
+	 * that´s why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
+	 * and @see bspq21_e4.ParkingManagement.server.data.GuestUser
+	 */
+	@DELETE
+	@Path(&quot;/delete/{userPlate}&quot;)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteGuestUser(@PathParam(&quot;userPlate&quot;) String user) {
+<span class="nc" id="L79">		DBManager.getInstance().deleteGuestUser(user);</span>
+<span class="nc" id="L80">		return &quot;Deleted&quot;;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

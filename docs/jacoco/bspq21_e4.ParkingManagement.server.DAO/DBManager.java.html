@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DBManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.server.DAO</a> &gt; <span class="el_source">DBManager.java</span></div><h1>DBManager.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.server.DAO;
+
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import javax.jdo.Extent;
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
+import javax.jdo.Transaction;
+
+import org.apache.log4j.Logger;
+
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+
+/**
+ * @class DBManager Window which allows database interaction
+ * @author BSPQ21-E4
+ */
+public class DBManager {
+<span class="fc" id="L28">	private static DBManager instance = null;</span>
+	private static ResourceBundle resourceBundle;
+	private static PersistenceManagerFactory persistentManagerFactory;
+	private static PersistenceManager persistentManager;
+<span class="fc" id="L32">	private static Logger logger = Logger.getLogger(DBManager.class.getName());</span>
+	private static Transaction transaction;
+	
+	public ResourceBundle getResourceBundle() {
+<span class="fc" id="L36">		return resourceBundle;</span>
+	}
+	/**
+	 * Constructor of the window just receives the user logged
+	 * 
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @param User
+	 */
+<span class="fc" id="L44">	public DBManager() {</span>
+<span class="fc" id="L45">		persistentManagerFactory = JDOHelper.getPersistenceManagerFactory(&quot;datanucleus.properties&quot;);</span>
+<span class="fc" id="L46">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L47">		transaction = persistentManager.currentTransaction();</span>
+<span class="fc" id="L48">	}</span>
+
+	/**
+	 * Method that creates a DBManager instance if needed and returns it.
+	 * 
+	 * @return DBManager instance
+	 */
+	public static DBManager getInstance() {
+<span class="fc bfc" id="L56" title="All 2 branches covered.">		if (instance == null) {</span>
+<span class="fc" id="L57">			instance = new DBManager();</span>
+		}
+<span class="fc" id="L59">		logger.info(&quot;DBManager instance returned&quot;);</span>
+<span class="fc" id="L60">		return instance;</span>
+	}
+
+	/**
+	 * Stores the parking in the DB
+	 * 
+	 * @param parking
+	 */
+	public void insertParking(Parking parking) {
+<span class="fc" id="L69">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L70">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L73">			transaction.begin();</span>
+
+<span class="fc" id="L75">			persistentManager.makePersistent(parking);</span>
+<span class="fc" id="L76">			transaction.commit();</span>
+<span class="nc" id="L77">		} catch (Exception ex) {</span>
+<span class="nc" id="L78">			logger.warn(getResourceBundle().getString(&quot;parking&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L80" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L81">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L84">			persistentManager.close();</span>
+		}
+
+<span class="fc" id="L87">	}</span>
+
+	/**
+	 * Updates the parking from the DB
+	 * 
+	 * @param parking
+	 */
+	public void updateParking(Parking parking) {
+<span class="fc" id="L95">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L96">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L99">			transaction.begin();</span>
+
+<span class="fc" id="L101">			Extent&lt;Parking&gt; e = persistentManager.getExtent(Parking.class, true);</span>
+<span class="fc" id="L102">			Iterator&lt;Parking&gt; iter = e.iterator();</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">			while (iter.hasNext()) {</span>
+<span class="fc" id="L104">				Parking parkingModify = (Parking) iter.next();</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">				if (parkingModify.getId() == parking.getId()) {</span>
+<span class="fc" id="L106">					parkingModify.setAvailableSlots(parking.getAvailableSlots());</span>
+<span class="fc" id="L107">					parkingModify.setOccupiedSlots(parking.getOccupiedSlots());</span>
+				}
+<span class="fc" id="L109">			}</span>
+<span class="fc" id="L110">			transaction.commit();</span>
+<span class="nc" id="L111">		} catch (Exception ex) {</span>
+<span class="nc" id="L112">			logger.warn(getResourceBundle().getString(&quot;updatep&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L114" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L115">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L118">			persistentManager.close();</span>
+		}
+<span class="fc" id="L120">	}</span>
+
+//	/**
+//	 * Deletes the parking from the DB
+//	 * 
+//	 * @param idParking
+//	 */
+//	public void deleteParking(String idParking) {
+//		// Delete data using Extent
+//		persistentManager = persistentManagerFactory.getPersistenceManager();
+//		transaction = persistentManager.currentTransaction();
+//		try {
+//			transaction.begin();
+//			Extent&lt;Parking&gt; e = persistentManager.getExtent(Parking.class, true);
+//			Iterator&lt;Parking&gt; iter = e.iterator();
+//			while (iter.hasNext()) {
+//				Parking parking = (Parking) iter.next();
+//				
+//				if (Integer.toString(parking.getId()) == null ? idParking == null : Integer.toString(parking.getId())== idParking) {
+//					persistentManager.deletePersistent(parking);
+//					
+//				}
+//			}
+//
+//			transaction.commit();
+//		} catch (Exception ex) {
+//			logger.warn(getResourceBundle().getString(&quot;deleteP&quot;), ex);
+//		} finally {
+//			if (transaction != null &amp;&amp; transaction.isActive()) {
+//				transaction.rollback();
+//			}
+//			persistentManager.close();
+//		}
+//		
+//		
+//
+//	}
+
+	/**
+	 * Stores the slot in the DB
+	 * 
+	 * @param slot
+	 */
+	public void insertSlot(Slot slot) {
+
+<span class="nc" id="L165">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="nc" id="L166">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="nc" id="L169">			transaction.begin();</span>
+
+<span class="nc" id="L171">			persistentManager.makePersistent(slot);</span>
+<span class="nc" id="L172">			transaction.commit();</span>
+<span class="nc" id="L173">		} catch (Exception ex) {</span>
+<span class="nc" id="L174">			logger.warn(getResourceBundle().getString(&quot;insertS&quot;), ex);</span>
+		} finally {
+<span class="nc bnc" id="L176" title="All 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L177">				transaction.rollback();</span>
+			}
+
+<span class="nc" id="L180">			persistentManager.close();</span>
+		}
+
+<span class="nc" id="L183">	}</span>
+
+	/**
+	 * Updates the slot from the DB
+	 * 
+	 * @param slot
+	 */
+	public void updateSlot(Slot slot) {
+<span class="fc" id="L191">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L192">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L195">			transaction.begin();</span>
+
+<span class="fc" id="L197">			Extent&lt;Slot&gt; e = persistentManager.getExtent(Slot.class, true);</span>
+<span class="fc" id="L198">			Iterator&lt;Slot&gt; iter = e.iterator();</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">			while (iter.hasNext()) {</span>
+<span class="fc" id="L200">				Slot slotModify = (Slot) iter.next();</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">				if (slotModify.getPk() == slot.getPk()) {</span>
+<span class="fc" id="L202">					slotModify.setSl(slot.getSl());</span>
+
+				}
+<span class="fc" id="L205">			}</span>
+<span class="fc" id="L206">			transaction.commit();</span>
+<span class="nc" id="L207">		} catch (Exception ex) {</span>
+<span class="nc" id="L208">			logger.warn(getResourceBundle().getString(&quot;updateS&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L210" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L211">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L214">			persistentManager.close();</span>
+		}
+<span class="fc" id="L216">	}</span>
+
+//	/**
+//	 * Deletes the slot from the DB
+//	 * 
+//	 * @param slotPk
+//	 */
+//	public void deleteSlot(String slotPk) {
+//
+//		// Delete data using Extent
+//		persistentManager = persistentManagerFactory.getPersistenceManager();
+//		transaction = persistentManager.currentTransaction();
+//		try {
+//			transaction.begin();
+//			Extent&lt;Slot&gt; e = persistentManager.getExtent(Slot.class, true);
+//			Iterator&lt;Slot&gt; iter = e.iterator();
+//			while (iter.hasNext()) {
+//				Slot slot = (Slot) iter.next();
+//				
+//				if (Integer.toString(slot.getPk()) == null ? slotPk == null : Integer.toString(slot.getPk())== slotPk) {
+//					persistentManager.deletePersistent(slot);
+//					
+//				}
+//			}
+//
+//			transaction.commit();
+//		} catch (Exception ex) {
+//			logger.warn(getResourceBundle().getString(&quot;deleteP&quot;), ex);
+//		} finally {
+//			if (transaction != null &amp;&amp; transaction.isActive()) {
+//				transaction.rollback();
+//			}
+//			persistentManager.close();
+//		}
+//		
+//
+//	}
+
+	/**
+	 * Stores the premium user in the DB
+	 * 
+	 * @param user
+	 */
+	public void insertPremiumUser(PremiumUser user) {
+<span class="fc" id="L260">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L261">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L264">			transaction.begin();</span>
+
+<span class="fc" id="L266">			persistentManager.makePersistent(user);</span>
+<span class="fc" id="L267">			transaction.commit();</span>
+<span class="fc" id="L268">		} catch (Exception ex) {</span>
+<span class="nc" id="L269">			logger.warn(getResourceBundle().getString(&quot;insertP&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L271" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L272">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L275">			persistentManager.close();</span>
+		}
+<span class="fc" id="L277">	}</span>
+
+	/**
+	 * Updates the premium user from the DB
+	 * 
+	 * @param user
+	 */
+	public void updatePremiumUser(PremiumUser user) {
+<span class="fc" id="L285">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L286">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L289">			transaction.begin();</span>
+
+<span class="fc" id="L291">			Extent&lt;PremiumUser&gt; e = persistentManager.getExtent(PremiumUser.class, true);</span>
+<span class="fc" id="L292">			Iterator&lt;PremiumUser&gt; iter = e.iterator();</span>
+<span class="fc bfc" id="L293" title="All 2 branches covered.">			while (iter.hasNext()) {</span>
+<span class="fc" id="L294">				PremiumUser userModified = (PremiumUser) iter.next();</span>
+<span class="pc bpc" id="L295" title="3 of 4 branches missed.">				if (userModified.getPlate() == null ? user.getPlate() == null</span>
+<span class="fc bfc" id="L296" title="All 2 branches covered.">						: userModified.getPlate().equals(user.getPlate())) {</span>
+<span class="fc" id="L297">					userModified.setSlotPk(user.getSlotPk());</span>
+<span class="fc" id="L298">					userModified.setPaymentMethod(user.getPaymentMethod());</span>
+<span class="fc" id="L299">					user.setPaymentMethod(user.getPaymentMethod());</span>
+<span class="fc" id="L300">					userModified.setMonthfee(user.getMonthfee());</span>
+
+				}
+<span class="fc" id="L303">			}</span>
+<span class="fc" id="L304">			transaction.commit();</span>
+<span class="nc" id="L305">		} catch (Exception ex) {</span>
+<span class="nc" id="L306">			System.out.println(&quot;$ Error updating: &quot; + ex.getMessage());</span>
+<span class="nc" id="L307">			logger.warn(getResourceBundle().getString(&quot;updateP&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L309" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L310">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L313">			persistentManager.close();</span>
+		}
+<span class="fc" id="L315">	}</span>
+
+	/**
+	 * Deletes the premium user from the DB
+	 * 
+	 * @param user
+	 */
+	public void deletePremiumUser(String plate) {
+
+<span class="fc" id="L324">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L325">		transaction = persistentManager.currentTransaction();</span>
+		try {
+<span class="fc" id="L327">			transaction.begin();</span>
+<span class="fc" id="L328">			Extent&lt;PremiumUser&gt; e = persistentManager.getExtent(PremiumUser.class, true);</span>
+<span class="fc" id="L329">			Iterator&lt;PremiumUser&gt; iter = e.iterator();</span>
+<span class="fc bfc" id="L330" title="All 2 branches covered.">			while (iter.hasNext()) {</span>
+<span class="fc" id="L331">				PremiumUser user = (PremiumUser) iter.next();</span>
+<span class="pc bpc" id="L332" title="3 of 6 branches missed.">				if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {</span>
+<span class="fc" id="L333">					persistentManager.deletePersistent(user);</span>
+				}
+<span class="fc" id="L335">			}</span>
+
+<span class="fc" id="L337">			transaction.commit();</span>
+<span class="nc" id="L338">		} catch (Exception ex) {</span>
+<span class="nc" id="L339">			logger.warn(getResourceBundle().getString(&quot;deleteP&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L341" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L342">				transaction.rollback();</span>
+			}
+<span class="fc" id="L344">			persistentManager.close();</span>
+		}
+<span class="fc" id="L346">	}</span>
+
+	/**
+	 * Stores the guest user in the DB
+	 * 
+	 * @param user
+	 */
+	public void insertGuestUser(GuestUser user) {
+<span class="nc" id="L354">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="nc" id="L355">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="nc" id="L358">			transaction.begin();</span>
+
+<span class="nc" id="L360">			persistentManager.makePersistent(user);</span>
+<span class="nc" id="L361">			transaction.commit();</span>
+<span class="nc" id="L362">		} catch (Exception ex) {</span>
+<span class="nc" id="L363">			logger.warn(getResourceBundle().getString(&quot;insertG&quot;), ex);</span>
+		} finally {
+<span class="nc bnc" id="L365" title="All 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L366">				transaction.rollback();</span>
+			}
+
+<span class="nc" id="L369">			persistentManager.close();</span>
+		}
+<span class="nc" id="L371">	}</span>
+
+	/**
+	 * Updates the guest user from the DB
+	 * 
+	 * @param user
+	 */
+	public void updateGuestUser(GuestUser user) {
+<span class="fc" id="L379">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L380">		transaction = persistentManager.currentTransaction();</span>
+
+		try {
+<span class="fc" id="L383">			transaction.begin();</span>
+
+<span class="fc" id="L385">			Extent&lt;GuestUser&gt; e = persistentManager.getExtent(GuestUser.class, true);</span>
+<span class="fc" id="L386">			Iterator&lt;GuestUser&gt; iter = e.iterator();</span>
+<span class="fc bfc" id="L387" title="All 2 branches covered.">			while (iter.hasNext()) {</span>
+<span class="fc" id="L388">				GuestUser userModified = (GuestUser) iter.next();</span>
+<span class="pc bpc" id="L389" title="3 of 4 branches missed.">				if (userModified.getPlate() == null ? user.getPlate() == null</span>
+<span class="pc bpc" id="L390" title="1 of 2 branches missed.">						: userModified.getPlate().equals(user.getPlate())) {</span>
+<span class="nc" id="L391">					userModified.setSlotPk(user.getSlotPk());</span>
+<span class="nc" id="L392">					userModified.setEntranceDate(user.getEntranceDate());</span>
+<span class="nc" id="L393">					userModified.setPaymentMethod(user.getPaymentMethod());</span>
+				
+
+				}
+<span class="fc" id="L397">			}</span>
+<span class="fc" id="L398">			transaction.commit();</span>
+<span class="nc" id="L399">		} catch (Exception ex) {</span>
+<span class="nc" id="L400">			System.out.println(&quot;$ Error updating: &quot; + ex.getMessage());</span>
+<span class="nc" id="L401">			logger.warn(getResourceBundle().getString(&quot;updateG&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L403" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L404">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L407">			persistentManager.close();</span>
+		}
+<span class="fc" id="L409">	}</span>
+
+	/**
+	 * Deletes the guest user from the DB
+	 * 
+	 * @param user
+	 */
+	public void deleteGuestUser(String plate) {
+
+<span class="fc" id="L418">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L419">		transaction = persistentManager.currentTransaction();</span>
+		try {
+<span class="fc" id="L421">			transaction.begin();</span>
+<span class="fc" id="L422">			Extent&lt;GuestUser&gt; e = persistentManager.getExtent(GuestUser.class, true);</span>
+<span class="fc" id="L423">			Iterator&lt;GuestUser&gt; iter = e.iterator();</span>
+<span class="fc bfc" id="L424" title="All 2 branches covered.">			while (iter.hasNext()) {</span>
+<span class="fc" id="L425">				GuestUser user = (GuestUser) iter.next();</span>
+<span class="pc bpc" id="L426" title="4 of 6 branches missed.">				if (user.getPlate() == null ? plate == null : user.getPlate().equals(plate)) {</span>
+<span class="nc" id="L427">					persistentManager.deletePersistent(user);</span>
+				}
+<span class="fc" id="L429">			}</span>
+
+<span class="fc" id="L431">			transaction.commit();</span>
+<span class="nc" id="L432">		} catch (Exception ex) {</span>
+<span class="nc" id="L433">			logger.warn(getResourceBundle().getString(&quot;deleteG&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L435" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L436">				transaction.rollback();</span>
+			}
+<span class="fc" id="L438">			persistentManager.close();</span>
+		}
+<span class="fc" id="L440">	}</span>
+
+	/**
+	 * Getting the list of parkings
+	 */
+	public List&lt;Parking&gt; getParkings() {
+<span class="fc" id="L446">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L447">		transaction = persistentManager.currentTransaction();</span>
+
+<span class="fc" id="L449">		List&lt;Parking&gt; parkings = new ArrayList&lt;&gt;();</span>
+
+		try {
+<span class="fc" id="L452">			System.out.println(&quot;Searching parkings...&quot;);</span>
+<span class="fc" id="L453">			transaction.begin();</span>
+
+<span class="fc" id="L455">			Extent&lt;Parking&gt; parkingExtent = persistentManager.getExtent(Parking.class, true);</span>
+
+<span class="fc bfc" id="L457" title="All 2 branches covered.">			for (Parking parking : parkingExtent) {</span>
+<span class="fc" id="L458">				persistentManager.makeTransient(parking);</span>
+<span class="fc" id="L459">				parkings.add(parking);</span>
+<span class="fc" id="L460">			}</span>
+
+<span class="fc" id="L462">			transaction.commit();</span>
+<span class="nc" id="L463">		} catch (Exception ex) {</span>
+<span class="nc" id="L464">			System.out.println(&quot;$ Error obtaining parkings: &quot; + ex.getMessage());</span>
+<span class="nc" id="L465">			logger.warn(getResourceBundle().getString(&quot;parkinget&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L467" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L468">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L471">			persistentManager.close();</span>
+		}
+<span class="fc" id="L473">		return parkings;</span>
+
+	}
+
+	/**
+	 * Getting the list of slots
+	 */
+	public List&lt;Slot&gt; getSlots() {
+<span class="fc" id="L481">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L482">		transaction = persistentManager.currentTransaction();</span>
+
+<span class="fc" id="L484">		List&lt;Slot&gt; slots = new ArrayList&lt;&gt;();</span>
+
+		try {
+<span class="fc" id="L487">			System.out.println(&quot;Searching slots...&quot;);</span>
+<span class="fc" id="L488">			transaction.begin();</span>
+
+<span class="fc" id="L490">			Extent&lt;Slot&gt; slotExtent = persistentManager.getExtent(Slot.class, true);</span>
+
+<span class="fc bfc" id="L492" title="All 2 branches covered.">			for (Slot slot : slotExtent) {</span>
+<span class="fc" id="L493">				persistentManager.makeTransient(slot);</span>
+<span class="fc" id="L494">				slots.add(slot);</span>
+<span class="fc" id="L495">			}</span>
+
+<span class="fc" id="L497">			transaction.commit();</span>
+<span class="nc" id="L498">		} catch (Exception ex) {</span>
+<span class="nc" id="L499">			System.out.println(&quot;$ Error obtaining slots: &quot; + ex.getMessage());</span>
+<span class="nc" id="L500">			logger.warn(getResourceBundle().getString(&quot;slotget&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L502" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L503">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L506">			persistentManager.close();</span>
+		}
+<span class="fc" id="L508">		return slots;</span>
+
+	}
+
+	/**
+	 * Getting the list of premium users
+	 */
+	public List&lt;PremiumUser&gt; getPremiumUsers() {
+<span class="fc" id="L516">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L517">		transaction = persistentManager.currentTransaction();</span>
+
+<span class="fc" id="L519">		List&lt;PremiumUser&gt; users = new ArrayList&lt;&gt;();</span>
+
+		try {
+<span class="fc" id="L522">			System.out.println(&quot;Searching users...&quot;);</span>
+<span class="fc" id="L523">			transaction.begin();</span>
+
+<span class="fc" id="L525">			Extent&lt;PremiumUser&gt; userExtent = persistentManager.getExtent(PremiumUser.class, true);</span>
+
+<span class="fc bfc" id="L527" title="All 2 branches covered.">			for (PremiumUser user : userExtent) {</span>
+<span class="fc" id="L528">				persistentManager.makeTransient(user);</span>
+<span class="fc" id="L529">				users.add(user);</span>
+<span class="fc" id="L530">			}</span>
+
+<span class="fc" id="L532">			transaction.commit();</span>
+<span class="nc" id="L533">		} catch (Exception ex) {</span>
+<span class="nc" id="L534">			System.out.println(&quot;$ Error obtaining users: &quot; + ex.getMessage());</span>
+<span class="nc" id="L535">			logger.warn(getResourceBundle().getString(&quot;premiumget&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L537" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L538">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L541">			persistentManager.close();</span>
+		}
+<span class="fc" id="L543">		return users;</span>
+
+	}
+
+	/**
+	 * Getting the list of guest users
+	 */
+	public List&lt;GuestUser&gt; getGuestUsers() {
+<span class="fc" id="L551">		persistentManager = persistentManagerFactory.getPersistenceManager();</span>
+<span class="fc" id="L552">		transaction = persistentManager.currentTransaction();</span>
+
+<span class="fc" id="L554">		List&lt;GuestUser&gt; users = new ArrayList&lt;&gt;();</span>
+
+		try {
+<span class="fc" id="L557">			System.out.println(&quot;Searching users...&quot;);</span>
+<span class="fc" id="L558">			transaction.begin();</span>
+
+<span class="fc" id="L560">			Extent&lt;GuestUser&gt; userExtent = persistentManager.getExtent(GuestUser.class, true);</span>
+
+<span class="fc bfc" id="L562" title="All 2 branches covered.">			for (GuestUser user : userExtent) {</span>
+<span class="fc" id="L563">				persistentManager.makeTransient(user);</span>
+<span class="fc" id="L564">				users.add(user);</span>
+<span class="fc" id="L565">			}</span>
+
+<span class="fc" id="L567">			transaction.commit();</span>
+<span class="nc" id="L568">		} catch (Exception ex) {</span>
+<span class="nc" id="L569">			System.out.println(&quot;$ Error obtaining users: &quot; + ex.getMessage());</span>
+<span class="nc" id="L570">			logger.warn(getResourceBundle().getString(&quot;guestget&quot;), ex);</span>
+		} finally {
+<span class="pc bpc" id="L572" title="2 of 4 branches missed.">			if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L573">				transaction.rollback();</span>
+			}
+
+<span class="fc" id="L576">			persistentManager.close();</span>
+		}
+<span class="fc" id="L578">		return users;</span>
+
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GuestUser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.server.data</a> &gt; <span class="el_source">GuestUser.java</span></div><h1>GuestUser.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.server.data;
+
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.jdo.annotations.ForeignKey;
+import javax.jdo.annotations.ForeignKeyAction;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+@PersistenceCapable(detachable = &quot;true&quot;)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+
+/**
+ * @class GuestUser Class which defines guest users
+ * @see bspq21_e4.ParkingManagement.server.data.User
+ * @author BSPQ21-E4
+ */
+public class GuestUser {
+
+	@PrimaryKey
+	String plate;
+	String paymentMethod;
+
+	@ForeignKey(deleteAction = ForeignKeyAction.NONE)
+	int slotPk;
+
+	String entranceDate;
+
+<span class="fc" id="L36">	public static SimpleDateFormat sdfResult = new SimpleDateFormat(&quot;HH:mm&quot;, Locale.US);</span>
+
+<span class="fc" id="L38">	public GuestUser(String plate, String entranceDate, int slotPk, String paymentMethod) {</span>
+
+<span class="fc" id="L40">		this.plate = plate;</span>
+<span class="fc" id="L41">		this.entranceDate = entranceDate;</span>
+<span class="fc" id="L42">		this.slotPk = slotPk;</span>
+<span class="fc" id="L43">		this.paymentMethod = paymentMethod;</span>
+
+<span class="fc" id="L45">	}</span>
+
+<span class="fc" id="L47">	public GuestUser() {</span>
+
+<span class="fc" id="L49">	}</span>
+	
+	
+
+	public String getPlate() {
+<span class="fc" id="L54">		return plate;</span>
+	}
+
+	public void setPlate(String plate) {
+<span class="fc" id="L58">		this.plate = plate;</span>
+<span class="fc" id="L59">	}</span>
+
+	public String getPaymentMethod() {
+<span class="fc" id="L62">		return paymentMethod;</span>
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+<span class="fc" id="L66">		this.paymentMethod = paymentMethod;</span>
+<span class="fc" id="L67">	}</span>
+
+	public int getSlotPk() {
+<span class="fc" id="L70">		return slotPk;</span>
+	}
+
+	public void setSlotPk(int slotPk) {
+<span class="fc" id="L74">		this.slotPk = slotPk;</span>
+<span class="fc" id="L75">	}</span>
+
+	public String getEntranceDate() {
+<span class="fc" id="L78">		return entranceDate;</span>
+	}
+
+	public void setEntranceDate(String entranceDate) {
+<span class="fc" id="L82">		this.entranceDate = entranceDate;</span>
+<span class="fc" id="L83">	}</span>
+
+	@Override
+	public String toString() {
+<span class="fc" id="L87">		return &quot;GuestUser [plate=&quot; + plate + &quot;, paymentMethod=&quot; + paymentMethod + &quot;, slotPk=&quot; + slotPk + &quot;, entranceDate=&quot; + entranceDate + &quot;]&quot;;</span>
+	}
+
+	
+
+
+
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

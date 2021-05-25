@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VentanaParking.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.client.gui</a> &gt; <span class="el_source">VentanaParking.java</span></div><h1>VentanaParking.java</h1><pre class="source lang-java linenums">
+package bspq21_e4.ParkingManagement.client.gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
+import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
+import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
+import jakarta.ws.rs.core.GenericType;
+
+/**
+ * @class VentanaParking Window which shows the available slots in order for the
+ *        user to select where to park
+ * @author BSPQ21-E4
+ */
+public class VentanaParking extends JFrame {
+	private static final long serialVersionUID = -464873001356522418L;
+
+<span class="fc" id="L58">	public static SimpleDateFormat sdfResult = new SimpleDateFormat(&quot;HH:mm&quot;, Locale.US);</span>
+
+	private Slot selectedSlot;
+	private JPanel contentPanel;
+	private JMenuBar menu;
+	private JMenu menuUsuarios;
+	private JMenuItem menuItem;
+	private static ResourceBundle resourceBundle;
+	private JLabel lbInfo;
+	private JPanel panelInfo;
+
+<span class="fc" id="L69">	final Logger logger = LoggerFactory.getLogger(VentanaParking.class);</span>
+	
+	public ResourceBundle getResourceBundle() {
+<span class="fc" id="L72">		return resourceBundle;</span>
+	}
+
+	/**
+	 * Constructor of the window just receives the premium user logged
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 * @param PremiumUser, String
+	 */
+<span class="fc" id="L81">	public VentanaParking(PremiumUser u, String p) {</span>
+<span class="fc" id="L82">		setResizable(false);</span>
+<span class="fc" id="L83">		resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L84">		initialize(u, p);</span>
+<span class="fc" id="L85">	}</span>
+
+	/**
+	 * Initializing the window for a premium user
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 * @param PremiumUser, String
+	 */
+	public void initialize(final PremiumUser u, final String p) {
+
+<span class="fc" id="L95">		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L96">		this.setBounds(100, 100, 500, 250);</span>
+<span class="fc" id="L97">		this.setMinimumSize(new Dimension(750, 500));</span>
+
+<span class="fc" id="L99">		contentPanel = new JPanel();</span>
+<span class="fc" id="L100">		contentPanel.setBackground(Color.WHITE);</span>
+<span class="fc" id="L101">		setContentPane(contentPanel);</span>
+<span class="fc" id="L102">		contentPanel.setLayout(new BorderLayout(15, 15));</span>
+
+<span class="fc" id="L104">		JPanel panelDer = new JPanel();</span>
+<span class="fc" id="L105">		panelDer.setBackground(Color.WHITE);</span>
+<span class="fc" id="L106">		panelDer.setLayout(new GridLayout(1, 2));</span>
+<span class="fc" id="L107">		contentPanel.add(panelDer, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L109">		JPanel panelCent = new JPanel();</span>
+<span class="fc" id="L110">		panelCent.setBackground(Color.WHITE);</span>
+<span class="fc" id="L111">		panelCent.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L112">		contentPanel.add(panelCent, BorderLayout.CENTER);</span>
+
+<span class="fc" id="L114">		final JList&lt;Slot&gt; slotL = new JList&lt;&gt;();</span>
+<span class="fc" id="L115">		DefaultListModel&lt;Slot&gt; slotDL = new DefaultListModel&lt;&gt;();</span>
+<span class="fc" id="L116">		JScrollPane scrollPane = new JScrollPane();</span>
+<span class="fc" id="L117">		scrollPane.setViewportView(slotL);</span>
+<span class="fc" id="L118">		slotL.setLayoutOrientation(JList.VERTICAL);</span>
+
+<span class="fc" id="L120">		int counter = 0;</span>
+<span class="fc" id="L121">		List&lt;Slot&gt; slotList = SlotRSH.getInstance().checkSlots();</span>
+<span class="fc" id="L122">		List&lt;Parking&gt; parkingList = ParkingRSH.getInstance().checkParkings();</span>
+		
+<span class="fc" id="L124">		Parking parkingElegido = new Parking();</span>
+		
+<span class="fc bfc" id="L126" title="All 2 branches covered.">		for (Parking parking : parkingList) {</span>
+
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">			if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L129">				parkingElegido = parking;</span>
+				
+
+			}
+<span class="fc" id="L133">		}</span>
+
+<span class="fc bfc" id="L135" title="All 2 branches covered.">		for (int i = 0; i &lt; slotList.size(); i++) {</span>
+//			System.out.println(slotList.get(i).getIdParking());
+//			System.out.println(parkingElegido.getId());
+			
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {</span>
+<span class="nc" id="L140">				System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L141">				System.out.println(slotList.get(i).toString());</span>
+<span class="nc" id="L142">				slotDL.add(counter, slotList.get(i));</span>
+<span class="nc" id="L143">				counter++;</span>
+
+			}
+
+		}
+
+<span class="fc" id="L149">		slotL.addListSelectionListener(new ListSelectionListener() {</span>
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+<span class="nc bnc" id="L153" title="All 2 branches missed.">				if (!e.getValueIsAdjusting()) {</span>
+<span class="nc" id="L154">					selectedSlot = (slotL.getSelectedValue());</span>
+				}
+<span class="nc" id="L156">			}</span>
+
+		});
+
+<span class="fc" id="L160">		slotL.setModel(slotDL);</span>
+
+<span class="fc" id="L162">		JButton selectSlot = new JButton(getResourceBundle().getString(&quot;select&quot;));</span>
+
+<span class="fc" id="L164">		selectSlot.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L168" title="All 4 branches missed.">				if(selectedSlot.getSl().equals(SlotAvailability.RED) || selectedSlot.getSl().equals(SlotAvailability.YELLOW)) {</span>
+<span class="nc" id="L169">					JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;validSlot&quot;));</span>
+<span class="nc" id="L170">					logger.info(getResourceBundle().getString(&quot;validSlot&quot;));</span>
+				}else {
+	
+<span class="nc" id="L173">					selectedSlot.setSl(SlotAvailability.YELLOW);</span>
+<span class="nc" id="L174">					SlotRSH.getInstance().modifySlot(selectedSlot);</span>
+<span class="nc" id="L175">					List&lt;Parking&gt; listaComprobacion = ParkingRSH.getInstance().checkParkings();</span>
+<span class="nc" id="L176">					Parking parkingModified = new Parking();</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">					for (Parking parking : listaComprobacion) {</span>
+	
+<span class="nc bnc" id="L179" title="All 2 branches missed.">						if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L180">							parkingModified = parking;</span>
+	
+						}
+	
+<span class="nc" id="L184">					}</span>
+<span class="nc" id="L185">					parkingModified.setId(selectedSlot.getIdParking());</span>
+<span class="nc" id="L186">					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);</span>
+<span class="nc" id="L187">					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);</span>
+					
+					
+<span class="nc" id="L190">					ParkingRSH.getInstance().modifyParking(parkingModified);</span>
+	
+<span class="nc" id="L192">					u.setSlotPk(selectedSlot.getPk());</span>
+<span class="nc" id="L193">					PremiumUserRSH.getInstance().modifyPremiumUser(u);</span>
+					
+<span class="nc" id="L195">					repaint();</span>
+<span class="nc" id="L196">					dispose();</span>
+<span class="nc" id="L197">					new VentanaParking(u,p).setVisible(true);</span>
+					
+					
+					
+
+				}
+<span class="nc" id="L203">			}</span>
+		});
+
+<span class="fc" id="L206">		panelDer.add(selectSlot);</span>
+<span class="fc" id="L207">		panelCent.add(scrollPane);</span>
+
+<span class="fc" id="L209">		JButton btnPay = new JButton(getResourceBundle().getString(&quot;retireAndPay&quot;));</span>
+
+<span class="fc" id="L211">		btnPay.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L216">				PaymentWindow pw = new PaymentWindow(u, p);</span>
+<span class="nc" id="L217">				pw.setVisible(true);</span>
+<span class="nc" id="L218">				dispose();</span>
+
+<span class="nc" id="L220">			}</span>
+		});
+<span class="fc" id="L222">		panelDer.add(btnPay);</span>
+<span class="fc" id="L223">		this.setVisible(true);</span>
+
+		// Panel izquierdo --&gt; superior
+<span class="fc" id="L226">		JPanel panelSuperior = new JPanel();</span>
+<span class="fc" id="L227">		panelSuperior.setBackground(Color.WHITE);</span>
+<span class="fc" id="L228">		panelSuperior.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L229">		contentPanel.add(panelSuperior, BorderLayout.NORTH);</span>
+<span class="fc" id="L230">		menu = new JMenuBar();</span>
+<span class="fc" id="L231">		menuUsuarios = new JMenu(u.getPlate());</span>
+<span class="fc" id="L232">		menu.add(menuUsuarios);</span>
+<span class="fc" id="L233">		menuItem = new JMenuItem(getResourceBundle().getString(&quot;signOut&quot;));</span>
+<span class="fc" id="L234">		menuItem.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L239">				dispose();</span>
+
+<span class="nc" id="L241">				AuthWindow vi = new AuthWindow();</span>
+<span class="nc" id="L242">				vi.setVisible(true);</span>
+<span class="nc" id="L243">			}</span>
+		});
+
+<span class="fc" id="L246">		menuUsuarios.add(menuItem);</span>
+
+<span class="fc" id="L248">		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString(&quot;deleteUser&quot;));</span>
+<span class="fc" id="L249">		menuItem2.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L254">				PremiumUserRSH.getInstance().deletePremiumUser(u);</span>
+
+<span class="nc" id="L256">				List&lt;PremiumUser&gt; listaComprobacion = PremiumUserRSH.getInstance().checkPremiumUsers();</span>
+
+<span class="nc bnc" id="L258" title="All 2 branches missed.">				if (listaComprobacion.size() == 0) {</span>
+<span class="nc" id="L259">					dispose();</span>
+<span class="nc" id="L260">					AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L261">					v.setVisible(true);</span>
+<span class="nc" id="L262">				} else {</span>
+<span class="nc bnc" id="L263" title="All 2 branches missed.">					for (PremiumUser user : listaComprobacion) {</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">						if (user.getPlate().equals(u.getPlate())) {</span>
+<span class="nc" id="L265">							JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+<span class="nc" id="L266">							logger.info(getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+						} else {
+<span class="nc" id="L268">							dispose();</span>
+<span class="nc" id="L269">							AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L270">							v.setVisible(true);</span>
+
+<span class="nc" id="L272">							break;</span>
+						}
+<span class="nc" id="L274">					}</span>
+				}
+
+<span class="nc" id="L277">			}</span>
+		});
+<span class="fc" id="L279">		menuUsuarios.add(menuItem2);</span>
+
+
+<span class="fc" id="L282">		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString(&quot;exit&quot;));</span>
+
+<span class="fc" id="L284">		menuItem4.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L288">				System.exit(0);</span>
+<span class="nc" id="L289">			}</span>
+		});
+
+<span class="fc" id="L292">		menuUsuarios.add(menuItem4);</span>
+
+
+<span class="fc" id="L295">		panelSuperior.add(menu);</span>
+
+<span class="fc" id="L297">		 panelInfo = new JPanel();</span>
+<span class="fc" id="L298">		panelInfo.setBackground(Color.white);</span>
+<span class="fc" id="L299">		panelInfo.setLayout(new GridLayout(1, 1));</span>
+<span class="fc" id="L300">		panelSuperior.add(panelInfo, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L302">		List&lt;Parking&gt; listInfo = ParkingRSH.getInstance().checkParkings();</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">		for (Parking parking : listInfo) {</span>
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">			if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L305">				String nombre = parking.getNombre();</span>
+<span class="nc" id="L306">				int total = parking.getnSlots();</span>
+<span class="nc" id="L307">				int ocupados = parking.getOccupiedSlots();</span>
+<span class="nc" id="L308">				int libres = parking.getAvailableSlots();</span>
+<span class="nc" id="L309">				 lbInfo = new JLabel(</span>
+<span class="nc" id="L310">						getResourceBundle().getString(&quot;name&quot;) + &quot;: &quot; + nombre + &quot; &quot; + getResourceBundle().getString(&quot;total&quot;) + &quot; &quot; + total + &quot; &quot; + getResourceBundle().getString(&quot;occupied&quot;) + &quot; &quot; + ocupados + &quot; &quot; + getResourceBundle().getString(&quot;free&quot;) + &quot; &quot; + libres);</span>
+<span class="nc" id="L311">				panelInfo.add(lbInfo);</span>
+			}
+<span class="fc" id="L313">		}</span>
+
+<span class="fc" id="L315">	}</span>
+
+	/**
+	 * Constructor of the window just receives the guest user logged
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
+	 * @param GuestUser, String
+	 */
+<span class="fc" id="L323">	public VentanaParking(GuestUser u, String p) {</span>
+<span class="fc" id="L324">		setResizable(false);</span>
+<span class="fc" id="L325">		resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L326">		initializeGU(u, p);</span>
+<span class="fc" id="L327">	}</span>
+
+	/**
+	 * Initializing the window for a guest user
+	 * @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
+	 * @param GuestUser, String
+	 */
+	public void initializeGU(final GuestUser u, final String p) {
+
+<span class="fc" id="L337">		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L338">		this.setBounds(100, 100, 500, 250);</span>
+<span class="fc" id="L339">		this.setMinimumSize(new Dimension(750, 500));</span>
+
+<span class="fc" id="L341">		contentPanel = new JPanel();</span>
+<span class="fc" id="L342">		contentPanel.setBackground(Color.WHITE);</span>
+<span class="fc" id="L343">		setContentPane(contentPanel);</span>
+<span class="fc" id="L344">		contentPanel.setLayout(new BorderLayout(15, 15));</span>
+
+<span class="fc" id="L346">		JPanel panelDer = new JPanel();</span>
+<span class="fc" id="L347">		panelDer.setBackground(Color.WHITE);</span>
+<span class="fc" id="L348">		panelDer.setLayout(new GridLayout(1, 2));</span>
+<span class="fc" id="L349">		contentPanel.add(panelDer, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L351">		JPanel panelCent = new JPanel();</span>
+<span class="fc" id="L352">		panelCent.setBackground(Color.WHITE);</span>
+<span class="fc" id="L353">		panelCent.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L354">		contentPanel.add(panelCent, BorderLayout.CENTER);</span>
+
+<span class="fc" id="L356">		final JList&lt;Slot&gt; slotL = new JList&lt;&gt;();</span>
+<span class="fc" id="L357">		DefaultListModel&lt;Slot&gt; slotDL = new DefaultListModel&lt;&gt;();</span>
+<span class="fc" id="L358">		JScrollPane scrollPane = new JScrollPane();</span>
+<span class="fc" id="L359">		scrollPane.setViewportView(slotL);</span>
+<span class="fc" id="L360">		slotL.setLayoutOrientation(JList.VERTICAL);</span>
+
+<span class="fc" id="L362">		int counter = 0;</span>
+<span class="fc" id="L363">		List&lt;Slot&gt; slotList = SlotRSH.getInstance().checkSlots();</span>
+<span class="fc" id="L364">		List&lt;Parking&gt; parkingList = ParkingRSH.getInstance().checkParkings();</span>
+<span class="fc" id="L365">		Parking parkingElegido = new Parking();</span>
+
+<span class="fc bfc" id="L367" title="All 2 branches covered.">		for (Parking parking : parkingList) {</span>
+
+<span class="pc bpc" id="L369" title="1 of 2 branches missed.">			if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L370">				parkingElegido = parking;</span>
+
+			}
+<span class="fc" id="L373">		}</span>
+
+<span class="fc bfc" id="L375" title="All 2 branches covered.">		for (int i = 0; i &lt; slotList.size(); i++) {</span>
+
+<span class="pc bpc" id="L377" title="1 of 2 branches missed.">			if (slotList.get(i).getIdParking() == parkingElegido.getId()) {</span>
+
+<span class="nc" id="L379">				slotDL.add(counter, slotList.get(i));</span>
+<span class="nc" id="L380">				counter++;</span>
+
+			}
+
+		}
+
+<span class="fc" id="L386">		slotL.addListSelectionListener(new ListSelectionListener() {</span>
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+<span class="nc bnc" id="L390" title="All 2 branches missed.">				if (!e.getValueIsAdjusting()) {</span>
+					
+<span class="nc" id="L392">					selectedSlot = (slotL.getSelectedValue());</span>
+					
+				}
+<span class="nc" id="L395">			}</span>
+
+		});
+		
+		
+<span class="fc" id="L400">		slotL.setModel(slotDL);</span>
+
+<span class="fc" id="L402">		JButton selectSlot = new JButton(getResourceBundle().getString(&quot;select&quot;));</span>
+
+<span class="fc" id="L404">		selectSlot.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+<span class="nc bnc" id="L409" title="All 4 branches missed.">				if(selectedSlot.getSl().equals(SlotAvailability.RED) || selectedSlot.getSl().equals(SlotAvailability.YELLOW)) {</span>
+<span class="nc" id="L410">					JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;validSlot&quot;));</span>
+<span class="nc" id="L411">					logger.info(getResourceBundle().getString(&quot;validSlot&quot;));</span>
+				}else {
+<span class="nc" id="L413">					selectedSlot.setSl(SlotAvailability.RED);</span>
+<span class="nc" id="L414">					SlotRSH.getInstance().modifySlot(selectedSlot);</span>
+<span class="nc" id="L415">					List&lt;Parking&gt; listaComprobacion = ParkingRSH.getInstance().checkParkings();</span>
+<span class="nc" id="L416">					Parking parkingModified = new Parking();</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">					for (Parking parking : listaComprobacion) {</span>
+
+<span class="nc bnc" id="L419" title="All 2 branches missed.">						if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L420">							parkingModified = parking;</span>
+
+						}
+
+<span class="nc" id="L424">					}</span>
+<span class="nc" id="L425">					parkingModified.setId(selectedSlot.getIdParking());</span>
+<span class="nc" id="L426">					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() - 1);</span>
+<span class="nc" id="L427">					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() + 1);</span>
+					
+					
+					
+
+<span class="nc" id="L432">					ParkingRSH.getInstance().modifyParking(parkingModified);</span>
+
+<span class="nc" id="L434">					u.setSlotPk(selectedSlot.getPk());</span>
+
+<span class="nc" id="L436">					DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;HH:mm:ss&quot;);</span>
+<span class="nc" id="L437">					LocalDateTime now = LocalDateTime.now();</span>
+<span class="nc" id="L438">					u.setEntranceDate(dtf.format(now));</span>
+<span class="nc" id="L439">					GuestUserRSH.getInstance().modifyGuestUser(u);</span>
+					
+<span class="nc" id="L441">					repaint();</span>
+<span class="nc" id="L442">					dispose();</span>
+<span class="nc" id="L443">					new VentanaParking(u,p).setVisible(true);</span>
+					
+				}
+				
+
+<span class="nc" id="L448">			}</span>
+		});
+
+<span class="fc" id="L451">		panelDer.add(selectSlot);</span>
+<span class="fc" id="L452">		panelCent.add(scrollPane);</span>
+
+<span class="fc" id="L454">		JButton btnPay = new JButton(getResourceBundle().getString(&quot;retireAndPay&quot;));</span>
+
+<span class="fc" id="L456">		btnPay.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L461">				PaymentWindow pw = new PaymentWindow(u, p);</span>
+<span class="nc" id="L462">				pw.setVisible(true);</span>
+<span class="nc" id="L463">				dispose();</span>
+
+<span class="nc" id="L465">			}</span>
+		});
+<span class="fc" id="L467">		panelDer.add(btnPay);</span>
+<span class="fc" id="L468">		this.setVisible(true);</span>
+
+		// Panel izquierdo --&gt; superior
+<span class="fc" id="L471">		JPanel panelSuperior = new JPanel();</span>
+<span class="fc" id="L472">		panelSuperior.setBackground(Color.WHITE);</span>
+<span class="fc" id="L473">		panelSuperior.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L474">		contentPanel.add(panelSuperior, BorderLayout.NORTH);</span>
+<span class="fc" id="L475">		menu = new JMenuBar();</span>
+<span class="fc" id="L476">		menuUsuarios = new JMenu(u.getPlate());</span>
+<span class="fc" id="L477">		menu.add(menuUsuarios);</span>
+<span class="fc" id="L478">		menuItem = new JMenuItem(getResourceBundle().getString(&quot;signOut&quot;));</span>
+<span class="fc" id="L479">		menuItem.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L484">				dispose();</span>
+
+<span class="nc" id="L486">				AuthWindow vi = new AuthWindow();</span>
+<span class="nc" id="L487">				vi.setVisible(true);</span>
+<span class="nc" id="L488">			}</span>
+		});
+
+<span class="fc" id="L491">		menuUsuarios.add(menuItem);</span>
+
+<span class="fc" id="L493">		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString(&quot;deleteUser&quot;));</span>
+<span class="fc" id="L494">		menuItem2.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L499">				GuestUserRSH.getInstance().deleteGuestUser(u);</span>
+
+<span class="nc" id="L501">				List&lt;GuestUser&gt; listaComprobacion = GuestUserRSH.getInstance().checkGuestUsers();</span>
+<span class="nc bnc" id="L502" title="All 2 branches missed.">				if (listaComprobacion.size() == 0) {</span>
+<span class="nc" id="L503">					dispose();</span>
+<span class="nc" id="L504">					AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L505">					v.setVisible(true);</span>
+<span class="nc" id="L506">				} else {</span>
+<span class="nc bnc" id="L507" title="All 2 branches missed.">					for (GuestUser user : listaComprobacion) {</span>
+<span class="nc bnc" id="L508" title="All 2 branches missed.">						if (user.getPlate().equals(u.getPlate())) {</span>
+<span class="nc" id="L509">							JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+<span class="nc" id="L510">							logger.info(getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+						} else {
+<span class="nc" id="L512">							dispose();</span>
+<span class="nc" id="L513">							AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L514">							v.setVisible(true);</span>
+<span class="nc" id="L515">							break;</span>
+						}
+<span class="nc" id="L517">					}</span>
+				}
+
+<span class="nc" id="L520">			}</span>
+
+		});
+<span class="fc" id="L523">		menuUsuarios.add(menuItem2);</span>
+
+
+<span class="fc" id="L526">		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString(&quot;exit&quot;));</span>
+
+<span class="fc" id="L528">		menuItem4.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L532">				System.exit(0);</span>
+<span class="nc" id="L533">			}</span>
+		});
+
+<span class="fc" id="L536">		menuUsuarios.add(menuItem4);</span>
+
+
+
+<span class="fc" id="L540">		panelSuperior.add(menu);</span>
+
+<span class="fc" id="L542">		panelInfo = new JPanel();</span>
+<span class="fc" id="L543">		panelInfo.setBackground(Color.white);</span>
+<span class="fc" id="L544">		panelInfo.setLayout(new GridLayout(1, 1));</span>
+<span class="fc" id="L545">		panelSuperior.add(panelInfo, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L547">		List&lt;Parking&gt; listInfo = ParkingRSH.getInstance().checkParkings();</span>
+<span class="fc bfc" id="L548" title="All 2 branches covered.">		for (Parking parking : listInfo) {</span>
+<span class="pc bpc" id="L549" title="1 of 2 branches missed.">			if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L550">				String nombre = parking.getNombre();</span>
+<span class="nc" id="L551">				int total = parking.getnSlots();</span>
+<span class="nc" id="L552">				int ocupados = parking.getOccupiedSlots();</span>
+<span class="nc" id="L553">				int libres = parking.getAvailableSlots();</span>
+<span class="nc" id="L554">				 lbInfo = new JLabel(</span>
+<span class="nc" id="L555">						getResourceBundle().getString(&quot;name&quot;) + &quot;: &quot; + nombre + &quot; &quot; + getResourceBundle().getString(&quot;total&quot;) + &quot; &quot; + total + &quot; &quot; + getResourceBundle().getString(&quot;occupied&quot;) + &quot; &quot; + ocupados + &quot; &quot; + getResourceBundle().getString(&quot;free&quot;) + &quot; &quot; + libres);</span>
+<span class="nc" id="L556">				panelInfo.add(lbInfo);</span>
+			}
+<span class="fc" id="L558">		}</span>
+
+<span class="fc" id="L560">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

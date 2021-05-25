@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaymentWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.client.gui</a> &gt; <span class="el_source">PaymentWindow.java</span></div><h1>PaymentWindow.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.client.gui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import bspq21_e4.ParkingManagement.server.data.CalculateFee;
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
+import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
+import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.SlotRSH;
+
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+
+/**
+ * @class PaymentWindow Window which allows to make payments for the time spent
+ *        in the parking
+ * @author BSPQ21-E4
+ */
+public class PaymentWindow extends JFrame {
+
+	private JPanel panelContenidos;
+	private JPanel panelVisa;
+	private JPanel panelPaypal;
+
+	private JLabel importe;
+
+	private JMenuBar menu;
+	private JMenu menuUsuarios;
+	private JMenuItem menuItem;
+
+	private JComboBox&lt;String&gt; cbPayMethod;
+
+	private String noSelectableOptionPay;
+
+	private static ResourceBundle resourceBundle;
+<span class="fc" id="L74">	final Logger logger = LoggerFactory.getLogger(PaymentWindow.class);</span>
+
+	public ResourceBundle getResourceBundle() {
+<span class="fc" id="L77">		return resourceBundle;</span>
+	}
+
+	/**
+	 * Constructor of the application for a premium user
+	 * @param u
+	 * @param p
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 */
+<span class="fc" id="L86">	public PaymentWindow(PremiumUser u, String p) {</span>
+<span class="fc" id="L87">		resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L88">		initialize(u, p);</span>
+<span class="fc" id="L89">	}</span>
+
+	/**
+	 * Creating the application for a premium user
+	 * @param u 
+	 * @param p
+	 * @see bspq21_e4.ParkingManagement.client.data.PremiumUser;
+	 */
+	public void initialize(final PremiumUser u, final String p) {
+
+<span class="fc" id="L99">		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L100">		this.setBounds(100, 100, 500, 250);</span>
+<span class="fc" id="L101">		this.setMinimumSize(new Dimension(750, 500));</span>
+
+<span class="fc" id="L103">		panelContenidos = new JPanel();</span>
+<span class="fc" id="L104">		panelContenidos.setBackground(Color.WHITE);</span>
+<span class="fc" id="L105">		setContentPane(panelContenidos);</span>
+<span class="fc" id="L106">		panelContenidos.setLayout(new BorderLayout(15, 15));</span>
+
+		// PanelCentral
+<span class="fc" id="L109">		JPanel panelCentral = new JPanel();</span>
+<span class="fc" id="L110">		panelCentral.setBackground(Color.WHITE);</span>
+<span class="fc" id="L111">		panelCentral.setLayout(new GridLayout());</span>
+<span class="fc" id="L112">		panelContenidos.add(panelCentral, BorderLayout.CENTER);</span>
+
+<span class="fc" id="L114">		JPanel panelCb = new JPanel();</span>
+<span class="fc" id="L115">		panelCb.setBackground(Color.WHITE);</span>
+<span class="fc" id="L116">		panelCentral.add(panelCb, BorderLayout.WEST);</span>
+
+<span class="fc" id="L118">		panelPaypal = new JPanel();</span>
+<span class="fc" id="L119">		panelPaypal.setBackground(Color.WHITE);</span>
+<span class="fc" id="L120">		panelCentral.add(panelPaypal, BorderLayout.EAST);</span>
+<span class="fc" id="L121">		panelPaypal.setVisible(false);</span>
+
+<span class="fc" id="L123">		panelVisa = new JPanel();</span>
+<span class="fc" id="L124">		panelVisa.setBackground(Color.WHITE);</span>
+<span class="fc" id="L125">		panelCentral.add(panelVisa, BorderLayout.EAST);</span>
+<span class="fc" id="L126">		panelVisa.setVisible(false);</span>
+
+<span class="fc" id="L128">		final double total = u.getMonthfee();</span>
+
+<span class="fc" id="L130">		importe = new JLabel(&quot;Importe: &quot; + total + &quot;€&quot;);</span>
+<span class="fc" id="L131">		importe.setSize(210, 25);</span>
+<span class="fc" id="L132">		importe.setLocation(25, 25);</span>
+<span class="fc" id="L133">		panelCb.add(importe);</span>
+<span class="fc" id="L134">		noSelectableOptionPay = getResourceBundle().getString(&quot;paymentMethod&quot;);</span>
+<span class="fc" id="L135">		cbPayMethod = new JComboBox&lt;String&gt;();</span>
+<span class="fc" id="L136">		cbPayMethod.setBounds(10, 50, 122, 40);</span>
+
+<span class="fc" id="L138">		cbPayMethod.setModel(new DefaultComboBoxModel&lt;String&gt;() {</span>
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+<span class="fc" id="L143">			private boolean seleccionPermitida = true;</span>
+
+			@Override
+			public void setSelectedItem(Object objeto) {
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">				if (!noSelectableOptionPay.equals(objeto)) {</span>
+<span class="nc" id="L148">					super.setSelectedItem(objeto);</span>
+
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">				} else if (seleccionPermitida) {</span>
+<span class="fc" id="L151">					seleccionPermitida = false;</span>
+<span class="fc" id="L152">					super.setSelectedItem(objeto);</span>
+<span class="fc" id="L153">					logger.info(getResourceBundle().getString(&quot;pm&quot;) , objeto);</span>
+				}
+
+<span class="fc" id="L156">			}</span>
+		});
+
+<span class="fc" id="L159">		cbPayMethod.addItem(noSelectableOptionPay);</span>
+<span class="fc" id="L160">		cbPayMethod.addItem(&quot;Paypal&quot;);</span>
+<span class="fc" id="L161">		cbPayMethod.addItem(&quot;Visa&quot;);</span>
+
+<span class="fc" id="L163">		cbPayMethod.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L167">				int selectionPago = cbPayMethod.getSelectedIndex();</span>
+
+<span class="nc bnc" id="L169" title="All 3 branches missed.">				switch (selectionPago) {</span>
+				case 1:
+<span class="nc" id="L171">					panelVisa.setVisible(false);</span>
+<span class="nc" id="L172">					panelPaypal.setVisible(true);</span>
+
+<span class="nc" id="L174">					break;</span>
+				case 2:
+
+<span class="nc" id="L177">					panelPaypal.setVisible(false);</span>
+<span class="nc" id="L178">					panelVisa.setVisible(true);</span>
+
+					break;
+				}
+
+<span class="nc" id="L183">			}</span>
+		});
+<span class="fc" id="L185">		panelCb.setLayout(null);</span>
+<span class="fc" id="L186">		panelCb.add(cbPayMethod);</span>
+
+<span class="fc" id="L188">		JLabel lbImporte = new JLabel();</span>
+		// preguntar a fabri mañana a ver como calcular el importe
+
+<span class="fc" id="L191">		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));</span>
+
+<span class="fc" id="L193">		JLabel label = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L194">		panelPaypal.add(label);</span>
+
+<span class="fc" id="L196">		JLabel label_1 = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L197">		panelPaypal.add(label_1);</span>
+
+<span class="fc" id="L199">		JLabel lbEmail = new JLabel(getResourceBundle().getString(&quot;email&quot;));</span>
+
+<span class="fc" id="L201">		panelPaypal.add(lbEmail);</span>
+<span class="fc" id="L202">		final JTextField tfEmail = new JTextField();</span>
+<span class="fc" id="L203">		panelPaypal.add(tfEmail);</span>
+
+<span class="fc" id="L205">		JLabel lbPassword = new JLabel(getResourceBundle().getString(&quot;password&quot;));</span>
+
+<span class="fc" id="L207">		panelPaypal.add(lbPassword);</span>
+<span class="fc" id="L208">		final JPasswordField pfPassword = new JPasswordField();</span>
+<span class="fc" id="L209">		panelPaypal.add(pfPassword);</span>
+
+<span class="fc" id="L211">		JLabel lbName = new JLabel(getResourceBundle().getString(&quot;name&quot;));</span>
+<span class="fc" id="L212">		lbName.setBounds(0, 1, 81, 34);</span>
+<span class="fc" id="L213">		JTextField tfName = new JTextField();</span>
+<span class="fc" id="L214">		tfName.setBounds(81, 1, 81, 34);</span>
+
+<span class="fc" id="L216">		JLabel lbCardNumber = new JLabel(getResourceBundle().getString(&quot;cardNumber&quot;));</span>
+<span class="fc" id="L217">		lbCardNumber.setBounds(0, 35, 81, 34);</span>
+<span class="fc" id="L218">		JTextField tfCardNumber = new JTextField();</span>
+<span class="fc" id="L219">		tfCardNumber.setBounds(81, 35, 81, 34);</span>
+
+<span class="fc" id="L221">		JLabel lbExpiration = new JLabel(getResourceBundle().getString(&quot;expiration&quot;));</span>
+<span class="fc" id="L222">		lbExpiration.setBounds(0, 69, 81, 34);</span>
+<span class="fc" id="L223">		JTextField tfExpiration = new JTextField();</span>
+<span class="fc" id="L224">		tfExpiration.setBounds(81, 69, 81, 34);</span>
+
+<span class="fc" id="L226">		JLabel lbCvv = new JLabel(&quot;CVV&quot;);</span>
+<span class="fc" id="L227">		lbCvv.setBounds(0, 103, 81, 34);</span>
+<span class="fc" id="L228">		JTextField tfCVV = new JTextField(3);</span>
+<span class="fc" id="L229">		tfCVV.setBounds(81, 103, 81, 34);</span>
+<span class="fc" id="L230">		panelVisa.setLayout(null);</span>
+
+<span class="fc" id="L232">		panelVisa.add(lbName);</span>
+<span class="fc" id="L233">		panelVisa.add(tfName);</span>
+
+<span class="fc" id="L235">		panelVisa.add(lbCardNumber);</span>
+<span class="fc" id="L236">		panelVisa.add(tfCardNumber);</span>
+
+<span class="fc" id="L238">		panelVisa.add(lbExpiration);</span>
+<span class="fc" id="L239">		panelVisa.add(tfExpiration);</span>
+
+<span class="fc" id="L241">		panelVisa.add(lbCvv);</span>
+<span class="fc" id="L242">		panelVisa.add(tfCVV);</span>
+
+		// Panel Botones
+<span class="fc" id="L245">		JPanel panelInferior = new JPanel();</span>
+<span class="fc" id="L246">		panelInferior.setBackground(Color.WHITE);</span>
+<span class="fc" id="L247">		panelInferior.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L248">		panelContenidos.add(panelInferior, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L250">		JButton btnReturn = new JButton(getResourceBundle().getString(&quot;return&quot;));</span>
+<span class="fc" id="L251">		btnReturn.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L255">				dispose();</span>
+<span class="nc" id="L256">				VentanaParking v = new VentanaParking(u, p);</span>
+<span class="nc" id="L257">				v.setVisible(true);</span>
+
+<span class="nc" id="L259">			}</span>
+		});
+
+<span class="fc" id="L262">		panelInferior.add(btnReturn);</span>
+
+<span class="fc" id="L264">		JButton btnPay = new JButton(getResourceBundle().getString(&quot;pay&quot;));</span>
+<span class="fc" id="L265">		btnPay.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L269">				List&lt;Parking&gt; listaParking = ParkingRSH.getInstance().checkParkings();</span>
+
+<span class="nc bnc" id="L271" title="All 2 branches missed.">				if (cbPayMethod.getSelectedItem().toString().equals(&quot;Paypal&quot;)) {</span>
+<span class="nc bnc" id="L272" title="All 2 branches missed.">					if (tfEmail.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L273">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;eve&quot;));</span>
+<span class="nc" id="L274">						logger.info(getResourceBundle().getString(&quot;eve&quot;));</span>
+						
+<span class="nc bnc" id="L276" title="All 2 branches missed.">					} else if (pfPassword.getPassword().toString().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L277">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;evp&quot;));</span>
+<span class="nc" id="L278">						logger.info(getResourceBundle().getString(&quot;evp&quot;));</span>
+						
+					} else {
+<span class="nc" id="L281">						Parking parkingModified = new Parking();</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">						for (Parking parking : listaParking) {</span>
+<span class="nc bnc" id="L283" title="All 2 branches missed.">							if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L284">								parkingModified = parking;</span>
+
+							}
+<span class="nc" id="L287">						}</span>
+
+<span class="nc" id="L289">						ParkingRSH.getInstance().modifyParking(parkingModified);</span>
+
+<span class="nc" id="L291">						PremiumUser user = new PremiumUser();</span>
+<span class="nc" id="L292">						user.setPaymentMethod(cbPayMethod.getSelectedItem().toString());</span>
+<span class="nc" id="L293">						user.setMonthfee((int) total);</span>
+
+//						u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+//						u.setMonthfee((int) total);
+<span class="nc" id="L297">						PremiumUserRSH.getInstance().modifyPremiumUser(user);</span>
+<span class="nc" id="L298">						dispose();</span>
+<span class="nc" id="L299">						AuthWindow a = new AuthWindow();</span>
+<span class="nc" id="L300">						a.setVisible(true);</span>
+
+<span class="nc" id="L302">					}</span>
+
+<span class="nc bnc" id="L304" title="All 2 branches missed.">				} else if (cbPayMethod.getSelectedItem().toString().equals(&quot;Visa&quot;)) {</span>
+<span class="nc" id="L305">					Parking parkingModified = new Parking();</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">					for (Parking parking : listaParking) {</span>
+<span class="nc bnc" id="L307" title="All 2 branches missed.">						if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L308">							parkingModified = parking;</span>
+
+						}
+<span class="nc" id="L311">					}</span>
+
+<span class="nc" id="L313">					ParkingRSH.getInstance().modifyParking(parkingModified);</span>
+					
+<span class="nc" id="L315">					PremiumUser user = new PremiumUser();</span>
+<span class="nc" id="L316">					user.setPaymentMethod(cbPayMethod.getSelectedItem().toString());</span>
+<span class="nc" id="L317">					user.setMonthfee((int) total);</span>
+
+//					u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());
+//					u.setMonthfee((int) total);
+<span class="nc" id="L321">					PremiumUserRSH.getInstance().modifyPremiumUser(user);</span>
+<span class="nc" id="L322">					dispose();</span>
+<span class="nc" id="L323">					AuthWindow a = new AuthWindow();</span>
+<span class="nc" id="L324">					a.setVisible(true);</span>
+
+<span class="nc" id="L326">				} else {</span>
+<span class="nc" id="L327">					JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;paymentMethodSelect&quot;));</span>
+<span class="nc" id="L328">					logger.info(getResourceBundle().getString(&quot;paymentMethodSelect&quot;));</span>
+				}
+
+<span class="nc" id="L331">			}</span>
+		});
+
+<span class="fc" id="L334">		panelInferior.add(btnPay);</span>
+
+		// Panel izquierdo --&gt; superior
+<span class="fc" id="L337">		JPanel panelSuperior = new JPanel();</span>
+<span class="fc" id="L338">		panelSuperior.setBackground(Color.WHITE);</span>
+<span class="fc" id="L339">		panelSuperior.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L340">		panelContenidos.add(panelSuperior, BorderLayout.NORTH);</span>
+<span class="fc" id="L341">		menu = new JMenuBar();</span>
+<span class="fc" id="L342">		menuUsuarios = new JMenu(u.getPlate());</span>
+<span class="fc" id="L343">		menu.add(menuUsuarios);</span>
+<span class="fc" id="L344">		menuItem = new JMenuItem(getResourceBundle().getString(&quot;signOut&quot;));</span>
+<span class="fc" id="L345">		menuItem.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L350">				dispose();</span>
+
+<span class="nc" id="L352">				AuthWindow vi = new AuthWindow();</span>
+<span class="nc" id="L353">				vi.setVisible(true);</span>
+<span class="nc" id="L354">			}</span>
+		});
+
+<span class="fc" id="L357">		menuUsuarios.add(menuItem);</span>
+
+<span class="fc" id="L359">		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString(&quot;deleteUser&quot;));</span>
+<span class="fc" id="L360">		menuItem2.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L365">				PremiumUserRSH.getInstance().deletePremiumUser(u);</span>
+
+<span class="nc" id="L367">				List&lt;PremiumUser&gt; listaComprobacion = PremiumUserRSH.getInstance().checkPremiumUsers();</span>
+
+<span class="nc bnc" id="L369" title="All 2 branches missed.">				for (PremiumUser user : listaComprobacion) {</span>
+<span class="nc bnc" id="L370" title="All 2 branches missed.">					if (user.getPlate().equals(u.getPlate())) {</span>
+<span class="nc" id="L371">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+<span class="nc" id="L372">						logger.info(getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+					} else {
+<span class="nc" id="L374">						dispose();</span>
+<span class="nc" id="L375">						AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L376">						v.setVisible(true);</span>
+<span class="nc" id="L377">						break;</span>
+					}
+<span class="nc" id="L379">				}</span>
+
+<span class="nc" id="L381">			}</span>
+		});
+<span class="fc" id="L383">		menuUsuarios.add(menuItem2);</span>
+
+<span class="fc" id="L385">		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString(&quot;exit&quot;));</span>
+
+<span class="fc" id="L387">		menuItem4.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L391">				System.exit(0);</span>
+<span class="nc" id="L392">			}</span>
+		});
+
+<span class="fc" id="L395">		menuUsuarios.add(menuItem4);</span>
+
+<span class="fc" id="L397">		panelSuperior.add(menu);</span>
+
+<span class="fc" id="L399">	}</span>
+
+	/**
+	 * Constructor of the application for a GuestUser
+	 * @param GuestUser u, String p
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
+	 */
+<span class="fc" id="L406">	public PaymentWindow(GuestUser u, String p) {</span>
+<span class="fc" id="L407">		resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L408">		initializeGU(u, p);</span>
+<span class="fc" id="L409">	}</span>
+
+	/**
+	 * Creating the application for a GuestUser
+	 * @param GuestUser u, String p
+	 * @see bspq21_e4.ParkingManagement.client.data.GuestUser;
+	 */
+	public void initializeGU(final GuestUser u, final String p) {
+
+<span class="fc" id="L418">		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L419">		this.setBounds(100, 100, 500, 250);</span>
+<span class="fc" id="L420">		this.setMinimumSize(new Dimension(750, 500));</span>
+
+<span class="fc" id="L422">		panelContenidos = new JPanel();</span>
+<span class="fc" id="L423">		panelContenidos.setBackground(Color.WHITE);</span>
+<span class="fc" id="L424">		setContentPane(panelContenidos);</span>
+<span class="fc" id="L425">		panelContenidos.setLayout(new BorderLayout(15, 15));</span>
+
+		// PanelCentral
+<span class="fc" id="L428">		JPanel panelCentral = new JPanel();</span>
+<span class="fc" id="L429">		panelCentral.setBackground(Color.WHITE);</span>
+<span class="fc" id="L430">		panelCentral.setLayout(new GridLayout());</span>
+<span class="fc" id="L431">		panelContenidos.add(panelCentral, BorderLayout.CENTER);</span>
+
+<span class="fc" id="L433">		JPanel panelCb = new JPanel();</span>
+<span class="fc" id="L434">		panelCb.setBackground(Color.WHITE);</span>
+<span class="fc" id="L435">		panelCentral.add(panelCb, BorderLayout.WEST);</span>
+
+<span class="fc" id="L437">		panelPaypal = new JPanel();</span>
+<span class="fc" id="L438">		panelPaypal.setBackground(Color.WHITE);</span>
+<span class="fc" id="L439">		panelCentral.add(panelPaypal, BorderLayout.EAST);</span>
+<span class="fc" id="L440">		panelPaypal.setVisible(false);</span>
+
+<span class="fc" id="L442">		panelVisa = new JPanel();</span>
+<span class="fc" id="L443">		panelVisa.setBackground(Color.WHITE);</span>
+<span class="fc" id="L444">		panelCentral.add(panelVisa, BorderLayout.EAST);</span>
+<span class="fc" id="L445">		panelVisa.setVisible(false);</span>
+
+<span class="fc" id="L447">		double total = CalculateFee.calculateFee(u.getEntranceDate());</span>
+
+<span class="fc" id="L449">		importe = new JLabel(&quot;Importe: &quot; + total + &quot;€&quot;);</span>
+<span class="fc" id="L450">		importe.setSize(210, 25);</span>
+<span class="fc" id="L451">		importe.setLocation(25, 25);</span>
+<span class="fc" id="L452">		panelCb.add(importe);</span>
+<span class="fc" id="L453">		noSelectableOptionPay = getResourceBundle().getString(&quot;paymentMethod&quot;);</span>
+<span class="fc" id="L454">		cbPayMethod = new JComboBox&lt;String&gt;();</span>
+<span class="fc" id="L455">		cbPayMethod.setBounds(10, 50, 122, 40);</span>
+
+<span class="fc" id="L457">		cbPayMethod.setModel(new DefaultComboBoxModel&lt;String&gt;() {</span>
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+<span class="fc" id="L462">			private boolean seleccionPermitida = true;</span>
+
+			@Override
+			public void setSelectedItem(Object objeto) {
+<span class="pc bpc" id="L466" title="1 of 2 branches missed.">				if (!noSelectableOptionPay.equals(objeto)) {</span>
+<span class="nc" id="L467">					super.setSelectedItem(objeto);</span>
+
+<span class="pc bpc" id="L469" title="1 of 2 branches missed.">				} else if (seleccionPermitida) {</span>
+<span class="fc" id="L470">					seleccionPermitida = false;</span>
+<span class="fc" id="L471">					super.setSelectedItem(objeto);</span>
+				}
+
+<span class="fc" id="L474">			}</span>
+		});
+
+<span class="fc" id="L477">		cbPayMethod.addItem(noSelectableOptionPay);</span>
+<span class="fc" id="L478">		cbPayMethod.addItem(&quot;Paypal&quot;);</span>
+<span class="fc" id="L479">		cbPayMethod.addItem(&quot;Visa&quot;);</span>
+
+<span class="fc" id="L481">		cbPayMethod.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L485">				int selectionPago = cbPayMethod.getSelectedIndex();</span>
+
+<span class="nc bnc" id="L487" title="All 3 branches missed.">				switch (selectionPago) {</span>
+				case 1:
+<span class="nc" id="L489">					panelVisa.setVisible(false);</span>
+<span class="nc" id="L490">					panelPaypal.setVisible(true);</span>
+
+<span class="nc" id="L492">					break;</span>
+				case 2:
+
+<span class="nc" id="L495">					panelPaypal.setVisible(false);</span>
+<span class="nc" id="L496">					panelVisa.setVisible(true);</span>
+
+					break;
+				}
+
+<span class="nc" id="L501">			}</span>
+		});
+<span class="fc" id="L503">		panelCb.setLayout(null);</span>
+<span class="fc" id="L504">		panelCb.add(cbPayMethod);</span>
+
+<span class="fc" id="L506">		panelPaypal.setLayout(new GridLayout(0, 2, 0, 25));</span>
+
+<span class="fc" id="L508">		JLabel label = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L509">		panelPaypal.add(label);</span>
+
+<span class="fc" id="L511">		JLabel label_1 = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L512">		panelPaypal.add(label_1);</span>
+
+<span class="fc" id="L514">		JLabel lbEmail = new JLabel(getResourceBundle().getString(&quot;email&quot;));</span>
+
+<span class="fc" id="L516">		panelPaypal.add(lbEmail);</span>
+<span class="fc" id="L517">		final JTextField tfEmail = new JTextField();</span>
+<span class="fc" id="L518">		panelPaypal.add(tfEmail);</span>
+
+<span class="fc" id="L520">		JLabel lbPassword = new JLabel(getResourceBundle().getString(&quot;password&quot;));</span>
+
+<span class="fc" id="L522">		panelPaypal.add(lbPassword);</span>
+<span class="fc" id="L523">		final JPasswordField pfPassword = new JPasswordField();</span>
+<span class="fc" id="L524">		panelPaypal.add(pfPassword);</span>
+
+<span class="fc" id="L526">		JLabel lbName = new JLabel(getResourceBundle().getString(&quot;name&quot;));</span>
+<span class="fc" id="L527">		lbName.setBounds(0, 1, 81, 34);</span>
+<span class="fc" id="L528">		JTextField tfName = new JTextField();</span>
+<span class="fc" id="L529">		tfName.setBounds(81, 1, 81, 34);</span>
+
+<span class="fc" id="L531">		JLabel lbCardNumber = new JLabel(getResourceBundle().getString(&quot;cardNumber&quot;));</span>
+<span class="fc" id="L532">		lbCardNumber.setBounds(0, 35, 81, 34);</span>
+<span class="fc" id="L533">		JTextField tfCardNumber = new JTextField();</span>
+<span class="fc" id="L534">		tfCardNumber.setBounds(81, 35, 81, 34);</span>
+
+<span class="fc" id="L536">		JLabel lbExpiration = new JLabel(getResourceBundle().getString(&quot;expiration&quot;));</span>
+<span class="fc" id="L537">		lbExpiration.setBounds(0, 69, 81, 34);</span>
+<span class="fc" id="L538">		JTextField tfExpiration = new JTextField();</span>
+<span class="fc" id="L539">		tfExpiration.setBounds(81, 69, 81, 34);</span>
+
+<span class="fc" id="L541">		JLabel lbCvv = new JLabel(&quot;CVV&quot;);</span>
+<span class="fc" id="L542">		lbCvv.setBounds(0, 103, 81, 34);</span>
+<span class="fc" id="L543">		JTextField tfCVV = new JTextField(3);</span>
+<span class="fc" id="L544">		tfCVV.setBounds(81, 103, 81, 34);</span>
+<span class="fc" id="L545">		panelVisa.setLayout(null);</span>
+
+<span class="fc" id="L547">		panelVisa.add(lbName);</span>
+<span class="fc" id="L548">		panelVisa.add(tfName);</span>
+
+<span class="fc" id="L550">		panelVisa.add(lbCardNumber);</span>
+<span class="fc" id="L551">		panelVisa.add(tfCardNumber);</span>
+
+<span class="fc" id="L553">		panelVisa.add(lbExpiration);</span>
+<span class="fc" id="L554">		panelVisa.add(tfExpiration);</span>
+
+<span class="fc" id="L556">		panelVisa.add(lbCvv);</span>
+<span class="fc" id="L557">		panelVisa.add(tfCVV);</span>
+
+		// Panel Botones
+<span class="fc" id="L560">		JPanel panelInferior = new JPanel();</span>
+<span class="fc" id="L561">		panelInferior.setBackground(Color.WHITE);</span>
+<span class="fc" id="L562">		panelInferior.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L563">		panelContenidos.add(panelInferior, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L565">		JButton btnReturn = new JButton(getResourceBundle().getString(&quot;return&quot;));</span>
+<span class="fc" id="L566">		btnReturn.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L570">				dispose();</span>
+<span class="nc" id="L571">				VentanaParking v = new VentanaParking(u, p);</span>
+<span class="nc" id="L572">				v.setVisible(true);</span>
+
+<span class="nc" id="L574">			}</span>
+		});
+
+<span class="fc" id="L577">		panelInferior.add(btnReturn);</span>
+
+<span class="fc" id="L579">		JButton btnPay = new JButton(getResourceBundle().getString(&quot;pay&quot;));</span>
+<span class="fc" id="L580">		btnPay.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+<span class="nc" id="L585">				List&lt;Parking&gt; listaParking = ParkingRSH.getInstance().checkParkings();</span>
+
+<span class="nc bnc" id="L587" title="All 2 branches missed.">				if (cbPayMethod.getSelectedItem().toString().equals(&quot;Paypal&quot;)) {</span>
+<span class="nc bnc" id="L588" title="All 2 branches missed.">					if (tfEmail.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L589">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;eve&quot;));</span>
+<span class="nc" id="L590">						logger.info(getResourceBundle().getString(&quot;eve&quot;));</span>
+<span class="nc bnc" id="L591" title="All 2 branches missed.">					} else if (pfPassword.getPassword().toString().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L592">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;evp&quot;));</span>
+<span class="nc" id="L593">						logger.info(getResourceBundle().getString(&quot;evp&quot;));</span>
+					} else {
+<span class="nc" id="L595">						Parking parkingModified = new Parking();</span>
+<span class="nc bnc" id="L596" title="All 2 branches missed.">						for (Parking parking : listaParking) {</span>
+<span class="nc bnc" id="L597" title="All 2 branches missed.">							if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L598">								parkingModified = parking;</span>
+
+							}
+<span class="nc" id="L601">						}</span>
+
+<span class="nc" id="L603">						parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() + 1);</span>
+<span class="nc" id="L604">						parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() - 1);</span>
+
+<span class="nc" id="L606">						ParkingRSH.getInstance().modifyParking(parkingModified);</span>
+
+<span class="nc" id="L608">						Slot slotModified = new Slot();</span>
+<span class="nc" id="L609">						slotModified.setSl(SlotAvailability.GREEN);</span>
+<span class="nc" id="L610">						slotModified.setIdParking(parkingModified.getId());</span>
+<span class="nc" id="L611">						slotModified.setPk(u.getSlotPk());</span>
+
+<span class="nc" id="L613">						SlotRSH.getInstance().modifySlot(slotModified);</span>
+
+<span class="nc" id="L615">						u.setEntranceDate(null);</span>
+<span class="nc" id="L616">						u.setSlotPk(0);</span>
+<span class="nc" id="L617">						u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());</span>
+<span class="nc" id="L618">						GuestUserRSH.getInstance().modifyGuestUser(u);</span>
+
+<span class="nc" id="L620">						dispose();</span>
+<span class="nc" id="L621">						AuthWindow a = new AuthWindow();</span>
+<span class="nc" id="L622">						a.setVisible(true);</span>
+
+<span class="nc" id="L624">					}</span>
+
+<span class="nc bnc" id="L626" title="All 2 branches missed.">				} else if (cbPayMethod.getSelectedItem().toString().equals(&quot;Visa&quot;)) {</span>
+<span class="nc" id="L627">					Parking parkingModified = new Parking();</span>
+<span class="nc bnc" id="L628" title="All 2 branches missed.">					for (Parking parking : listaParking) {</span>
+<span class="nc bnc" id="L629" title="All 2 branches missed.">						if (parking.getNombre().equals(p)) {</span>
+<span class="nc" id="L630">							parkingModified = parking;</span>
+
+						}
+<span class="nc" id="L633">					}</span>
+
+<span class="nc" id="L635">					parkingModified.setAvailableSlots(parkingModified.getAvailableSlots() + 1);</span>
+<span class="nc" id="L636">					parkingModified.setOccupiedSlots(parkingModified.getOccupiedSlots() - 1);</span>
+
+<span class="nc" id="L638">					ParkingRSH.getInstance().modifyParking(parkingModified);</span>
+
+<span class="nc" id="L640">					Slot slotModified = new Slot();</span>
+<span class="nc" id="L641">					slotModified.setSl(SlotAvailability.GREEN);</span>
+<span class="nc" id="L642">					slotModified.setIdParking(parkingModified.getId());</span>
+<span class="nc" id="L643">					slotModified.setPk(u.getSlotPk());</span>
+
+<span class="nc" id="L645">					SlotRSH.getInstance().modifySlot(slotModified);</span>
+
+<span class="nc" id="L647">					u.setEntranceDate(null);</span>
+<span class="nc" id="L648">					u.setSlotPk(0);</span>
+<span class="nc" id="L649">					u.setPaymentMethod(cbPayMethod.getSelectedItem().toString());</span>
+<span class="nc" id="L650">					GuestUserRSH.getInstance().modifyGuestUser(u);</span>
+
+<span class="nc" id="L652">					dispose();</span>
+<span class="nc" id="L653">					AuthWindow a = new AuthWindow();</span>
+<span class="nc" id="L654">					a.setVisible(true);</span>
+
+<span class="nc" id="L656">				} else {</span>
+<span class="nc" id="L657">					JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;paymentMethodSelect&quot;));</span>
+<span class="nc" id="L658">					logger.info(getResourceBundle().getString(&quot;paymentMethodSelect&quot;));</span>
+				}
+
+<span class="nc" id="L661">			}</span>
+		});
+
+<span class="fc" id="L664">		panelInferior.add(btnPay);</span>
+
+		// Panel izquierdo --&gt; superior
+<span class="fc" id="L667">		JPanel panelSuperior = new JPanel();</span>
+<span class="fc" id="L668">		panelSuperior.setBackground(Color.WHITE);</span>
+<span class="fc" id="L669">		panelSuperior.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L670">		panelContenidos.add(panelSuperior, BorderLayout.NORTH);</span>
+<span class="fc" id="L671">		menu = new JMenuBar();</span>
+<span class="fc" id="L672">		menuUsuarios = new JMenu(u.getPlate());</span>
+<span class="fc" id="L673">		menu.add(menuUsuarios);</span>
+<span class="fc" id="L674">		menuItem = new JMenuItem(getResourceBundle().getString(&quot;signOut&quot;));</span>
+<span class="fc" id="L675">		menuItem.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L680">				dispose();</span>
+
+<span class="nc" id="L682">				AuthWindow vi = new AuthWindow();</span>
+<span class="nc" id="L683">				vi.setVisible(true);</span>
+<span class="nc" id="L684">			}</span>
+		});
+
+<span class="fc" id="L687">		menuUsuarios.add(menuItem);</span>
+
+<span class="fc" id="L689">		JMenuItem menuItem2 = new JMenuItem(getResourceBundle().getString(&quot;deleteUser&quot;));</span>
+<span class="fc" id="L690">		menuItem2.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+<span class="nc" id="L695">				GuestUserRSH.getInstance().deleteGuestUser(u);</span>
+
+<span class="nc" id="L697">				List&lt;GuestUser&gt; listaComprobacion = GuestUserRSH.getInstance().checkGuestUsers();</span>
+<span class="nc bnc" id="L698" title="All 2 branches missed.">				if (listaComprobacion.size() == 0) {</span>
+<span class="nc" id="L699">					dispose();</span>
+<span class="nc" id="L700">					AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L701">					v.setVisible(true);</span>
+<span class="nc" id="L702">				} else {</span>
+<span class="nc bnc" id="L703" title="All 2 branches missed.">					for (GuestUser user : listaComprobacion) {</span>
+<span class="nc bnc" id="L704" title="All 2 branches missed.">						if (user.getPlate().equals(u.getPlate())) {</span>
+<span class="nc" id="L705">							JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+<span class="nc" id="L706">							logger.info(getResourceBundle().getString(&quot;errorDelUser&quot;));</span>
+						} else {
+<span class="nc" id="L708">							dispose();</span>
+<span class="nc" id="L709">							AuthWindow v = new AuthWindow();</span>
+<span class="nc" id="L710">							v.setVisible(true);</span>
+<span class="nc" id="L711">							break;</span>
+						}
+<span class="nc" id="L713">					}</span>
+				}
+
+<span class="nc" id="L716">			}</span>
+		});
+<span class="fc" id="L718">		menuUsuarios.add(menuItem2);</span>
+
+<span class="fc" id="L720">		JMenuItem menuItem4 = new JMenuItem(getResourceBundle().getString(&quot;exit&quot;));</span>
+
+<span class="fc" id="L722">		menuItem4.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+<span class="nc" id="L726">				System.exit(0);</span>
+<span class="nc" id="L727">			}</span>
+		});
+
+<span class="fc" id="L730">		menuUsuarios.add(menuItem4);</span>
+
+<span class="fc" id="L732">		panelSuperior.add(menu);</span>
+
+<span class="fc" id="L734">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SlotResource.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.server.resource</a> &gt; <span class="el_source">SlotResource.java</span></div><h1>SlotResource.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.server.resource;
+
+import java.util.List;
+
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
+import bspq21_e4.ParkingManagement.server.DAO.DBManager;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+
+/**
+ * @class SlotResource Makes paths in order to communicate with the server side
+ *        through the annotations which are in charge of making the requests
+ *        regarding slots
+ * @see bspq21_e4.ParkingManagement.server.DAO.DBManager and @see
+ *      bspq21_e4.ParkingManagement.server.data.SlotResource
+ * @author BSPQ21-E4
+ */
+@Path(&quot;slot&quot;)
+<span class="nc" id="L27">public class SlotResource {</span>
+
+	/**
+	 * Makes the query to the server side to get the list of slots from the
+	 * database, that´s why we access @see
+	 * bspq21_e4.ParkingManagement.server.DAO.DBManager and @see
+	 * bspq21_e4.ParkingManagement.server.data.Slot
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public List&lt;Slot&gt; getSlots() {
+<span class="nc" id="L38">		List&lt;Slot&gt; slots = DBManager.getInstance().getSlots();</span>
+<span class="nc" id="L39">		return slots;</span>
+
+	}
+
+	/**
+	 * Makes the query to the server side to get the slot that has been modified in
+	 * the process from the database, that´s why we access @see
+	 * bspq21_e4.ParkingManagement.server.DAO.DBManager and @see
+	 * bspq21_e4.ParkingManagement.server.data.Slot
+	 */
+	@PATCH
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Slot modifySlot(Slot slot) {
+<span class="nc" id="L53">		DBManager.getInstance().updateSlot(slot);</span>
+<span class="nc" id="L54">		return slot;</span>
+	}
+
+	/**
+	 * @class SlotResource Makes the query to the server side to get the slot @see
+	 *        bspq21_e4.ParkingManagement.server.data.Slot
+	 */
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Slot insertSlot(Slot slot) {
+<span class="nc" id="L65">		DBManager.getInstance().insertSlot(slot);</span>
+<span class="nc" id="L66">		return slot;</span>
+	}
+
+//	/**
+//	 * Makes the query to the server side to delete a slot from the database, that´s
+//	 * why we access @see bspq21_e4.ParkingManagement.server.DAO.DBManager
+//	 * bspq21_e4.ParkingManagement.server.data.Slot
+//	 */
+//	@DELETE
+//	@Path(&quot;delete/{id}&quot;)
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String deleteSlot(String slot) {
+//		DBManager.getInstance().deleteSlot(slot);
+//		return &quot;Deleted&quot;;
+//	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

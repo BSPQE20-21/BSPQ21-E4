@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.client.gui</a> &gt; <span class="el_source">AuthWindow.java</span></div><h1>AuthWindow.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.client.gui;
+
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import bspq21_e4.ParkingManagement.server.data.GuestUser;
+import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.rsh.GuestUserRSH;
+import bspq21_e4.ParkingManagement.server.rsh.ParkingRSH;
+import bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
+
+/**
+ * @class AuthWindow Initial window that allows both premium and guest users to
+ *        enter the application if they are already registered. If they are not
+ *        registered they can access the register window @see
+ *        bspq21_e4.ParkingManagement.client.gui.RegisterWindow;
+ * @author BSPQ21-E4
+ */
+public class AuthWindow extends JFrame {
+	public JTextField tfEmail;
+	public JTextField tfPlate;
+	private JLabel lbEmail;
+	private JLabel lbPlate;
+	private JPanel panelContenidos;
+	private JLabel lb;
+	private JComboBox&lt;String&gt; cbParking;
+	private String noSelectableOptionName;
+	private String parkingSeleccionado;
+	private static ResourceBundle resourceBundle;
+<span class="fc" id="L54">	final Logger logger = LoggerFactory.getLogger(AuthWindow.class);</span>
+
+	public ResourceBundle getResourceBundle() {
+<span class="fc" id="L57">		return resourceBundle;</span>
+	}
+
+	/**
+	 * Creating the application.
+	 */
+<span class="fc" id="L63">	public AuthWindow() {</span>
+<span class="fc" id="L64">		setResizable(false);</span>
+<span class="fc" id="L65">		resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L66">		initialize();</span>
+<span class="fc" id="L67">	}</span>
+
+	/**
+	 * Initializing the contents of the frame.
+	 */
+	public void initialize() {
+<span class="fc" id="L73">		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L74">		this.setBounds(100, 100, 500, 250);</span>
+<span class="fc" id="L75">		this.setMinimumSize(new Dimension(750, 500));</span>
+
+<span class="fc" id="L77">		panelContenidos = new JPanel();</span>
+<span class="fc" id="L78">		panelContenidos.setBackground(Color.WHITE);</span>
+<span class="fc" id="L79">		setContentPane(panelContenidos);</span>
+<span class="fc" id="L80">		panelContenidos.setLayout(new BorderLayout(15, 15));</span>
+
+		// Panel derecho
+<span class="fc" id="L83">		JPanel panelDer = new JPanel();</span>
+<span class="fc" id="L84">		panelDer.setBackground(Color.WHITE);</span>
+<span class="fc" id="L85">		panelDer.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L86">		panelContenidos.add(panelDer, BorderLayout.EAST);</span>
+
+		// Panel derecho inferior
+<span class="fc" id="L89">		JPanel panelDerInf = new JPanel();</span>
+<span class="fc" id="L90">		panelDerInf.setBackground(Color.WHITE);</span>
+<span class="fc" id="L91">		panelDerInf.setLayout(new GridLayout(3, 1, 0, 5));</span>
+<span class="fc" id="L92">		panelDer.add(panelDerInf, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L94">		noSelectableOptionName = getResourceBundle().getString(&quot;parkingName&quot;);</span>
+<span class="fc" id="L95">		cbParking = new JComboBox&lt;String&gt;();</span>
+
+<span class="fc" id="L97">		cbParking.setModel(new DefaultComboBoxModel&lt;String&gt;() {</span>
+
+			private static final long serialVersionUID = 1L;
+<span class="fc" id="L100">			private boolean seleccionPermitida = true;</span>
+
+			@Override
+			public void setSelectedItem(Object objeto) {
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">				if (!noSelectableOptionName.equals(objeto)) {</span>
+<span class="nc" id="L105">					super.setSelectedItem(objeto);</span>
+					
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">				} else if (seleccionPermitida) {</span>
+<span class="fc" id="L108">					seleccionPermitida = false;</span>
+<span class="fc" id="L109">					super.setSelectedItem(objeto);</span>
+<span class="fc" id="L110">					logger.info(getResourceBundle().getString(&quot;ps&quot;) , objeto);</span>
+				}
+
+<span class="fc" id="L113">			}</span>
+		});
+
+<span class="fc" id="L116">		cbParking.addItem(noSelectableOptionName);</span>
+
+<span class="fc" id="L118">		cbParking.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// checkparkings
+<span class="nc" id="L123">				List&lt;Parking&gt; nomParking = ParkingRSH.getInstance().checkParkings();</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">				for (Parking p : nomParking) {</span>
+<span class="nc" id="L125">					cbParking.addItem(p.getNombre());</span>
+<span class="nc" id="L126">				}</span>
+
+<span class="nc" id="L128">				parkingSeleccionado = cbParking.getSelectedItem().toString();</span>
+
+<span class="nc" id="L130">			}</span>
+
+		});
+
+<span class="fc" id="L134">		JButton btnLogin = new JButton(getResourceBundle().getString(&quot;login&quot;));</span>
+
+		/**
+		 * This action listener is related with the login button The user introduces the
+		 * email and the plate and the method checkPremiumUsers() @see
+		 * bspq21_e4.ParkingManagement.server.rsh.PremiumUserRSH gets the list of
+		 * premium users from the DB This way it will be checked whether the regarding
+		 * user email and plate correspond to any of the DB If the credentials are okay
+		 * the window with the available slots will be shown @see
+		 * bspq21_e4.ParkingManagement.client.gui.VentanaParking
+		 * 
+		 */
+<span class="fc" id="L146">		btnLogin.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+<span class="nc" id="L151">					PremiumUser user = null;</span>
+<span class="nc" id="L152">					boolean found = false;</span>
+<span class="nc" id="L153">					List&lt;PremiumUser&gt; userList = PremiumUserRSH.getInstance().checkPremiumUsers();</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">					for (PremiumUser u : userList) {</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">						if (u.getEmail().equals(tfEmail.getText())) {</span>
+<span class="nc" id="L156">							user = u;</span>
+<span class="nc" id="L157">							found = true;</span>
+
+						}
+<span class="nc" id="L160">					}</span>
+
+<span class="nc bnc" id="L162" title="All 2 branches missed.">					if (!found) {</span>
+<span class="nc" id="L163">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;userNotFound&quot;));</span>
+<span class="nc" id="L164">						logger.info(getResourceBundle().getString(&quot;userNotFound&quot;));</span>
+						
+<span class="nc bnc" id="L166" title="All 2 branches missed.">					} else if (cbParking.getSelectedItem().toString().equals(noSelectableOptionName)) {</span>
+<span class="nc" id="L167">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;parkingNameError&quot;));</span>
+<span class="nc" id="L168">						logger.info(getResourceBundle().getString(&quot;parkingNameError&quot;));</span>
+
+					} else {
+
+<span class="nc bnc" id="L172" title="All 2 branches missed.">						if (!user.getPlate().equals(tfPlate.getText())) {</span>
+<span class="nc" id="L173">							JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;unknownPlate&quot;));</span>
+<span class="nc" id="L174">							logger.info(getResourceBundle().getString(&quot;unknownPlate&quot;));</span>
+							
+						} else {
+
+<span class="nc" id="L178">							dispose();</span>
+<span class="nc" id="L179">							new VentanaParking(user, parkingSeleccionado).setVisible(true);</span>
+
+						}
+					}
+<span class="nc" id="L183">				} catch (Exception e1) {</span>
+<span class="nc" id="L184">					logger.warn(getResourceBundle().getString(&quot;btl&quot;) , e1);</span>
+<span class="nc" id="L185">				}</span>
+
+<span class="nc" id="L187">			}</span>
+		});
+<span class="fc" id="L189">		JButton btnRegistrarse = new JButton(getResourceBundle().getString(&quot;register&quot;));</span>
+
+		/**
+		 * This action listener is related with the register button If the user is not
+		 * registered and clicks the register button, the register window will be
+		 * displayed
+		 * 
+		 * @see bspq21_e4.ParkingManagement.client.gui.RegisterWindow
+		 */
+<span class="fc" id="L198">		btnRegistrarse.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L202">				RegisterWindow frame = new RegisterWindow();</span>
+<span class="nc" id="L203">				frame.setVisible(true);</span>
+<span class="nc" id="L204">				dispose();</span>
+<span class="nc" id="L205">			}</span>
+		});
+
+<span class="fc" id="L208">		JButton btnGuestUser = new JButton(getResourceBundle().getString(&quot;logAsGuest&quot;));</span>
+
+		/**
+		 * This action listener is related with the log as guest button If the user is
+		 * not premium and clicks the log as guest button he will be able of logging
+		 * just by entering a car plate Afterwards the available slots will be
+		 * shown @see bspq21_e4.ParkingManagement.client.gui.VentanaParking
+		 */
+<span class="fc" id="L216">		btnGuestUser.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+<span class="nc bnc" id="L221" title="All 2 branches missed.">				if (tfPlate.getText().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L222">					JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;errorNullPlate&quot;));</span>
+<span class="nc" id="L223">					logger.info(getResourceBundle().getString(&quot;errorNullPlate&quot;));</span>
+<span class="nc" id="L224">					tfPlate.setText(&quot;&quot;);</span>
+
+<span class="nc bnc" id="L226" title="All 2 branches missed.">				} else if (cbParking.getSelectedItem().toString().equals(noSelectableOptionName)) {</span>
+<span class="nc" id="L227">					JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;parkingNameError&quot;));</span>
+<span class="nc" id="L228">					logger.info(getResourceBundle().getString(&quot;parkingNameError&quot;));</span>
+					
+				} else {
+
+<span class="nc" id="L232">					String plate = tfPlate.getText();</span>
+
+<span class="nc" id="L234">					GuestUser user = null;</span>
+<span class="nc" id="L235">					boolean found = false;</span>
+
+<span class="nc" id="L237">					List&lt;GuestUser&gt; userList = GuestUserRSH.getInstance().checkGuestUsers();</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">					if (userList.size() != 0) {</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">						for (GuestUser u : userList) {</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">							if (u.getPlate().equals(tfPlate.getText())) {</span>
+<span class="nc" id="L241">								found = true;</span>
+<span class="nc" id="L242">								JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;guestUserExists&quot;));</span>
+<span class="nc" id="L243">								logger.info(getResourceBundle().getString(&quot;guestUserExists&quot;));</span>
+<span class="nc" id="L244">								user = u;</span>
+
+<span class="nc" id="L246">								VentanaParking v = new VentanaParking(user, parkingSeleccionado);</span>
+<span class="nc" id="L247">								v.setVisible(true);</span>
+<span class="nc" id="L248">								dispose();</span>
+<span class="nc" id="L249">								break;</span>
+							}
+
+<span class="nc" id="L252">						}</span>
+					}
+<span class="nc bnc" id="L254" title="All 2 branches missed.">					if (!found) {</span>
+<span class="nc" id="L255">						JOptionPane.showMessageDialog(null, getResourceBundle().getString(&quot;guestUserFirstTime&quot;));</span>
+<span class="nc" id="L256">						logger.info(getResourceBundle().getString(&quot;guestUserFirstTime&quot;));</span>
+<span class="nc" id="L257">						GuestUser newUser = new GuestUser();</span>
+<span class="nc" id="L258">						newUser.setPlate(plate);</span>
+
+<span class="nc" id="L260">						GuestUserRSH.getInstance().saveGuestUsers(newUser);</span>
+
+<span class="nc" id="L262">						VentanaParking v = new VentanaParking(newUser, parkingSeleccionado);</span>
+<span class="nc" id="L263">						v.setVisible(true);</span>
+<span class="nc" id="L264">						dispose();</span>
+					}
+
+				}
+
+<span class="nc" id="L269">			}</span>
+		});
+
+<span class="fc" id="L272">		JLabel lb2 = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L273">		panelDerInf.add(btnLogin);</span>
+<span class="fc" id="L274">		panelDerInf.add(btnRegistrarse);</span>
+<span class="fc" id="L275">		panelDerInf.add(lb2);</span>
+<span class="fc" id="L276">		panelDerInf.add(btnGuestUser);</span>
+
+		// Panel Central(Usuario y contraseÃ¯Â¿Â½a) solo los texfield y labels
+<span class="fc" id="L279">		JPanel panelCentral = new JPanel();</span>
+<span class="fc" id="L280">		panelCentral.setBackground(Color.WHITE);</span>
+<span class="fc" id="L281">		panelCentral.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L282">		panelContenidos.add(panelCentral, BorderLayout.CENTER);</span>
+
+		// Panel superior
+<span class="fc" id="L285">		JPanel panelCentralSup = new JPanel();</span>
+<span class="fc" id="L286">		panelCentralSup.setBackground(Color.WHITE);</span>
+<span class="fc" id="L287">		panelCentralSup.setLayout(new GridLayout(1, 1));</span>
+<span class="fc" id="L288">		panelCentral.add(panelCentralSup, BorderLayout.NORTH);</span>
+
+		// Panel central inferior
+<span class="fc" id="L291">		JPanel panelCentralInf = new JPanel();</span>
+<span class="fc" id="L292">		panelCentralInf.setBackground(Color.WHITE);</span>
+<span class="fc" id="L293">		panelCentralInf.setLayout(new GridLayout(3, 2, 5, 5));</span>
+<span class="fc" id="L294">		panelCentral.add(panelCentralInf, BorderLayout.SOUTH);</span>
+
+<span class="fc" id="L296">		lbEmail = new JLabel(getResourceBundle().getString(&quot;email&quot;));</span>
+<span class="fc" id="L297">		lbPlate = new JLabel(getResourceBundle().getString(&quot;plate&quot;));</span>
+
+<span class="fc" id="L299">		tfEmail = new JTextField();</span>
+<span class="fc" id="L300">		tfPlate = new JTextField();</span>
+
+<span class="fc" id="L302">		panelCentralInf.add(lbEmail);</span>
+<span class="fc" id="L303">		panelCentralInf.add(tfEmail);</span>
+<span class="fc" id="L304">		panelCentralInf.add(lbPlate);</span>
+<span class="fc" id="L305">		panelCentralInf.add(tfPlate);</span>
+<span class="fc" id="L306">		panelCentralInf.add(cbParking);</span>
+
+<span class="fc" id="L308">	}</span>
+
+	public static void main(String[] args) {
+<span class="nc" id="L311">		AuthWindow n = new AuthWindow();</span>
+<span class="nc" id="L312">		n.setVisible(true);</span>
+<span class="nc" id="L313">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

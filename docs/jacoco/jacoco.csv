@@ -1,0 +1,61 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.main,Server.new Runnable() {...},22,0,0,0,7,0,2,0,2,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.main,Server,64,7,4,0,13,2,4,2,2,2
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.data,GuestUser,580,384,116,41,0,22,92,45,18,36
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.data,Parking,381,532,77,60,3,26,68,69,15,46
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.data,PremiumUser,507,559,104,72,1,24,83,69,11,47
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.data,SlotAvailability,0,34,0,0,0,4,0,1,0,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.data,CalculateFee,34,110,1,1,7,25,2,3,1,3
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.data,Slot,623,445,127,49,0,25,100,52,18,40
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.util,PrepareData,153,3,10,0,16,1,6,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.DAO,DBManager,278,552,46,60,67,173,40,31,2,16
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ListSelectionListener() {...},12,9,2,0,3,1,2,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},118,12,8,0,21,1,5,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},15,12,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},11,6,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},68,9,6,0,17,1,4,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},3,6,0,0,2,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ListSelectionListener() {...},12,9,2,0,3,1,2,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},129,12,8,0,24,1,5,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking,166,723,6,18,22,143,6,12,0,6
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},29,6,3,0,8,1,3,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},15,12,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new DefaultComboBoxModel() {...},4,35,2,2,1,8,2,2,0,2
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},54,9,4,0,12,1,3,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},3,6,0,0,2,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},199,18,16,0,40,1,9,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},11,6,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new DefaultComboBoxModel() {...},4,25,2,2,1,7,2,2,0,2
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},29,6,3,0,8,1,3,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},68,9,6,0,17,1,4,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},11,6,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},3,6,0,0,2,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,RegisterWindow.new ActionListener() {...},11,6,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,RegisterWindow.new ActionListener() {...},98,6,6,0,23,1,4,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,RegisterWindow,0,229,0,0,0,46,0,3,0,3
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,RegisterWindow.new ActionListener() {...},3,6,0,0,2,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,AuthWindow.new ActionListener() {...},169,6,12,0,33,1,7,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,AuthWindow.new ActionListener() {...},11,6,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,AuthWindow.new ActionListener() {...},126,6,10,0,23,1,6,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,AuthWindow.new ActionListener() {...},30,6,2,0,6,1,2,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,AuthWindow.new DefaultComboBoxModel() {...},4,35,2,2,1,8,2,2,0,2
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow,0,1166,0,0,0,217,0,5,0,5
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},15,12,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},11,6,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},265,18,16,0,54,1,9,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},3,6,0,0,2,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,PaymentWindow.new ActionListener() {...},68,9,6,0,17,1,4,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,AuthWindow,8,298,0,0,3,60,1,3,1,3
+BSQPQ21-E4,bspq21_e4.ParkingManagement.client.gui,VentanaParking.new ActionListener() {...},15,12,0,0,4,1,1,1,1,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.resource,ParkingResource,18,0,0,0,7,0,4,0,4,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.resource,SlotResource,18,0,0,0,7,0,4,0,4,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.resource,GuestUserResource,23,0,0,0,9,0,5,0,5,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.resource,PremiumUserResource,23,0,0,0,9,0,5,0,5,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,ParkingRSH.new GenericType() {...},0,6,0,0,0,1,0,1,0,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,PremiumUserRSH,114,0,2,0,24,0,8,0,7,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,SlotRSH,47,49,0,2,8,13,2,5,2,4
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,PremiumUserRSH.new GenericType() {...},6,0,0,0,1,0,1,0,1,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,GuestUserRSH.new GenericType() {...},6,0,0,0,1,0,1,0,1,0
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,SlotRSH.new GenericType() {...},0,6,0,0,0,1,0,1,0,1
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,ParkingRSH,47,49,0,2,8,13,2,5,2,4
+BSQPQ21-E4,bspq21_e4.ParkingManagement.server.rsh,GuestUserRSH,114,0,2,0,24,0,8,0,7,0

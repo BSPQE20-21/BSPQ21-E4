@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrepareData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.server.util</a> &gt; <span class="el_source">PrepareData.java</span></div><h1>PrepareData.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.server.util;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import bspq21_e4.ParkingManagement.server.DAO.*;
+import bspq21_e4.ParkingManagement.server.data.Parking;
+import bspq21_e4.ParkingManagement.server.data.PremiumUser;
+import bspq21_e4.ParkingManagement.server.data.Slot;
+import bspq21_e4.ParkingManagement.server.data.SlotAvailability;
+
+
+/**
+ * @class PrepareData Window which allows inserting parkings and slots in the
+ *        Database
+ * @author BSPQ21-E4
+ */
+<span class="fc" id="L19">public class PrepareData {</span>
+	
+	//Para lanzar desde la consola:
+	//mvn -Pdata exec:java
+
+	public static void main(String[] args) {
+
+<span class="nc" id="L26">		String[] parkingName = { &quot;Bilbao&quot;, &quot;Vitoria&quot;, &quot;San Sebastian&quot;, &quot;Santander&quot;, &quot;Logrono&quot;, &quot;Pamplona&quot;, &quot;Gijon&quot;,</span>
+				&quot;Madrid&quot;, &quot;Barcelona&quot;, &quot;Oviedo&quot;, &quot;Burgos&quot;, &quot;Valencia&quot;, &quot;Sevilla&quot;, &quot;Cadiz&quot;, &quot;Almeria&quot;, &quot;Murcia&quot;,
+				&quot;Salamanca&quot;, &quot;Zamora&quot;, &quot;Biarritz&quot;, &quot;Salou&quot;, &quot;Granada&quot; };
+
+<span class="nc" id="L30">		int floor = 0;</span>
+<span class="nc" id="L31">		int counter = 1;</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">		for (int i = 0; i &lt; parkingName.length; i++) {</span>
+<span class="nc" id="L33">			Parking p = new Parking(i + 1, parkingName[i], 300, 300, 0, 3);</span>
+<span class="nc" id="L34">			DBManager.getInstance().insertParking(p);</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">			for (int j = 1; j &lt;= 300; j++) {</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">				if (j &lt; 100) {</span>
+<span class="nc" id="L37">					floor = 1;</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">				} else if (j &lt; 200) {</span>
+<span class="nc" id="L39">					floor = 2;</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">				} else if (j &lt; 300) {</span>
+<span class="nc" id="L41">					floor = 3;</span>
+				}
+<span class="nc" id="L43">				DBManager.getInstance().insertSlot(new Slot(counter, j, floor, SlotAvailability.GREEN, p.getId()));</span>
+				// System.out.println(&quot;PK&quot; + counter + &quot;Id plaza &quot; + j + &quot;Planta &quot; + floor +
+				// &quot;Nombre parking &quot; + parkingName[i]);
+<span class="nc" id="L46">				counter++;</span>
+			}
+
+		}
+
+<span class="nc" id="L51">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

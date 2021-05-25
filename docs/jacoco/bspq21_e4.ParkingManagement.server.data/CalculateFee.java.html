@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CalculateFee.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSQPQ21-E4</a> &gt; <a href="index.source.html" class="el_package">bspq21_e4.ParkingManagement.server.data</a> &gt; <span class="el_source">CalculateFee.java</span></div><h1>CalculateFee.java</h1><pre class="source lang-java linenums">package bspq21_e4.ParkingManagement.server.data;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+/**
+ * @class CalculateFee Class to calculate the fee that each user has to pay
+ * @author BSPQ21-E4
+ */
+<span class="fc" id="L15">public class CalculateFee {</span>
+
+<span class="fc" id="L17">	public static SimpleDateFormat sdf = new SimpleDateFormat(&quot;h:mm&quot;, Locale.US);</span>
+<span class="fc" id="L18">	public static SimpleDateFormat sdfResult = new SimpleDateFormat(&quot;HH:mm&quot;, Locale.US);</span>
+<span class="fc" id="L19">	public static SimpleDateFormat sdfResultMinutos = new SimpleDateFormat(&quot;m&quot;, Locale.US);</span>
+<span class="fc" id="L20">	public static double standardFee = 0.04;</span>
+<span class="fc" id="L21">	public static double dailyFee = 20.0;</span>
+
+	/**
+	 * Method which calculates the time between two given dates
+	 * 
+	 * @param dateInicio
+	 * @param dateFinal
+	 */
+	public static int getDifferenceBetwenDates(Date dateInicio, Date dateFinal) {
+<span class="nc" id="L30">		long milliseconds = dateFinal.getTime() - dateInicio.getTime();</span>
+<span class="nc" id="L31">		int minutes = (int) ((milliseconds / 1000) / 60);</span>
+<span class="nc" id="L32">		System.out.println(minutes + &quot; minutes&quot;);</span>
+<span class="nc" id="L33">		Calendar c = Calendar.getInstance();</span>
+<span class="nc" id="L34">		c.set(Calendar.MINUTE, minutes);</span>
+<span class="nc" id="L35">		return minutes;</span>
+	}
+
+	/**
+	 * Method which calculates the the fee to pay out of the spent time
+	 * 
+	 * @param minutes
+	 */
+	public static double calculateFee(String entrada) {
+		double amount;
+<span class="fc" id="L45">		String[] separador = entrada.split(&quot;:&quot;);</span>
+
+<span class="fc" id="L47">		String hora = separador[0];</span>
+<span class="fc" id="L48">		String minuto = separador[1];</span>
+<span class="fc" id="L49">		String segundo = separador[2];</span>
+
+<span class="fc" id="L51">		float entradaMinutos = (Integer.parseInt(hora) * 60 + Integer.parseInt(minuto)</span>
+<span class="fc" id="L52">				+ (Integer.parseInt(segundo) / 60));</span>
+
+<span class="fc" id="L54">		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(&quot;HH:mm:ss&quot;);</span>
+
+<span class="fc" id="L56">		LocalDateTime salida = LocalDateTime.now();</span>
+<span class="fc" id="L57">		String formatoSalida = dtf.format(salida);</span>
+<span class="fc" id="L58">		String[] separadorSalida = formatoSalida.split(&quot;:&quot;);</span>
+<span class="fc" id="L59">		String horaSalida = separadorSalida[0];</span>
+<span class="fc" id="L60">		String minutoSalida = separadorSalida[1];</span>
+<span class="fc" id="L61">		String segundoSalida = separadorSalida[2];</span>
+
+<span class="fc" id="L63">		float salidaMinutos = (Integer.parseInt(horaSalida) * 60 + Integer.parseInt(minutoSalida)</span>
+<span class="fc" id="L64">				+ (Integer.parseInt(segundoSalida) / 60));</span>
+
+<span class="fc" id="L66">		double minutes = salidaMinutos - entradaMinutos;</span>
+
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">		if (minutes &lt; 0) {</span>
+<span class="nc" id="L69">			amount = dailyFee;</span>
+
+		} else {
+<span class="fc" id="L72">			amount = minutes * standardFee;</span>
+		}
+
+<span class="fc" id="L75">		return amount;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
