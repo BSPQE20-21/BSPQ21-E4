@@ -146,6 +146,7 @@ public class GuestUserRSHTest {
 //			} 
 //		}
 //		assertTrue(!cliente1_found && cliente2_found);
+	
 //	}
 
 }
