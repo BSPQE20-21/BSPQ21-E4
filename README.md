@@ -12,20 +12,20 @@
 
 2. Open MySQLWorkbench and connect to the database
 
-	run database.sql
+	run database.sql in src/main/resources
 
 3. Create shema
 
-	cmd: mvn datanucleus:schema-create
+	mvn datanucleus:schema-create
 
 3. Run the Web Server:
 
- 	cmd: mvn exec:java -Dexec.args="--server"
- 	PowerShell: mvn exec:java "-Dexec.args='--server'"
+ 	 mvn --> exec:java -Dexec.args="--server" 
+	 PowerShell --> mvn exec:java "-Dexec.args='--server'"
 
 4. PrepareData:
 
-	In another cmd window, run the client
+	In another cmd or PowerShell window, run the client
 
  	mvn -Pdata exec:java
 
